@@ -43,5 +43,8 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Lógica de «Mantener pantalla encendida» en `src/features/cocina/usePantallaEncendida.ts` (Screen Wake Lock API). El botón y su estado «No disponible en este navegador» ya existen.
 - [ ] Lógica de los temporizadores en `src/features/cocina/Temporizador.tsx` (hoy solo muestra el tiempo).
 
+## Antes del lanzamiento
+- [ ] Capturas del sitio para el README (se dejan para el final por si cambia el diseño).
+
 ## Fuera del repo
 - [ ] Corregir en el ECOSISTEMA el hosting de Moss Taste: GitHub Pages en `/Moss-Taste`, Firebase solo para Auth y Firestore. Lo hace el dueño.
