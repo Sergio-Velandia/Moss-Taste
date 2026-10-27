@@ -14,5 +14,6 @@ export default defineConfig({
   test: {
     // Las pruebas de interfaz piden jsdom con el comentario `// @vitest-environment jsdom`.
     environment: 'node',
+    setupFiles: ['./src/test/configuracion.ts'],
   },
 })
