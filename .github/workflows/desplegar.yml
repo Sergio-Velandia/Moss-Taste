@@ -1,0 +1,63 @@
+# Verifica cada cambio y publica Moss Taste en GitHub Pages con cada push a main.
+# En un pull request solo verifica (pruebas, lint y build); no despliega.
+name: Verificar y desplegar
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: # permite lanzarlo a mano desde la pestaña Actions
+
+permissions:
+  contents: read
+
+# Si llegan dos pushes seguidos a la misma rama, se cancela el anterior y gana el más reciente.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Pruebas
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
+      # Incluye el typecheck (tsc -b) y genera un index.html por ruta fija, 404.html y sitemap.xml.
+      - name: Build
+        run: npm run build
+
+      - if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v6
+
+      - if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  desplegar:
+    if: github.ref == 'refs/heads/main'
+    needs: verificar
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v5
