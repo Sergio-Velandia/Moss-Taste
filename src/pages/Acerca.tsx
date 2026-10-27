@@ -32,8 +32,13 @@ export function Acerca() {
 
       <Bloque id="acerca-costos" titulo="Cómo se calcula el costo">
         <p>
-          Cada ingrediente tiene un precio en pesos colombianos y la fecha de ese precio. La receta suma lo que usa y muestra un rango de
-          más o menos 10 %, porque los precios cambian según el lugar y la semana. Al lado del costo siempre aparece la fecha del precio.
+          Cada ingrediente tiene un precio en pesos colombianos y la fecha de ese precio. Al elegir las porciones, la receta escala las
+          cantidades, convierte tazas, cucharadas y libras a la unidad en que se vende cada ingrediente, y suma lo que se pierde al
+          limpiar o pelar: el costo es el de lo que se compra, no solo el de lo que se usa.
+        </p>
+        <p>
+          El resultado se muestra con un rango de más o menos 10 %, porque los precios cambian según el lugar y la semana, y siempre
+          con la fecha del precio. Los ingredientes al gusto, como la sal, también se escalan, pero solo como referencia.
         </p>
         <p>Si un ingrediente no tiene precio, la receta lo dice y no lo cuenta como si costara cero.</p>
       </Bloque>
@@ -50,8 +55,8 @@ export function Acerca() {
 
       <Bloque id="acerca-estado" titulo="En qué va">
         <p>
-          Esta es la primera versión: muestra recetas y precios de ejemplo para probar el diseño. En las próximas llegan el cálculo
-          completo de porciones, las recetas reales con sus fotos, la lista de compras, exportar a Excel y las cuentas.
+          Por ahora el recetario muestra recetas y precios de ejemplo. En las próximas versiones llegan las recetas reales con sus
+          fotos, la lista de compras completa, exportar a Excel y las cuentas.
         </p>
       </Bloque>
     </div>
