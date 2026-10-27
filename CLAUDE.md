@@ -74,7 +74,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 |---|---|---|---|
 | 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha y publicada |
 | 1.5 | Pulido del repo | `0.1.1` | pendiente |
-| 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha (falta push y tag) |
+| 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | pendiente |
 | 4 | Exportar y lista de compras | `0.4.0` | pendiente |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |

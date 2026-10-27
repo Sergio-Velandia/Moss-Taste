@@ -18,7 +18,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 ## Fase 2: cerebro de cálculo
 - [x] Cerebro de cálculo en `src/lib/calculo/`: unidades (con densidad y peso por unidad), escalado, merma, costo en enteros y redondeo de cocina. Reemplaza al costo provisional.
 - [x] El selector de porciones recalcula cantidades y costo; las porciones viven en la URL y pasan al modo cocina.
-- [ ] Push y tag `v0.2.0` (con OK del dueño).
+- [x] Push, despliegue y tag `v0.2.0`. Sitio desplegado probado.
 
 ## Fase 3: catálogo real y primeras recetas
 - [ ] Reemplazar las 3 recetas y el catálogo de ejemplo por los reales, con imagen. La validación debe exigir la imagen cuando exista el modelo de imágenes.
