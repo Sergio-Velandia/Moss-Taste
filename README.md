@@ -11,6 +11,7 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 |---|---|---|
 | 1 · Estructura y diseño | Sistema visual, todas las pantallas navegables y el modo cocina, con **3 recetas y precios de ejemplo** | `0.1.0` |
 | 2 · Cerebro de cálculo | Porciones, unidades, merma y costo calculados de verdad, con pruebas | `0.2.0` |
+| 1.5 · Pulido del repo | Imagen para compartir, íconos, convenciones y plantilla de issues | `0.2.1` |
 
 Lo que todavía no funciona (exportar, agregar recetas a la lista, cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
@@ -45,6 +46,12 @@ Cada push a `main` corre pruebas, lint y build, y publica en GitHub Pages ([work
 3. Corre `npm test`: si algo está mal, dice el archivo, el campo y qué corregir.
 
 No hace falta tocar ningún componente. Una receta inválida se omite del sitio sin romperlo. Las recetas se escriben con palabras propias.
+
+## Cómo participar
+
+- **Proponer una receta:** desde el [formulario del sitio](https://sergio-velandia.dev/Moss-Taste/contacto/), con sus ingredientes y pasos (el envío se activa en una próxima versión).
+- **Reportar un problema:** abre un [issue](https://github.com/Sergio-Velandia/Moss-Taste/issues/new/choose).
+- **Convenciones del repo** (ramas, commits, versiones, contenido y diseño): [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Stack
 
