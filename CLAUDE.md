@@ -37,6 +37,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-10-26 | Un `index.html` por ruta fija, con script propio | Que los buscadores indexen las rutas; `/recetas/:slug` se prerenderiza en la Fase 3 |
 | 2026-10-26 | Recetas públicas en el repo y escritas con palabras propias; recetas personales privadas en Firestore | Lo público no es secreto; el login protege solo lo personal |
 | 2026-10-26 | Contacto solo por formulario (EmailJS → `contacto@sergio-velandia.dev`), sin WhatsApp ni teléfono | Ningún dato personal visible |
+| 2026-10-26 | Fase 1 con **3 recetas de ejemplo** (una por categoría) en vez de 6 | Agilizar la fase; las reales llegan en la Fase 3 |
 | — | Licencia | Se decide en la Fase Legal |
 | — | Librería de Excel | Se decide en la Fase 4, verificando mantenimiento y licencia (no `xlsx` sin comprobarlo) |
 
@@ -109,9 +110,19 @@ src/
 │  └─ tema/             tema.ts (preferencia y almacenamiento), ProveedorTema, useTema, SelectorTema
 ├─ components/
 │  ├─ EncabezadoPagina.tsx  h1 + entrada de una página fija, con sus metadatos
-│  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, Chip, EstadoVacio, EstadoError, Cargando
+│  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
+├─ components/receta/   TarjetaReceta, IlustracionCategoria, MetaReceta, SelectorPorciones, ListaIngredientes,
+│                       ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
+├─ data/
+│  ├─ recetas/<slug>/receta.json   una carpeta por receta (hoy: 3 de ejemplo)
+│  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma y densidad
+│  └─ categorias.json
 ├─ pages/               una por ruta
-├─ lib/                 cx (clases), useMetadatos
+├─ lib/
+│  ├─ recetas/          tipos, validar (propia, sin dependencias), catalogo (carga con import.meta.glob),
+│  │                    filtrar (filtros de la galería ⇄ URL), costoProvisional (PROVISIONAL, ver ROADMAP)
+│  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
+│  └─ clases.ts, useMetadatos.ts
 ├─ assets/fonts/        .woff2 (subconjunto latino) + licencias OFL
 └─ styles/
    ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
@@ -120,6 +131,7 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
+- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
 - `tsconfig.test.json` cubre los `*.test.ts(x)` de `src/` con tipos de Node; `tsconfig.app.json` los excluye; `tsconfig.node.json` cubre `vite.config.ts` y `scripts/`.
