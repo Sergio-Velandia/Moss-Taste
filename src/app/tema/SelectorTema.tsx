@@ -13,7 +13,7 @@ export function SelectorTema() {
   const { tema, cambiarTema } = useTema()
 
   return (
-    <fieldset className="inline-flex gap-0.5 rounded-full border border-line bg-surface p-0.5">
+    <fieldset className="inline-flex w-fit gap-0.5 rounded-full border border-line bg-surface p-0.5">
       <legend className="sr-only">Tema</legend>
       {TEMAS.map((opcion) => {
         const { etiqueta, Icono } = OPCIONES[opcion]
