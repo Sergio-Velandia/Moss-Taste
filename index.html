@@ -1,8 +1,22 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#faf7f2" />
+    <script>
+      // Aplica el tema guardado antes de pintar para evitar un destello. Debe coincidir con src/app/tema/tema.ts.
+      (function () {
+        var tema = "light";
+        try {
+          var guardado = localStorage.getItem("moss-taste:tema");
+          if (guardado === "light" || guardado === "dark" || guardado === "system") tema = guardado;
+        } catch (e) {}
+        document.documentElement.dataset.theme = tema;
+        var oscuro = tema === "dark" || (tema === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        if (oscuro) document.querySelector("meta[name=theme-color]").setAttribute("content", "#17120f");
+      })();
+    </script>
     <link rel="preload" href="/src/assets/fonts/atkinson-hyperlegible-next-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/src/assets/fonts/young-serif-400-latin.woff2" as="font" type="font/woff2" crossorigin />
     <title>Moss Taste</title>
