@@ -38,6 +38,10 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-10-26 | Recetas públicas en el repo y escritas con palabras propias; recetas personales privadas en Firestore | Lo público no es secreto; el login protege solo lo personal |
 | 2026-10-26 | Contacto solo por formulario (EmailJS → `contacto@sergio-velandia.dev`), sin WhatsApp ni teléfono | Ningún dato personal visible |
 | 2026-10-26 | Fase 1 con **3 recetas de ejemplo** (una por categoría) en vez de 6 | Agilizar la fase; las reales llegan en la Fase 3 |
+| 2026-10-27 | Medidas estándar por defecto (taza 240 ml, cucharada 15 ml, cucharadita 5 ml) y dos adicionales: libra colombiana (500 g) y pizca (1/16 de cucharadita) | Las estándar son las que se ofrecen primero; las adicionales son de uso común en Colombia |
+| 2026-10-27 | Los ingredientes «al gusto» escalan como referencia y conservan la marca | Que la familia vea una cantidad orientativa y ajuste |
+| 2026-10-27 | El costo es el de lo que se **compra** (uso + merma) | Es lo que sale del bolsillo |
+| 2026-10-27 | Dinero: cada línea se redondea al peso y el total es la suma de las líneas; las cantidades se redondean solo para mostrar | Que lo que se ve cuadre; el costo usa la cantidad exacta |
 | — | Licencia | Se decide en la Fase Legal |
 | — | Librería de Excel | Se decide en la Fase 4, verificando mantenimiento y licencia (no `xlsx` sin comprobarlo) |
 
@@ -70,7 +74,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 |---|---|---|---|
 | 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha y publicada |
 | 1.5 | Pulido del repo | `0.1.1` | pendiente |
-| 2 | Cerebro de cálculo con pruebas | `0.2.0` | pendiente |
+| 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha (falta push y tag) |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | pendiente |
 | 4 | Exportar y lista de compras | `0.4.0` | pendiente |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |
@@ -115,14 +119,16 @@ src/
 │                       ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
 ├─ data/
 │  ├─ recetas/<slug>/receta.json   una carpeta por receta (hoy: 3 de ejemplo)
-│  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma y densidad
+│  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma, densidad y gramosPorUnidad
 │  └─ categorias.json
 ├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador y BotonPantalla (visuales),
 │                       usePantallaEncendida (gancho pendiente de la fase funcional)
 ├─ pages/               una por ruta
 ├─ lib/
 │  ├─ recetas/          tipos, validar (propia, sin dependencias), catalogo (carga con import.meta.glob),
-│  │                    filtrar (filtros de la galería ⇄ URL), costoProvisional (PROVISIONAL, ver ROADMAP)
+│  │                    filtrar (filtros de la galería ⇄ URL), hoy (sugerencias), lista (suma de compras),
+│  │                    porciones (?porciones= en la URL)
+│  ├─ calculo/          CEREBRO DE CÁLCULO, puro y sin React: unidades, escalar, merma, costo, redondeo
 │  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
 │  ├─ validarFormularios.ts  contacto y acceso
 │  └─ clases.ts, useMetadatos.ts
@@ -136,7 +142,8 @@ src/
 ```
 
 - Lo que todavía no funciona (exportar, cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
-- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
+- **Cálculo:** todo pasa por `calcularReceta(receta, porciones, catalogo)` en `src/lib/calculo/costo.ts`. Si una línea no se puede calcular, trae `motivo` (`sin-ingrediente`, `sin-precio`, `sin-conversion`) y no suma al total. Para mostrar cantidades se usa `formatoCantidad`, que aplica el redondeo de cocina.
+- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`. Una prueba falla si alguna línea queda sin precio calculable. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
 - `tsconfig.test.json` cubre los `*.test.ts(x)` de `src/` con tipos de Node; `tsconfig.app.json` los excluye; `tsconfig.node.json` cubre `vite.config.ts` y `scripts/`.
