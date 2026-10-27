@@ -123,3 +123,17 @@ describe('formularios', () => {
     expect(document.activeElement).toBe(screen.getByLabelText('Nombre de la receta'))
   })
 })
+
+describe('galería en móvil', () => {
+  it('los filtros se pliegan tras un botón que dice cuántos hay activos', async () => {
+    await visitar('/recetas')
+    const boton = screen.getByRole('button', { name: 'Filtros' })
+    expect(boton.getAttribute('aria-expanded')).toBe('false')
+    expect(document.getElementById('filtros-recetas')?.className).toContain('hidden')
+    fireEvent.click(boton)
+    expect(boton.getAttribute('aria-expanded')).toBe('true')
+    cleanup()
+    await visitar('/recetas?categoria=sopas&max=10000')
+    expect(screen.getByRole('button', { name: 'Filtros (2)' }).getAttribute('aria-expanded')).toBe('true')
+  })
+})
