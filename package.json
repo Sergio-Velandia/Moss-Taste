@@ -1,9 +1,12 @@
 {
   "name": "moss-taste",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "Recetario familiar: ingredientes y costo en COP para cualquier número de porciones.",
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
