@@ -1,4 +1,5 @@
 import { Monitor, Moon, Sun, type LucideIcon } from 'lucide-react'
+import { useId } from 'react'
 import { TEMAS, type Tema } from './tema'
 import { useTema } from './useTema'
 
@@ -11,6 +12,8 @@ const OPCIONES: Record<Tema, { etiqueta: string; Icono: LucideIcon }> = {
 // Radios nativos: Tab entra al grupo y las flechas cambian de opción sin código propio.
 export function SelectorTema() {
   const { tema, cambiarTema } = useTema()
+  // Nombre único: la cabecera y el menú móvil pueden tener cada uno su selector.
+  const grupo = useId()
 
   return (
     <fieldset className="inline-flex w-fit gap-0.5 rounded-full border border-line bg-surface p-0.5">
@@ -25,7 +28,7 @@ export function SelectorTema() {
           >
             <input
               type="radio"
-              name="tema"
+              name={grupo}
               value={opcion}
               checked={opcion === tema}
               onChange={() => cambiarTema(opcion)}
