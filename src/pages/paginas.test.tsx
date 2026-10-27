@@ -47,6 +47,9 @@ describe('modo lectura', () => {
     expect(costoNuevo).not.toBe(costoBase)
     for (const enlace of screen.getAllByRole('link', { name: 'Cocinar paso a paso' }))
       expect(enlace.getAttribute('href')).toBe('/recetas/arroz-con-leche/cocinar?porciones=7')
+    fireEvent.click(screen.getByRole('button', { name: 'Volver a 6 porciones' }))
+    await waitFor(() => expect(router.state.location.search).toBe(''))
+    expect(screen.getByText(/como la receta original/)).toBeTruthy()
   })
 
   it('muestra cuánto comprar cuando hay merma', async () => {

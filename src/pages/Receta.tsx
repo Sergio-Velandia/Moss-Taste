@@ -13,6 +13,7 @@ import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { Boton } from '@/components/ui/Boton'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
 import { calcularReceta } from '@/lib/calculo/costo'
+import { formatoPorciones } from '@/lib/formato'
 import { INGREDIENTES, recetaPorSlug } from '@/lib/recetas/catalogo'
 import { consultaPorciones, leerPorciones, MAX_PORCIONES, MIN_PORCIONES } from '@/lib/recetas/porciones'
 import type { Receta as TipoReceta } from '@/lib/recetas/tipos'
@@ -57,7 +58,7 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
             {receta.titulo}
           </h1>
           <p className="max-w-prose text-xl text-ink-soft">{receta.resumen}</p>
-          <MetaReceta receta={receta} />
+          <MetaReceta receta={receta} conPorciones={false} />
           <div className="flex flex-wrap gap-3 print:hidden">
             {enlaceCocinar}
             <Boton
@@ -79,7 +80,19 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
           <h2 id="titulo-ingredientes" className="text-3xl">
             Ingredientes
           </h2>
-          <SelectorPorciones valor={porciones} onChange={cambiarPorciones} min={MIN_PORCIONES} max={MAX_PORCIONES} className="print:hidden" />
+          <div className="grid gap-2">
+            <SelectorPorciones valor={porciones} onChange={cambiarPorciones} min={MIN_PORCIONES} max={MAX_PORCIONES} className="print:hidden" />
+            {porciones === receta.porcionesBase ? (
+              <p className="text-sm text-ink-soft">Cantidades y costo para {formatoPorciones(porciones)}, como la receta original.</p>
+            ) : (
+              <p className="flex flex-wrap items-center gap-x-2 text-sm text-ink-soft">
+                Cantidades y costo para {formatoPorciones(porciones)}. La receta original es para {formatoPorciones(receta.porcionesBase)}.
+                <Boton variante="fantasma" className="min-h-11 px-2 text-sm print:hidden" onClick={() => cambiarPorciones(receta.porcionesBase)}>
+                  Volver a {formatoPorciones(receta.porcionesBase)}
+                </Boton>
+              </p>
+            )}
+          </div>
           <ListaIngredientes lineas={calculo.lineas} />
           <ResumenCosto costo={calculo} porciones={porciones} ejemplo={receta.ejemplo} />
         </section>

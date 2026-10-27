@@ -5,10 +5,18 @@ import type { Receta } from '@/lib/recetas/tipos'
 import { cx } from '@/lib/clases'
 
 // Tiempo, porciones y categoría como chips: cada dato con su ícono y su texto.
-export function MetaReceta({ receta, conCategoria = true, className }: { receta: Receta; conCategoria?: boolean; className?: string }) {
+interface Props {
+  receta: Receta
+  conCategoria?: boolean
+  /** En la ficha se omite: el selector ya muestra las porciones elegidas. */
+  conPorciones?: boolean
+  className?: string
+}
+
+export function MetaReceta({ receta, conCategoria = true, conPorciones = true, className }: Props) {
   const datos = [
     { Icono: Clock, texto: formatoMinutos(receta.tiempoMin), etiqueta: 'Tiempo' },
-    { Icono: Users, texto: formatoPorciones(receta.porcionesBase), etiqueta: 'Rinde' },
+    ...(conPorciones ? [{ Icono: Users, texto: formatoPorciones(receta.porcionesBase), etiqueta: 'Rinde' }] : []),
     ...(conCategoria ? [{ Icono: Tag, texto: categoria(receta.categoria)?.nombre ?? receta.categoria, etiqueta: 'Categoría' }] : []),
   ]
   return (
