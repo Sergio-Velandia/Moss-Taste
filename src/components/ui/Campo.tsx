@@ -1,5 +1,5 @@
-import { CircleAlert } from 'lucide-react'
-import { useId, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react'
+import { ChevronDown, CircleAlert } from 'lucide-react'
+import { useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react'
 import { cx } from '@/lib/clases'
 
 interface Comunes {
@@ -89,6 +89,26 @@ export function CampoArea({
         className={cx(CLASES_CONTROL, 'py-3 leading-relaxed', className)}
         {...area}
       />
+    </Envoltura>
+  )
+}
+
+export function CampoSelect({ etiqueta, ayuda, error, nota, id, className, children, ...select }: Comunes & SelectHTMLAttributes<HTMLSelectElement>) {
+  const ids = useIds(id, ayuda, error)
+  return (
+    <Envoltura id={ids.id} etiqueta={etiqueta} nota={nota} ayuda={ayuda} idAyuda={ids.idAyuda} error={error} idError={ids.idError}>
+      <div className="relative">
+        <select
+          id={ids.id}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={ids.describedBy}
+          className={cx(CLASES_CONTROL, 'min-h-12 cursor-pointer appearance-none pr-10', className)}
+          {...select}
+        >
+          {children}
+        </select>
+        <ChevronDown aria-hidden="true" className="pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2 text-ink-soft" />
+      </div>
     </Envoltura>
   )
 }
