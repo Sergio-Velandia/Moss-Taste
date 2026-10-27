@@ -10,13 +10,15 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | Fase | Qué incluye | Versión |
 |---|---|---|
 | 1 · Estructura y diseño | Sistema visual, todas las pantallas navegables y el modo cocina, con **3 recetas y precios de ejemplo** | `0.1.0` |
+| 2 · Cerebro de cálculo | Porciones, unidades, merma y costo calculados de verdad, con pruebas | `0.2.0` |
 
-Lo que todavía no funciona (exportar, cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
+Lo que todavía no funciona (exportar, agregar recetas a la lista, cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
 - Buscar recetas por nombre o ingrediente y filtrarlas por categoría y presupuesto por porción. Los filtros quedan en la URL.
-- Leer una receta completa: ingredientes con cantidad y precio, costo con rango de ±10 % y la fecha del precio, lo que se deja listo antes de empezar y los pasos.
+- Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.
+- Leer una receta completa: ingredientes, lo que se deja listo antes de empezar y los pasos.
 - Cocinarla en el **modo cocina**: un paso a la vez, con letra grande, los ingredientes de ese paso y botones grandes. Funciona con el teclado (flechas y Escape).
 - Ver qué se puede cocinar con los ingredientes que hay en casa.
 - Tema claro (por defecto), oscuro o el del sistema.
@@ -39,7 +41,7 @@ Cada push a `main` corre pruebas, lint y build, y publica en GitHub Pages ([work
 ## Cómo agregar una receta
 
 1. Crea la carpeta `src/data/recetas/<slug>/` con un `receta.json`. El `id` debe ser igual al nombre de la carpeta.
-2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio.
+2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio. Si la receta los pide en tazas o cucharadas y se venden por peso, agrega su `densidad`; si los pide por unidad y se venden por peso, `gramosPorUnidad`.
 3. Corre `npm test`: si algo está mal, dice el archivo, el campo y qué corregir.
 
 No hace falta tocar ningún componente. Una receta inválida se omite del sitio sin romperlo. Las recetas se escriben con palabras propias.
