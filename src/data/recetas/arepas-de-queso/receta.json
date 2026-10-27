@@ -8,10 +8,10 @@
   "ejemplo": true,
   "ingredientes": [
     { "ingrediente": "harina-maiz", "cantidad": 500, "unidad": "g" },
-    { "ingrediente": "leche", "cantidad": 600, "unidad": "ml" },
+    { "ingrediente": "leche", "cantidad": 2.5, "unidad": "taza" },
     { "ingrediente": "queso-campesino", "cantidad": 250, "unidad": "g" },
-    { "ingrediente": "mantequilla", "cantidad": 40, "unidad": "g" },
-    { "ingrediente": "sal", "cantidad": 5, "unidad": "g", "ajustarAlGusto": true }
+    { "ingrediente": "mantequilla", "cantidad": 3, "unidad": "cucharada" },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "cucharadita", "ajustarAlGusto": true }
   ],
   "miseEnPlace": [
     "Ralla el queso campesino.",

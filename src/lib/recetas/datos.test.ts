@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import categorias from '@/data/categorias.json'
 import ingredientes from '@/data/ingredientes.json'
+import { calcularReceta } from '@/lib/calculo/costo'
 import { ARCHIVOS_RECETAS, CATEGORIAS, INGREDIENTES, RECETAS } from './catalogo'
 import { validarCategorias, validarIngredientes, validarReceta } from './validar'
 
@@ -24,6 +25,16 @@ describe('datos del recetario', () => {
   it('todas las recetas se cargan', () => {
     expect(RECETAS).toHaveLength(Object.keys(ARCHIVOS_RECETAS).length)
     expect(RECETAS.length).toBeGreaterThan(0)
+  })
+
+  it('cada ingrediente de cada receta tiene un precio que se puede calcular', () => {
+    for (const receta of RECETAS) {
+      const sinPrecio = calcularReceta(receta, receta.porcionesBase, INGREDIENTES).lineas.filter((l) => l.subtotal === null)
+      expect(
+        sinPrecio.map((l) => `recetas/${receta.id}: ${l.item.ingrediente} en ${l.item.unidad} (${l.motivo})`),
+        'Agrega el precio, la densidad o gramosPorUnidad en ingredientes.json',
+      ).toEqual([])
+    }
   })
 
   it('cada categoría tiene al menos una receta', () => {

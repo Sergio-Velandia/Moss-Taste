@@ -39,7 +39,8 @@ describe('sumarLista', () => {
     expect(leche?.cantidad).toBe(2100)
     expect(leche?.recetas).toEqual(['Arepas de queso', 'Arroz con leche'])
     expect(leche?.subtotal).toBe(8820)
-    expect(lista.find((i) => i.idIngrediente === 'mantequilla')?.cantidad).toBe(60)
+    // 3 cucharadas + 1½ cucharadas de mantequilla, a 0,91 g/ml
+    expect(lista.find((i) => i.idIngrediente === 'mantequilla')?.cantidad).toBeCloseTo(61.43, 2)
   })
 
   it('escala con las porciones de cada receta y suma la merma', () => {

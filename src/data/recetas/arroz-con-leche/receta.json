@@ -9,10 +9,10 @@
   "ingredientes": [
     { "ingrediente": "arroz", "cantidad": 250, "unidad": "g" },
     { "ingrediente": "leche", "cantidad": 1500, "unidad": "ml" },
-    { "ingrediente": "azucar", "cantidad": 200, "unidad": "g", "ajustarAlGusto": true },
+    { "ingrediente": "azucar", "cantidad": 1, "unidad": "taza", "ajustarAlGusto": true },
     { "ingrediente": "canela", "cantidad": 2, "unidad": "unidad" },
     { "ingrediente": "uvas-pasas", "cantidad": 60, "unidad": "g", "ajustarAlGusto": true },
-    { "ingrediente": "mantequilla", "cantidad": 20, "unidad": "g" }
+    { "ingrediente": "mantequilla", "cantidad": 1.5, "unidad": "cucharada" }
   ],
   "miseEnPlace": [
     "Lava el arroz hasta que el agua salga clara.",

@@ -23,7 +23,7 @@ export interface Ingrediente {
   densidad?: number
   /** Gramos de una unidad (una mazorca, un huevo), para convertir unidades a peso. */
   gramosPorUnidad?: number
-  /** Nombre de la unidad cuando la unidad base es «unidad»: { singular: 'diente', plural: 'dientes' }. */
+  /** Cómo se dice «unidad» para este ingrediente en una receta: { singular: 'diente', plural: 'dientes' }. */
   unidadNombre?: { singular: string; plural: string }
   ejemplo?: boolean
 }

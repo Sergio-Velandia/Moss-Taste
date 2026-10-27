@@ -8,7 +8,7 @@
   "ejemplo": true,
   "ingredientes": [
     { "ingrediente": "pechuga-pollo", "cantidad": 800, "unidad": "g" },
-    { "ingrediente": "papa-criolla", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "papa-criolla", "cantidad": 1, "unidad": "libra" },
     { "ingrediente": "papa-sabanera", "cantidad": 500, "unidad": "g" },
     { "ingrediente": "papa-pastusa", "cantidad": 500, "unidad": "g" },
     { "ingrediente": "mazorca", "cantidad": 2, "unidad": "unidad" },
