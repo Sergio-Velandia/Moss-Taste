@@ -16,8 +16,9 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Imagen para Open Graph (PNG 1200 × 630) y `apple-touch-icon` en PNG. Por ahora solo hay favicon en SVG y la tarjeta para compartir es `summary` sin imagen.
 
 ## Fase 2: cerebro de cálculo
-- [ ] Reemplazar `src/lib/recetas/costoProvisional.ts` por el cálculo real: escalar porciones, convertir unidades (con densidad), aplicar merma.
-- [ ] Hacer que el selector de porciones recalcule cantidades y costo, y quitar el aviso «El ajuste automático llega en una próxima versión».
+- [x] Cerebro de cálculo en `src/lib/calculo/`: unidades (con densidad y peso por unidad), escalado, merma, costo en enteros y redondeo de cocina. Reemplaza al costo provisional.
+- [x] El selector de porciones recalcula cantidades y costo; las porciones viven en la URL y pasan al modo cocina.
+- [ ] Push y tag `v0.2.0` (con OK del dueño).
 
 ## Fase 3: catálogo real y primeras recetas
 - [ ] Reemplazar las 3 recetas y el catálogo de ejemplo por los reales, con imagen. La validación debe exigir la imagen cuando exista el modelo de imágenes.
@@ -25,7 +26,8 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Prerenderizar `/recetas/:slug` cuando existan las recetas reales, y decidir si también `/recetas/:slug/cocinar`. En la Fase 1 solo se generan las rutas fijas: las recetas de ejemplo son ficticias y no vale la pena indexarlas. Mientras tanto, esas rutas se sirven desde `404.html`, con `noindex`.
 
 ## Fase 4: exportar y lista de compras
-- [ ] Reemplazar `src/lib/recetas/lista.ts` (suma provisional en porciones base) por el cálculo real, y agregar recetas a la lista desde la ficha.
+- [ ] Agregar recetas a la lista desde la ficha, con sus porciones (`sumarLista` ya escala, convierte y suma la merma).
+- [ ] Mínimo de compra por ingrediente: no se venden 37 g de alcaparras, sino el frasco. Decidir si la lista redondea a la presentación que se vende.
 - [ ] Activar «Exportar» en la ficha y en la lista (Excel, CSV y JSON).
 
 ## Fase 5: formulario de contacto
