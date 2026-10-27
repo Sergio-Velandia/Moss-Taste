@@ -12,8 +12,11 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Verificación final, crítica de diseño, auditoría de accesibilidad, README, CHANGELOG y versión 0.1.0.
 - [x] Push, primer despliegue y tag `v0.1.0`. Sitio desplegado probado: rutas directas, assets y 404.
 
-## Fase 1.5: pulido del repo
-- [ ] Imagen para Open Graph (PNG 1200 × 630) y `apple-touch-icon` en PNG. Por ahora solo hay favicon en SVG y la tarjeta para compartir es `summary` sin imagen.
+## Fase 1.5: pulido del repo (`0.2.1`)
+- [x] Imagen para compartir (1200 × 630), `apple-touch-icon` e íconos PNG del manifest.
+- [x] `CONTRIBUTING.md`, plantilla de issues, `.editorconfig`, `.nvmrc` y metadatos en `package.json`.
+- [ ] Metadatos del repo en GitHub (descripción, sitio y topics). Los pone el dueño desde la página del repo.
+- [ ] Push y tag `v0.2.1` (con OK del dueño).
 
 ## Fase 2: cerebro de cálculo
 - [x] Cerebro de cálculo en `src/lib/calculo/`: unidades (con densidad y peso por unidad), escalado, merma, costo en enteros y redondeo de cocina. Reemplaza al costo provisional.
