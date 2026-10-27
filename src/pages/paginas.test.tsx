@@ -30,12 +30,28 @@ describe('modo lectura', () => {
     await waitFor(() => expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex'))
   })
 
-  it('exportar y cambiar porciones avisan que llegan después', async () => {
+  it('exportar avisa que llega después', async () => {
     await visitar('/recetas/arroz-con-leche')
     fireEvent.click(screen.getByRole('button', { name: 'Exportar' }))
     expect(screen.getByText(/Exportar a Excel, CSV y JSON estará disponible pronto/)).toBeTruthy()
+  })
+
+  it('cambiar porciones recalcula cantidades y costo, y lo guarda en la URL', async () => {
+    const router = await visitar('/recetas/arroz-con-leche')
+    expect(screen.getByText('1,5 l')).toBeTruthy()
+    const costoBase = screen.getByRole('heading', { name: /Costo estimado para 6 porciones/ }).parentElement?.textContent
     fireEvent.click(screen.getByRole('button', { name: 'Agregar una porción' }))
-    expect(screen.getByText(/las cantidades y el costo se muestran para 6 porciones/)).toBeTruthy()
+    await waitFor(() => expect(router.state.location.search).toBe('?porciones=7'))
+    expect(screen.getByText('1,75 l')).toBeTruthy()
+    const costoNuevo = screen.getByRole('heading', { name: /Costo estimado para 7 porciones/ }).parentElement?.textContent
+    expect(costoNuevo).not.toBe(costoBase)
+    for (const enlace of screen.getAllByRole('link', { name: 'Cocinar paso a paso' }))
+      expect(enlace.getAttribute('href')).toBe('/recetas/arroz-con-leche/cocinar?porciones=7')
+  })
+
+  it('muestra cuánto comprar cuando hay merma', async () => {
+    await visitar('/recetas/ajiaco-santafereno')
+    expect(screen.getByText('Compra 890 g')).toBeTruthy()
   })
 
   it('una receta que no existe muestra la 404', async () => {

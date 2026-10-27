@@ -1,8 +1,8 @@
 import { formatoCOP, formatoFecha, formatoPorciones } from '@/lib/formato'
-import type { CostoReceta } from '@/lib/recetas/costoProvisional'
+import type { CalculoReceta } from '@/lib/calculo/costo'
 
 interface Props {
-  costo: CostoReceta
+  costo: CalculoReceta
   porciones: number
   ejemplo?: boolean
 }

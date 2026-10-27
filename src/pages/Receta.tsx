@@ -1,6 +1,6 @@
 import { ChefHat, ChevronLeft, Download } from 'lucide-react'
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
 import { IlustracionCategoria } from '@/components/receta/IlustracionCategoria'
 import { ListaIngredientes } from '@/components/receta/ListaIngredientes'
@@ -12,9 +12,9 @@ import { SelectorPorciones } from '@/components/receta/SelectorPorciones'
 import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { Boton } from '@/components/ui/Boton'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
-import { formatoPorciones } from '@/lib/formato'
+import { calcularReceta } from '@/lib/calculo/costo'
 import { INGREDIENTES, recetaPorSlug } from '@/lib/recetas/catalogo'
-import { costoProvisional } from '@/lib/recetas/costoProvisional'
+import { consultaPorciones, leerPorciones, MAX_PORCIONES, MIN_PORCIONES } from '@/lib/recetas/porciones'
 import type { Receta as TipoReceta } from '@/lib/recetas/tipos'
 import { useMetadatos } from '@/lib/useMetadatos'
 import { NoEncontrada } from './NoEncontrada'
@@ -29,22 +29,17 @@ export function Receta() {
 // Modo lectura: todo a la vista para leer antes de cocinar o para imprimir.
 function FichaReceta({ receta }: { receta: TipoReceta }) {
   useMetadatos({ titulo: receta.titulo, descripcion: receta.resumen, ruta: `/recetas/${receta.id}`, indexable: !receta.ejemplo })
-  const [porciones, setPorciones] = useState(receta.porcionesBase)
+  const [params, setParams] = useSearchParams()
+  const porciones = leerPorciones(params, receta.porcionesBase)
   const [aviso, setAviso] = useState('')
-  const costo = costoProvisional(receta, INGREDIENTES)
+  const calculo = calcularReceta(receta, porciones, INGREDIENTES)
+  const consulta = consultaPorciones(porciones, receta.porcionesBase)
 
-  // PROVISIONAL (Fase 1): el selector cambia el número, pero cantidades y costo siguen en las porciones base.
-  const cambiarPorciones = (n: number) => {
-    setPorciones(n)
-    setAviso(
-      n === receta.porcionesBase
-        ? ''
-        : `Por ahora las cantidades y el costo se muestran para ${formatoPorciones(receta.porcionesBase)}. El ajuste automático llega en una próxima versión.`,
-    )
-  }
+  // replace: cambiar porciones no llena el historial.
+  const cambiarPorciones = (n: number) => setParams(n === receta.porcionesBase ? {} : { porciones: String(n) }, { replace: true })
 
   const enlaceCocinar = (
-    <BotonEnlace to={`/recetas/${receta.id}/cocinar`} tamano="lg" icono={<ChefHat aria-hidden="true" className="size-5" />}>
+    <BotonEnlace to={`/recetas/${receta.id}/cocinar${consulta}`} tamano="lg" icono={<ChefHat aria-hidden="true" className="size-5" />}>
       Cocinar paso a paso
     </BotonEnlace>
   )
@@ -74,6 +69,7 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
               Exportar
             </Boton>
           </div>
+          <AvisoEnVivo mensaje={aviso} />
         </div>
         <IlustracionCategoria categoria={receta.categoria} className="aspect-video rounded-xl sm:aspect-[4/3] print:hidden" />
       </header>
@@ -83,10 +79,9 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
           <h2 id="titulo-ingredientes" className="text-3xl">
             Ingredientes
           </h2>
-          <SelectorPorciones valor={porciones} onChange={cambiarPorciones} className="print:hidden" />
-          <AvisoEnVivo mensaje={aviso} />
-          <ListaIngredientes lineas={costo.lineas} />
-          <ResumenCosto costo={costo} porciones={receta.porcionesBase} ejemplo={receta.ejemplo} />
+          <SelectorPorciones valor={porciones} onChange={cambiarPorciones} min={MIN_PORCIONES} max={MAX_PORCIONES} className="print:hidden" />
+          <ListaIngredientes lineas={calculo.lineas} />
+          <ResumenCosto costo={calculo} porciones={porciones} ejemplo={receta.ejemplo} />
         </section>
 
         <div className="grid content-start gap-12">

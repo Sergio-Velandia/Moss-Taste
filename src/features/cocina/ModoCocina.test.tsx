@@ -20,6 +20,16 @@ async function cocinar(busqueda = '') {
 
 
 describe('modo cocina', () => {
+  it('usa las porciones de la ficha y las conserva al avanzar y al salir', async () => {
+    const router = await cocinar('?porciones=12')
+    expect(screen.getByText('Vas a necesitar, para 12 porciones')).toBeTruthy()
+    expect(screen.getByText('3 l')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: /Empezar/ }))
+    await waitFor(() => expect(router.state.location.search).toBe('?porciones=12&paso=1'))
+    fireEvent.keyDown(window, { key: 'Escape' })
+    await waitFor(() => expect(router.state.location.pathname + router.state.location.search).toBe('/recetas/arroz-con-leche?porciones=12'))
+  })
+
   it('empieza en «Antes de empezar» con la mise en place y los ingredientes', async () => {
     await cocinar()
     expect(screen.getAllByText('Antes de empezar').length).toBeGreaterThan(0)

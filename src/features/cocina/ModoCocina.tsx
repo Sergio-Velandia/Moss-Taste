@@ -9,8 +9,10 @@ import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
 import { clasesBoton } from '@/components/ui/estilosBoton'
 import { cx } from '@/lib/clases'
-import { formatoCantidad } from '@/lib/formato'
+import { factorPorciones } from '@/lib/calculo/escalar'
+import { formatoCantidad, formatoPorciones } from '@/lib/formato'
 import { ingrediente } from '@/lib/recetas/catalogo'
+import { consultaPorciones, leerPorciones } from '@/lib/recetas/porciones'
 import type { IngredienteReceta, Receta } from '@/lib/recetas/tipos'
 import { BotonPantalla } from './BotonPantalla'
 import { Temporizador } from './Temporizador'
@@ -18,12 +20,12 @@ import { usePantallaEncendida } from './usePantallaEncendida'
 
 // Pantallas: 0 = antes de empezar, 1..N = pasos, N+1 = final. La actual vive en la URL (?paso=3).
 
-function ChipIngrediente({ item }: { item: IngredienteReceta }) {
+function ChipIngrediente({ item, factor }: { item: IngredienteReceta; factor: number }) {
   const ing = ingrediente(item.ingrediente)
   return (
     <li className="inline-flex items-baseline gap-2 rounded-full bg-accent-soft px-4 py-2 text-lg">
       <span className="font-bold">{ing?.nombre ?? item.ingrediente}</span>
-      <span className="text-ink-soft tabular-nums">{formatoCantidad(item, ing)}</span>
+      <span className="text-ink-soft tabular-nums">{formatoCantidad({ cantidad: item.cantidad * factor, unidad: item.unidad }, ing)}</span>
       {item.ajustarAlGusto && <span className="text-sm text-ink-soft">al gusto</span>}
     </li>
   )
@@ -38,6 +40,9 @@ export function ModoCocina({ receta }: { receta: Receta }) {
   const [aviso, setAviso] = useState('')
   const total = receta.pasos.length
   const ultima = total + 1
+  // Las porciones llegan desde la ficha (?porciones=8) y se conservan al avanzar y al salir.
+  const porciones = leerPorciones(params, receta.porcionesBase)
+  const factor = factorPorciones(receta.porcionesBase, porciones)
   const leido = Number(params.get('paso'))
   const actual = Number.isInteger(leido) && leido >= 0 && leido <= ultima ? leido : 0
 
@@ -48,11 +53,14 @@ export function ModoCocina({ receta }: { receta: Receta }) {
       if (destino < 0 || destino > ultima || destino === actual) return
       setDireccion(destino > actual ? 1 : -1)
       setAviso('')
-      setParams(destino ? { paso: String(destino) } : {}, { replace: true })
+      const siguientes = new URLSearchParams(params)
+      if (destino) siguientes.set('paso', String(destino))
+      else siguientes.delete('paso')
+      setParams(siguientes, { replace: true })
     },
-    [actual, ultima, setParams],
+    [actual, ultima, params, setParams],
   )
-  const volver = `/recetas/${receta.id}`
+  const volver = `/recetas/${receta.id}${consultaPorciones(porciones, receta.porcionesBase)}`
 
   // Teclado: flechas y Av Pág / Re Pág avanzan o retroceden; Escape vuelve a la receta.
   useEffect(() => {
@@ -134,10 +142,10 @@ export function ModoCocina({ receta }: { receta: Receta }) {
                     </div>
                   )}
                   <div className="grid content-start gap-3">
-                    <h3 className="font-body text-lg font-bold">Vas a necesitar</h3>
+                    <h3 className="font-body text-lg font-bold">Vas a necesitar, para {formatoPorciones(porciones)}</h3>
                     <ul className="flex flex-wrap gap-2">
                       {receta.ingredientes.map((item) => (
-                        <ChipIngrediente key={item.ingrediente} item={item} />
+                        <ChipIngrediente key={item.ingrediente} item={item} factor={factor} />
                       ))}
                     </ul>
                   </div>
@@ -161,7 +169,7 @@ export function ModoCocina({ receta }: { receta: Receta }) {
                       <h3 className="font-body text-lg font-bold">Para este paso</h3>
                       <ul className="flex flex-wrap gap-2">
                         {ingredientesPaso.map((item) => (
-                          <ChipIngrediente key={item.ingrediente} item={item} />
+                          <ChipIngrediente key={item.ingrediente} item={item} factor={factor} />
                         ))}
                       </ul>
                     </div>
