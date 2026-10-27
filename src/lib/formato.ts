@@ -4,11 +4,9 @@ import type { Ingrediente, IngredienteReceta, Unidad } from './recetas/tipos'
 // Formatos de Colombia con Intl. El dinero siempre llega como entero en COP.
 
 const COP = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 })
-const NUMERO = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 2 })
 const FECHA = new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
 
 export const formatoCOP = (pesos: number): string => COP.format(pesos)
-export const formatoNumero = (n: number): string => NUMERO.format(n)
 
 /** '2026-10-01' → '1 de octubre de 2026'. Se lee en UTC para que la zona horaria no cambie el día. */
 export const formatoFecha = (iso: string): string => FECHA.format(new Date(`${iso}T00:00:00Z`))
