@@ -1,14 +1,18 @@
+import { MotionConfig } from 'motion/react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { rutasApp } from './rutasApp'
 import { ProveedorTema } from './tema/ProveedorTema'
-import { SelectorTema } from './tema/SelectorTema'
 
-// Provisional: el layout con cabecera y rutas llega en el siguiente paso.
+// BASE_URL es '/Moss-Taste/' (base de Vite), así el router funciona dentro de la ruta de GitHub Pages.
+const router = createBrowserRouter(rutasApp, { basename: import.meta.env.BASE_URL })
+
 export function App() {
   return (
     <ProveedorTema>
-      <main className="mx-auto grid max-w-3xl gap-6 px-4 py-12">
-        <h1 className="text-4xl">Moss Taste</h1>
-        <SelectorTema />
-      </main>
+      {/* Motion respeta prefers-reduced-motion en todas las animaciones */}
+      <MotionConfig reducedMotion="user">
+        <RouterProvider router={router} />
+      </MotionConfig>
     </ProveedorTema>
   )
 }
