@@ -37,9 +37,10 @@ describe('layout', () => {
     const boton = screen.getByRole('button', { name: 'Menú' })
     fireEvent.click(boton)
     expect(boton.getAttribute('aria-expanded')).toBe('true')
-    expect(document.getElementById('menu-movil')).not.toBeNull()
+    expect(document.getElementById('menu-movil')?.className).not.toContain('invisible')
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(boton.getAttribute('aria-expanded')).toBe('false')
+    expect(document.getElementById('menu-movil')?.className).toContain('invisible')
     expect(document.activeElement).toBe(boton)
   })
 

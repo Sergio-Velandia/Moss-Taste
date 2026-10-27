@@ -1,4 +1,3 @@
-import { MotionConfig } from 'motion/react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { rutasApp } from './rutasApp'
 import { ProveedorTema } from './tema/ProveedorTema'
@@ -9,10 +8,7 @@ const router = createBrowserRouter(rutasApp, { basename: import.meta.env.BASE_UR
 export function App() {
   return (
     <ProveedorTema>
-      {/* Motion respeta prefers-reduced-motion en todas las animaciones */}
-      <MotionConfig reducedMotion="user">
-        <RouterProvider router={router} />
-      </MotionConfig>
+      <RouterProvider router={router} />
     </ProveedorTema>
   )
 }
