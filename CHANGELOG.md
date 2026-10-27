@@ -4,6 +4,20 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.2.1] - 2026-10-27
+
+Pulido del repo (Fase 1.5) y ajustes al cálculo de porciones.
+
+### Añadido
+
+- Imagen para compartir el sitio en redes y mensajería, e íconos para agregarlo a la pantalla de inicio en iPhone y Android.
+- Convenciones del repo en CONTRIBUTING.md y plantilla para reportar problemas en GitHub.
+
+### Cambiado
+
+- La ficha dice para cuántas porciones es la receta original y ofrece volver a ellas después de cambiarlas. El texto también sale al imprimir.
+- En la ficha ya no aparece el chip de porciones, que confundía al elegir otras.
+
 ## [0.2.0] - 2026-10-27
 
 Cerebro de cálculo: porciones, unidades, merma y costo calculados de verdad.
@@ -45,6 +59,7 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Sergio-Velandia/Moss-Taste/releases/tag/v0.1.0
