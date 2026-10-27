@@ -1,4 +1,4 @@
-import { costoProvisional } from './costoProvisional'
+import { calcularReceta } from '@/lib/calculo/costo'
 import type { Ingrediente, Receta } from './tipos'
 
 // «¿Qué cocino hoy?» sin algoritmo complejo: cuenta cuántos ingredientes principales tienes de cada receta.
@@ -20,7 +20,7 @@ export function sugerirRecetas(
 ): Sugerencia[] {
   const disponibles = new Set(tengo)
   return recetas
-    .filter((r) => !maxPorcion || costoProvisional(r, catalogo).porPorcion <= maxPorcion)
+    .filter((r) => !maxPorcion || calcularReceta(r, r.porcionesBase, catalogo).porPorcion <= maxPorcion)
     .map((receta) => {
       const principales = receta.ingredientes.filter((i) => !i.ajustarAlGusto)
       const faltantes = principales.filter((i) => !disponibles.has(i.ingrediente))

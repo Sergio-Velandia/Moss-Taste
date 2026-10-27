@@ -12,7 +12,7 @@ import { formatoCantidad, formatoCOP } from '@/lib/formato'
 import { INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
 import { sumarLista } from '@/lib/recetas/lista'
 
-// PROVISIONAL (Fase 1): lista de ejemplo con dos recetas. Agregar recetas desde la ficha llega en la Fase 4.
+// Lista de ejemplo con dos recetas en sus porciones base. Agregar recetas desde la ficha llega en la Fase 4.
 const EJEMPLO = ['arepas-de-queso', 'arroz-con-leche']
 
 export function Lista() {
@@ -20,7 +20,7 @@ export function Lista() {
   const [comprados, setComprados] = useState<ReadonlySet<string>>(new Set())
   const [aviso, setAviso] = useState('')
   const recetas = RECETAS.filter((r) => ids.includes(r.id))
-  const items = sumarLista(recetas, INGREDIENTES)
+  const items = sumarLista(recetas.map((receta) => ({ receta, porciones: receta.porcionesBase })), INGREDIENTES)
   const conPrecio = items.filter((i) => i.subtotal !== null)
   const total = conPrecio.reduce((s, i) => s + (i.subtotal ?? 0), 0)
   const pendientes = items.filter((i) => !comprados.has(i.clave)).length
@@ -73,7 +73,7 @@ export function Lista() {
                 </li>
               ))}
             </ul>
-            <p className="text-sm text-ink-soft">Las cantidades son las de cada receta en sus porciones base.</p>
+            <p className="text-sm text-ink-soft">Cantidades para comprar, con lo que se pierde al limpiar o pelar, para las porciones base de cada receta.</p>
           </section>
 
           <section aria-labelledby="titulo-compras" className="grid content-start gap-4">

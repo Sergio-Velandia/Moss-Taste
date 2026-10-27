@@ -1,5 +1,5 @@
 import { normalizar } from '@/lib/formato'
-import { costoProvisional } from './costoProvisional'
+import { calcularReceta } from '@/lib/calculo/costo'
 import type { Ingrediente, Receta } from './tipos'
 
 // Filtros de la galería. Viven en la URL (?q=&categoria=&ingrediente=&max=) para poder compartirlos.
@@ -40,7 +40,7 @@ export function filtrarRecetas(recetas: readonly Receta[], filtros: Filtros, cat
   return recetas.filter((receta) => {
     if (filtros.categorias.length && !filtros.categorias.includes(receta.categoria)) return false
     if (filtros.ingrediente && !receta.ingredientes.some((i) => i.ingrediente === filtros.ingrediente)) return false
-    if (filtros.maxPorcion && costoProvisional(receta, catalogo).porPorcion > filtros.maxPorcion) return false
+    if (filtros.maxPorcion && calcularReceta(receta, receta.porcionesBase, catalogo).porPorcion > filtros.maxPorcion) return false
     if (palabras.length) {
       // Cada palabra debe aparecer en el título, el resumen o algún ingrediente.
       const texto = normalizar(

@@ -34,12 +34,21 @@ describe('sugerirRecetas', () => {
 describe('sumarLista', () => {
   it('junta el mismo ingrediente de varias recetas', () => {
     const recetas = [recetaPorSlug('arepas-de-queso'), recetaPorSlug('arroz-con-leche')].filter((r): r is Receta => r !== undefined)
-    const lista = sumarLista(recetas, INGREDIENTES)
+    const lista = sumarLista(recetas.map((receta) => ({ receta, porciones: receta.porcionesBase })), INGREDIENTES)
     const leche = lista.find((i) => i.idIngrediente === 'leche')
     expect(leche?.cantidad).toBe(2100)
     expect(leche?.recetas).toEqual(['Arepas de queso', 'Arroz con leche'])
     expect(leche?.subtotal).toBe(8820)
     expect(lista.find((i) => i.idIngrediente === 'mantequilla')?.cantidad).toBe(60)
+  })
+
+  it('escala con las porciones de cada receta y suma la merma', () => {
+    const ajiaco = recetaPorSlug('ajiaco-santafereno')
+    if (!ajiaco) throw new Error('falta el ajiaco de ejemplo')
+    const pollo = sumarLista([{ receta: ajiaco, porciones: 8 }], INGREDIENTES).find((i) => i.idIngrediente === 'pechuga-pollo')
+    expect(pollo?.unidad).toBe('g')
+    expect(pollo?.cantidad).toBeCloseTo(1777.78, 2)
+    expect(pollo?.subtotal).toBe(32000)
   })
 
   it('una lista sin recetas está vacía', () => {
