@@ -68,7 +68,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 
 | Fase | Qué se hace | Versión | Estado |
 |---|---|---|---|
-| 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | en curso |
+| 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha (falta push, despliegue y tag) |
 | 1.5 | Pulido del repo | `0.1.1` | pendiente |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | pendiente |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | pendiente |
