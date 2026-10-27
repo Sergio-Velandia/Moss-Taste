@@ -1,0 +1,33 @@
+name: Reportar un problema
+description: Algo del sitio no funciona o se ve mal.
+title: "Problema: "
+labels: [problema]
+body:
+  - type: markdown
+    attributes:
+      value: Gracias por avisar. Con estos datos lo puedo reproducir más rápido.
+  - type: input
+    id: pagina
+    attributes:
+      label: Página
+      description: La dirección donde pasó.
+      placeholder: https://sergio-velandia.dev/Moss-Taste/recetas/…
+    validations:
+      required: true
+  - type: textarea
+    id: que-paso
+    attributes:
+      label: Qué pasó
+      description: Qué hiciste, qué esperabas y qué viste en cambio.
+    validations:
+      required: true
+  - type: input
+    id: dispositivo
+    attributes:
+      label: Dispositivo y navegador
+      placeholder: Celular Android con Chrome, computador con Edge…
+  - type: textarea
+    id: captura
+    attributes:
+      label: Captura de pantalla
+      description: Opcional. Arrástrala aquí. Revisa que no muestre datos personales.

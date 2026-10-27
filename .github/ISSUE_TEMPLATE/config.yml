@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Proponer una receta
+    url: https://sergio-velandia.dev/Moss-Taste/contacto/
+    about: Las recetas se proponen desde el formulario del sitio, con sus ingredientes y pasos. El envío del formulario se activa en una próxima versión.
