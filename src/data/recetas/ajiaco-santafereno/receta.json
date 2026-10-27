@@ -1,0 +1,58 @@
+{
+  "id": "ajiaco-santafereno",
+  "titulo": "Ajiaco santafereño",
+  "resumen": "Sopa espesa de tres papas con pollo, mazorca y guascas, servida con crema y alcaparras.",
+  "categoria": "sopas",
+  "porcionesBase": 4,
+  "tiempoMin": 100,
+  "ejemplo": true,
+  "ingredientes": [
+    { "ingrediente": "pechuga-pollo", "cantidad": 800, "unidad": "g" },
+    { "ingrediente": "papa-criolla", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "papa-sabanera", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "papa-pastusa", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "mazorca", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "cebolla-larga", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "ajo", "cantidad": 3, "unidad": "unidad" },
+    { "ingrediente": "guascas", "cantidad": 1, "unidad": "unidad", "ajustarAlGusto": true },
+    { "ingrediente": "sal", "cantidad": 10, "unidad": "g", "ajustarAlGusto": true },
+    { "ingrediente": "crema-leche", "cantidad": 200, "unidad": "ml", "nota": "para servir" },
+    { "ingrediente": "alcaparras", "cantidad": 50, "unidad": "g", "ajustarAlGusto": true, "nota": "para servir" }
+  ],
+  "miseEnPlace": [
+    "Pela la papa sabanera y la pastusa y córtalas en rodajas. La criolla va entera, solo lavada.",
+    "Parte cada mazorca en tres pedazos.",
+    "Machaca los dientes de ajo y amarra las cebollas largas para poder sacarlas del caldo.",
+    "Deja las guascas, la crema y las alcaparras a la mano para el final."
+  ],
+  "pasos": [
+    {
+      "texto": "Pon el pollo en una olla grande con tres litros de agua, la cebolla, el ajo y la sal. Cocina a fuego medio hasta que el pollo esté tierno.",
+      "ingredientes": ["pechuga-pollo", "cebolla-larga", "ajo", "sal"],
+      "temporizadorMin": 35
+    },
+    {
+      "texto": "Saca el pollo, deja que se enfríe un poco y desmenúzalo. Retira la cebolla del caldo.",
+      "ingredientes": ["pechuga-pollo"]
+    },
+    {
+      "texto": "Agrega al caldo la papa sabanera, la pastusa y las mazorcas. Cocina hasta que las papas empiecen a deshacerse.",
+      "ingredientes": ["papa-sabanera", "papa-pastusa", "mazorca"],
+      "temporizadorMin": 30
+    },
+    {
+      "texto": "Añade la papa criolla y revuelve de vez en cuando para que el caldo espese sin pegarse al fondo.",
+      "ingredientes": ["papa-criolla"],
+      "temporizadorMin": 20
+    },
+    {
+      "texto": "Agrega las guascas y el pollo desmenuzado. Deja cinco minutos más y prueba la sal.",
+      "ingredientes": ["guascas", "pechuga-pollo", "sal"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Sirve caliente, con la crema y las alcaparras aparte para que cada quien ponga a su gusto.",
+      "ingredientes": ["crema-leche", "alcaparras"]
+    }
+  ]
+}

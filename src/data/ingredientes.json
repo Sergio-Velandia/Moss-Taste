@@ -1,0 +1,21 @@
+[
+  { "id": "pechuga-pollo", "nombre": "Pechuga de pollo", "unidadBase": "g", "precio": 18000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0.1, "ejemplo": true },
+  { "id": "papa-criolla", "nombre": "Papa criolla", "unidadBase": "g", "precio": 5000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0.05, "ejemplo": true },
+  { "id": "papa-sabanera", "nombre": "Papa sabanera", "unidadBase": "g", "precio": 3600, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0.12, "ejemplo": true },
+  { "id": "papa-pastusa", "nombre": "Papa pastusa", "unidadBase": "g", "precio": 3000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0.12, "ejemplo": true },
+  { "id": "mazorca", "nombre": "Mazorca", "unidadBase": "unidad", "precio": 1500, "porCantidad": 1, "fechaPrecio": "2026-10-01", "merma": 0, "unidadNombre": { "singular": "unidad", "plural": "unidades" }, "ejemplo": true },
+  { "id": "cebolla-larga", "nombre": "Cebolla larga", "unidadBase": "unidad", "precio": 800, "porCantidad": 1, "fechaPrecio": "2026-10-01", "merma": 0.15, "unidadNombre": { "singular": "tallo", "plural": "tallos" }, "ejemplo": true },
+  { "id": "ajo", "nombre": "Ajo", "unidadBase": "unidad", "precio": 300, "porCantidad": 1, "fechaPrecio": "2026-10-01", "merma": 0.1, "unidadNombre": { "singular": "diente", "plural": "dientes" }, "ejemplo": true },
+  { "id": "guascas", "nombre": "Guascas", "unidadBase": "unidad", "precio": 1500, "porCantidad": 1, "fechaPrecio": "2026-10-01", "merma": 0, "unidadNombre": { "singular": "manojo", "plural": "manojos" }, "ejemplo": true },
+  { "id": "crema-leche", "nombre": "Crema de leche", "unidadBase": "ml", "precio": 9500, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "densidad": 1, "ejemplo": true },
+  { "id": "alcaparras", "nombre": "Alcaparras", "unidadBase": "g", "precio": 6000, "porCantidad": 100, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "sal", "nombre": "Sal", "unidadBase": "g", "precio": 2000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "harina-maiz", "nombre": "Harina de maíz precocida", "unidadBase": "g", "precio": 4400, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "leche", "nombre": "Leche entera", "unidadBase": "ml", "precio": 4200, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "densidad": 1.03, "ejemplo": true },
+  { "id": "queso-campesino", "nombre": "Queso campesino", "unidadBase": "g", "precio": 22000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "mantequilla", "nombre": "Mantequilla", "unidadBase": "g", "precio": 8000, "porCantidad": 250, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "arroz", "nombre": "Arroz blanco", "unidadBase": "g", "precio": 4600, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "azucar", "nombre": "Azúcar", "unidadBase": "g", "precio": 4000, "porCantidad": 1000, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true },
+  { "id": "canela", "nombre": "Canela en astilla", "unidadBase": "unidad", "precio": 250, "porCantidad": 1, "fechaPrecio": "2026-10-01", "merma": 0, "unidadNombre": { "singular": "astilla", "plural": "astillas" }, "ejemplo": true },
+  { "id": "uvas-pasas", "nombre": "Uvas pasas", "unidadBase": "g", "precio": 3500, "porCantidad": 100, "fechaPrecio": "2026-10-01", "merma": 0, "ejemplo": true }
+]

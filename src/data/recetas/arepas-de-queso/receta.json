@@ -1,0 +1,43 @@
+{
+  "id": "arepas-de-queso",
+  "titulo": "Arepas de queso",
+  "resumen": "Arepas suaves de maíz con queso campesino por dentro, asadas en sartén con mantequilla.",
+  "categoria": "desayunos",
+  "porcionesBase": 6,
+  "tiempoMin": 40,
+  "ejemplo": true,
+  "ingredientes": [
+    { "ingrediente": "harina-maiz", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "leche", "cantidad": 600, "unidad": "ml" },
+    { "ingrediente": "queso-campesino", "cantidad": 250, "unidad": "g" },
+    { "ingrediente": "mantequilla", "cantidad": 40, "unidad": "g" },
+    { "ingrediente": "sal", "cantidad": 5, "unidad": "g", "ajustarAlGusto": true }
+  ],
+  "miseEnPlace": [
+    "Ralla el queso campesino.",
+    "Entibia la leche sin dejarla hervir.",
+    "Derrite la mitad de la mantequilla; la otra mitad es para el sartén."
+  ],
+  "pasos": [
+    {
+      "texto": "Mezcla la harina con la sal y ve agregando la leche tibia mientras amasas, hasta tener una masa suave que no se pegue a las manos.",
+      "ingredientes": ["harina-maiz", "sal", "leche"]
+    },
+    {
+      "texto": "Incorpora el queso rallado y la mantequilla derretida. Tapa la masa y déjala reposar.",
+      "ingredientes": ["queso-campesino", "mantequilla"],
+      "temporizadorMin": 10
+    },
+    {
+      "texto": "Divide la masa en seis bolas iguales y aplánalas hasta que tengan un dedo de grosor."
+    },
+    {
+      "texto": "Asa las arepas en un sartén o budare a fuego medio con un poco de mantequilla, hasta que doren por ambos lados.",
+      "ingredientes": ["mantequilla"],
+      "temporizadorMin": 12
+    },
+    {
+      "texto": "Sírvelas calientes, solas o con más queso encima."
+    }
+  ]
+}

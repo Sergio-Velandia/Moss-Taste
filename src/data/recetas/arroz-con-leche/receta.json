@@ -1,0 +1,43 @@
+{
+  "id": "arroz-con-leche",
+  "titulo": "Arroz con leche",
+  "resumen": "Arroz cocinado despacio en leche con canela, azúcar y uvas pasas. Se come tibio o frío.",
+  "categoria": "postres",
+  "porcionesBase": 6,
+  "tiempoMin": 60,
+  "ejemplo": true,
+  "ingredientes": [
+    { "ingrediente": "arroz", "cantidad": 250, "unidad": "g" },
+    { "ingrediente": "leche", "cantidad": 1500, "unidad": "ml" },
+    { "ingrediente": "azucar", "cantidad": 200, "unidad": "g", "ajustarAlGusto": true },
+    { "ingrediente": "canela", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "uvas-pasas", "cantidad": 60, "unidad": "g", "ajustarAlGusto": true },
+    { "ingrediente": "mantequilla", "cantidad": 20, "unidad": "g" }
+  ],
+  "miseEnPlace": [
+    "Lava el arroz hasta que el agua salga clara.",
+    "Mide la leche y el azúcar por separado.",
+    "Pon a remojar las uvas pasas en agua tibia."
+  ],
+  "pasos": [
+    {
+      "texto": "Cocina el arroz con dos tazas de agua y la canela a fuego medio, hasta que el agua casi se seque.",
+      "ingredientes": ["arroz", "canela"],
+      "temporizadorMin": 15
+    },
+    {
+      "texto": "Agrega la leche poco a poco y baja el fuego. Revuelve seguido para que no se pegue al fondo.",
+      "ingredientes": ["leche"],
+      "temporizadorMin": 25
+    },
+    {
+      "texto": "Cuando espese, añade el azúcar, la mantequilla y las uvas pasas escurridas. Cocina unos minutos más.",
+      "ingredientes": ["azucar", "mantequilla", "uvas-pasas"],
+      "temporizadorMin": 8
+    },
+    {
+      "texto": "Retira las astillas de canela y deja reposar. Se sirve tibio o frío.",
+      "ingredientes": ["canela"]
+    }
+  ]
+}
