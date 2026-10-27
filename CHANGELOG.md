@@ -4,6 +4,29 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.2.0] - 2026-10-27
+
+Cerebro de cálculo: porciones, unidades, merma y costo calculados de verdad.
+
+### Añadido
+
+- Al cambiar las porciones, la receta recalcula las cantidades y el costo. Las porciones quedan en la dirección de la página, se pueden compartir y pasan al modo cocina.
+- Conversión de medidas de cocina: taza (240 ml), cucharada (15 ml) y cucharadita (5 ml) como estándar, más la libra colombiana (500 g) y la pizca. Pasa de volumen a peso con la densidad de cada ingrediente y de unidades a peso con lo que pesa una.
+- Merma: la ficha dice cuánto comprar cuando al limpiar o pelar se pierde parte del ingrediente, y el costo es el de lo que se compra.
+- Cantidades redondeadas como se miden en la cocina: «335 g», «1,6 kg», «1½ tazas».
+- Cuando un ingrediente no se puede calcular, la ficha dice por qué: sin precio, sin equivalencia o fuera del catálogo.
+
+### Cambiado
+
+- La lista de compras suma lo que hay que comprar, con la merma incluida, y junta el mismo ingrediente aunque las recetas lo pidan en medidas distintas.
+- El presupuesto por porción de la galería y de «¿Qué cocino hoy?» usa el cálculo real.
+- Las recetas de ejemplo usan libras, tazas y cucharadas.
+- La página «Acerca» explica cómo se calcula el costo.
+
+### Eliminado
+
+- El aviso de que el ajuste de porciones llegaba en una próxima versión.
+
 ## [0.1.0] - 2026-10-27
 
 Primera versión: estructura y diseño con datos de ejemplo.
@@ -22,5 +45,6 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.1.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Sergio-Velandia/Moss-Taste/releases/tag/v0.1.0
