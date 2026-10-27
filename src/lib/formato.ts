@@ -1,3 +1,4 @@
+import { numeroCocina, redondearCocina } from './calculo/redondeo'
 import type { Ingrediente, IngredienteReceta, Unidad } from './recetas/tipos'
 
 // Formatos de Colombia con Intl. El dinero siempre llega como entero en COP.
@@ -33,14 +34,14 @@ const NOMBRES_UNIDAD: Record<Exclude<Unidad, 'unidad'>, [string, string]> = {
   pizca: ['pizca', 'pizcas'],
 }
 
-/** 800 g · 2 dientes · 1 manojo · 1,5 tazas */
+/** 800 g · 1,6 kg · 2 dientes · 1 manojo · 1½ tazas · ¾ taza. Redondea como se mide en la cocina. */
 export function formatoCantidad({ cantidad, unidad }: Pick<IngredienteReceta, 'cantidad' | 'unidad'>, ingrediente?: Ingrediente): string {
-  const uno = cantidad === 1
+  const mostrada = redondearCocina(cantidad, unidad)
   const [singular, plural] =
-    unidad === 'unidad'
+    mostrada.unidad === 'unidad'
       ? [ingrediente?.unidadNombre?.singular ?? 'unidad', ingrediente?.unidadNombre?.plural ?? 'unidades']
-      : NOMBRES_UNIDAD[unidad]
-  return `${formatoNumero(cantidad)} ${uno ? singular : plural}`
+      : NOMBRES_UNIDAD[mostrada.unidad]
+  return `${numeroCocina(mostrada.valor, mostrada.unidad)} ${mostrada.valor > 1 ? plural : singular}`
 }
 
 /** Quita tildes y mayúsculas para comparar textos al buscar. */

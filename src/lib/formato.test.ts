@@ -15,7 +15,10 @@ describe('formato', () => {
   it('cantidades con unidad en singular o plural', () => {
     const ajo = { unidadNombre: { singular: 'diente', plural: 'dientes' } } as Ingrediente
     expect(formatoCantidad({ cantidad: 800, unidad: 'g' })).toBe('800 g')
-    expect(formatoCantidad({ cantidad: 1.5, unidad: 'taza' })).toBe('1,5 tazas')
+    expect(formatoCantidad({ cantidad: 1.5, unidad: 'taza' })).toBe('1½ tazas')
+    expect(formatoCantidad({ cantidad: 0.75, unidad: 'taza' })).toBe('¾ taza')
+    expect(formatoCantidad({ cantidad: 1600, unidad: 'g' })).toBe('1,6 kg')
+    expect(formatoCantidad({ cantidad: 1, unidad: 'libra' })).toBe('1 libra')
     expect(formatoCantidad({ cantidad: 1, unidad: 'unidad' }, ajo)).toBe('1 diente')
     expect(formatoCantidad({ cantidad: 3, unidad: 'unidad' }, ajo)).toBe('3 dientes')
     expect(formatoCantidad({ cantidad: 2, unidad: 'unidad' })).toBe('2 unidades')
