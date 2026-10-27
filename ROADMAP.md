@@ -10,7 +10,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Pantallas restantes: hoy, lista, contacto, acceso, mi cocina, nueva receta y acerca.
 - [x] Modo cocina visual, probado a 375 px.
 - [x] Verificación final, crítica de diseño, auditoría de accesibilidad, README, CHANGELOG y versión 0.1.0.
-- [ ] Push, primer despliegue y tag `v0.1.0` (con OK del dueño). Probar el sitio desplegado: rutas directas, assets y 404.
+- [x] Push, primer despliegue y tag `v0.1.0`. Sitio desplegado probado: rutas directas, assets y 404.
 
 ## Fase 1.5: pulido del repo
 - [ ] Imagen para Open Graph (PNG 1200 × 630) y `apple-touch-icon` en PNG. Por ahora solo hay favicon en SVG y la tarjeta para compartir es `summary` sin imagen.
