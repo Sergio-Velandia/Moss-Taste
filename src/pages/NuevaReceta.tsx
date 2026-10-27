@@ -23,7 +23,7 @@ interface FilaPaso {
 }
 
 const OPCIONES_INGREDIENTE = [...INGREDIENTES.values()].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))
-const NOMBRE_UNIDAD: Record<string, string> = { g: 'g', kg: 'kg', ml: 'ml', l: 'l', taza: 'tazas', cucharada: 'cucharadas', cucharadita: 'cucharaditas', unidad: 'unidades' }
+const NOMBRE_UNIDAD: Record<string, string> = { g: 'g', kg: 'kg', ml: 'ml', l: 'l', taza: 'tazas', cucharada: 'cucharadas', cucharadita: 'cucharaditas', unidad: 'unidades', libra: 'libras (500 g)', pizca: 'pizcas' }
 
 type Errores = Partial<Record<'titulo' | 'categoria' | 'porciones' | 'tiempo' | 'ingredientes' | 'pasos', string>>
 

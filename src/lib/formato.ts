@@ -29,6 +29,8 @@ const NOMBRES_UNIDAD: Record<Exclude<Unidad, 'unidad'>, [string, string]> = {
   taza: ['taza', 'tazas'],
   cucharada: ['cucharada', 'cucharadas'],
   cucharadita: ['cucharadita', 'cucharaditas'],
+  libra: ['libra', 'libras'],
+  pizca: ['pizca', 'pizcas'],
 }
 
 /** 800 g · 2 dientes · 1 manojo · 1,5 tazas */

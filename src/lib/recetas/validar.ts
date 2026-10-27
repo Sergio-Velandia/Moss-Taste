@@ -41,6 +41,7 @@ export function validarIngredientes(datos: unknown, archivo = 'ingredientes.json
     if (!fechaValida(d.fechaPrecio)) errores.push(`${lugar}.fechaPrecio: fecha AAAA-MM-DD válida`)
     if (typeof d.merma !== 'number' || d.merma < 0 || d.merma >= 1) errores.push(`${lugar}.merma: número de 0 a menos de 1`)
     if (d.densidad !== undefined && (typeof d.densidad !== 'number' || d.densidad <= 0)) errores.push(`${lugar}.densidad: número mayor que 0`)
+    if (d.gramosPorUnidad !== undefined && (typeof d.gramosPorUnidad !== 'number' || d.gramosPorUnidad <= 0)) errores.push(`${lugar}.gramosPorUnidad: número mayor que 0`)
     if (d.unidadNombre !== undefined) {
       const u = d.unidadNombre
       if (!esRegistro(u) || !esTexto(u.singular, 20) || !esTexto(u.plural, 20)) errores.push(`${lugar}.unidadNombre: { singular, plural }`)

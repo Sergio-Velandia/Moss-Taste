@@ -1,6 +1,7 @@
 // Modelo de datos del recetario. Las recetas personales (Fase 6) tendrán la misma forma.
 
-export const UNIDADES = ['g', 'kg', 'ml', 'l', 'taza', 'cucharada', 'cucharadita', 'unidad'] as const
+// Primero las estándar (las que se ofrecen por defecto); al final, las adicionales de la cocina colombiana.
+export const UNIDADES = ['g', 'kg', 'ml', 'l', 'taza', 'cucharada', 'cucharadita', 'unidad', 'libra', 'pizca'] as const
 export type Unidad = (typeof UNIDADES)[number]
 
 export const UNIDADES_BASE = ['g', 'ml', 'unidad'] as const
@@ -16,10 +17,12 @@ export interface Ingrediente {
   porCantidad: number
   /** Fecha del precio, AAAA-MM-DD. */
   fechaPrecio: string
-  /** Fracción que se pierde al limpiar o pelar (0 a <1). La aplica el cálculo real en la Fase 2. */
+  /** Fracción que se pierde al limpiar o pelar (0 a <1). La aplica src/lib/calculo/merma.ts. */
   merma: number
   /** g/ml, para convertir volumen a peso. */
   densidad?: number
+  /** Gramos de una unidad (una mazorca, un huevo), para convertir unidades a peso. */
+  gramosPorUnidad?: number
   /** Nombre de la unidad cuando la unidad base es «unidad»: { singular: 'diente', plural: 'dientes' }. */
   unidadNombre?: { singular: string; plural: string }
   ejemplo?: boolean

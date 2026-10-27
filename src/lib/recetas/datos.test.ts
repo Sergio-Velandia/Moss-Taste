@@ -57,7 +57,7 @@ describe('validarReceta', () => {
   })
 
   it('rechaza unidades, cantidades y categorías inválidas', () => {
-    const errores = validar({ categoria: 'mariscos', ingredientes: [{ ingrediente: 'sal', cantidad: 0, unidad: 'pizca' }] })
+    const errores = validar({ categoria: 'mariscos', ingredientes: [{ ingrediente: 'sal', cantidad: 0, unidad: 'chorrito' }] })
     expect(errores.join('\n')).toMatch(/categoria: «mariscos» no existe/)
     expect(errores.join('\n')).toMatch(/cantidad: número mayor que 0/)
     expect(errores.join('\n')).toMatch(/unidad: debe ser/)
