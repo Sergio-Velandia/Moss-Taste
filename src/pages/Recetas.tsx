@@ -1,5 +1,4 @@
 import { SearchX, X } from 'lucide-react'
-import type { ReactNode } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { EncabezadoPagina } from '@/components/EncabezadoPagina'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
@@ -8,6 +7,7 @@ import { Boton } from '@/components/ui/Boton'
 import { Campo, CampoSelect } from '@/components/ui/Campo'
 import { Chip } from '@/components/ui/Chip'
 import { EstadoVacio } from '@/components/ui/Estados'
+import { GrupoChips } from '@/components/ui/GrupoChips'
 import { formatoCOP } from '@/lib/formato'
 import { CATEGORIAS, INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
 import { escribirFiltros, filtrarRecetas, hayFiltros, leerFiltros, PRESUPUESTOS, type Filtros } from '@/lib/recetas/filtrar'
@@ -17,15 +17,6 @@ const INGREDIENTES_USADOS = [...new Set(RECETAS.flatMap((r) => r.ingredientes.ma
   .map((id) => INGREDIENTES.get(id))
   .filter((i) => i !== undefined)
   .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))
-
-function Grupo({ titulo, children }: { titulo: string; children: ReactNode }) {
-  return (
-    <fieldset className="grid gap-2">
-      <legend className="mb-2 font-bold">{titulo}</legend>
-      <div className="flex flex-wrap gap-2">{children}</div>
-    </fieldset>
-  )
-}
 
 export function Recetas() {
   const [params, setParams] = useSearchParams()
@@ -63,20 +54,20 @@ export function Recetas() {
           </CampoSelect>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          <Grupo titulo="Categoría">
+          <GrupoChips titulo="Categoría">
             {CATEGORIAS.map((c) => (
               <Chip key={c.id} activo={filtros.categorias.includes(c.id)} onChange={() => alternarCategoria(c.id)}>
                 {c.nombre}
               </Chip>
             ))}
-          </Grupo>
-          <Grupo titulo="Presupuesto por porción">
+          </GrupoChips>
+          <GrupoChips titulo="Presupuesto por porción">
             {PRESUPUESTOS.map((p) => (
               <Chip key={p} activo={filtros.maxPorcion === p} onChange={(activo) => cambiar({ maxPorcion: activo ? p : null })}>
                 Hasta {formatoCOP(p)}
               </Chip>
             ))}
-          </Grupo>
+          </GrupoChips>
         </div>
       </search>
 
