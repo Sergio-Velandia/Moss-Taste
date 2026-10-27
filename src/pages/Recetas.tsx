@@ -1,4 +1,5 @@
-import { SearchX, X } from 'lucide-react'
+import { SearchX, SlidersHorizontal, X } from 'lucide-react'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { EncabezadoPagina } from '@/components/EncabezadoPagina'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
@@ -8,6 +9,7 @@ import { Campo, CampoSelect } from '@/components/ui/Campo'
 import { Chip } from '@/components/ui/Chip'
 import { EstadoVacio } from '@/components/ui/Estados'
 import { GrupoChips } from '@/components/ui/GrupoChips'
+import { cx } from '@/lib/clases'
 import { formatoCOP } from '@/lib/formato'
 import { CATEGORIAS, INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
 import { escribirFiltros, filtrarRecetas, hayFiltros, leerFiltros, PRESUPUESTOS, type Filtros } from '@/lib/recetas/filtrar'
@@ -28,13 +30,16 @@ export function Recetas() {
   const alternarCategoria = (id: string) =>
     cambiar({ categorias: filtros.categorias.includes(id) ? filtros.categorias.filter((c) => c !== id) : [...filtros.categorias, id] })
   const quitarFiltros = () => setParams(new URLSearchParams(), { replace: true })
+  // En móvil, los filtros se pliegan para que los resultados se vean sin bajar; abren solos si hay alguno activo.
+  const activos = filtros.categorias.length + (filtros.ingrediente ? 1 : 0) + (filtros.maxPorcion ? 1 : 0)
+  const [abierto, setAbierto] = useState(activos > 0)
 
   return (
     <div className="grid gap-10">
       <EncabezadoPagina ruta="/recetas" />
 
-      <search className="grid gap-6 rounded-xl border border-line bg-surface p-5 sm:p-6">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+      <search className="grid gap-5 rounded-xl border border-line bg-surface p-5 sm:p-6">
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end md:grid-cols-1">
           <Campo
             etiqueta="Buscar"
             type="search"
@@ -44,6 +49,18 @@ export function Recetas() {
             autoComplete="off"
             enterKeyHint="search"
           />
+          <Boton
+            variante="secundario"
+            className="min-h-12 md:hidden"
+            aria-expanded={abierto}
+            aria-controls="filtros-recetas"
+            onClick={() => setAbierto((a) => !a)}
+            icono={<SlidersHorizontal aria-hidden="true" className="size-5" />}
+          >
+            {activos ? `Filtros (${activos})` : 'Filtros'}
+          </Boton>
+        </div>
+        <div id="filtros-recetas" className={cx('items-start gap-6 md:grid md:grid-cols-2 lg:grid-cols-3', abierto ? 'grid' : 'hidden')}>
           <CampoSelect etiqueta="Ingrediente" value={filtros.ingrediente ?? ''} onChange={(e) => cambiar({ ingrediente: e.target.value || null })}>
             <option value="">Cualquiera</option>
             {INGREDIENTES_USADOS.map((i) => (
@@ -52,8 +69,6 @@ export function Recetas() {
               </option>
             ))}
           </CampoSelect>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
           <GrupoChips titulo="Categoría">
             {CATEGORIAS.map((c) => (
               <Chip key={c.id} activo={filtros.categorias.includes(c.id)} onChange={() => alternarCategoria(c.id)}>
