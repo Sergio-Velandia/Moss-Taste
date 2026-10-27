@@ -128,6 +128,7 @@ export function NuevaReceta() {
                   aria-label={`Quitar ingrediente ${i + 1}`}
                   disabled={ingredientes.length === 1}
                   onClick={() => setIngredientes((filas) => filas.filter((f) => f.clave !== fila.clave))}
+                  className="justify-self-start sm:justify-self-auto"
                   icono={<Trash2 aria-hidden="true" className="size-5" />}
                 />
                 <label className="flex min-h-11 cursor-pointer items-center gap-2 sm:col-span-4">
@@ -175,6 +176,7 @@ export function NuevaReceta() {
                   aria-label={`Quitar paso ${i + 1}`}
                   disabled={pasos.length === 1}
                   onClick={() => setPasos((filas) => filas.filter((f) => f.clave !== paso.clave))}
+                  className="justify-self-start sm:justify-self-auto"
                   icono={<Trash2 aria-hidden="true" className="size-5" />}
                 />
               </li>
