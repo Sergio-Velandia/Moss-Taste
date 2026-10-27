@@ -17,7 +17,7 @@ const TAMANOS: Record<TamanoBoton, string> = {
 // Compartido por <Boton> y <BotonEnlace> para que un enlace con forma de botón se vea igual.
 export function clasesBoton(variante: VarianteBoton = 'primario', tamano: TamanoBoton = 'md', extra?: string): string {
   return cx(
-    'inline-flex cursor-pointer items-center justify-center rounded-md font-bold leading-tight select-none',
+    'inline-flex cursor-pointer items-center justify-center rounded-md font-bold leading-tight select-none [&_svg]:shrink-0',
     'transition-transform duration-150 ease-out active:scale-[0.97]',
     'aria-disabled:cursor-not-allowed aria-disabled:opacity-55 aria-disabled:active:scale-100',
     VARIANTES[variante],
