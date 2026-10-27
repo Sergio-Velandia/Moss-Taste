@@ -1,0 +1,17 @@
+/* Fuentes autoalojadas (subconjunto latino: incluye tildes, ñ, ¿ y ¡). Licencias OFL junto a cada archivo. */
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/young-serif-400-latin.woff2') format('woff2');
+}
+
+/* Fuente variable: un solo archivo cubre los pesos 400 y 700. */
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../assets/fonts/atkinson-hyperlegible-next-latin.woff2') format('woff2');
+}
