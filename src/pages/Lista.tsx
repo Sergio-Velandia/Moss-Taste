@@ -10,6 +10,7 @@ import { EstadoVacio } from '@/components/ui/Estados'
 import { cx } from '@/lib/clases'
 import { formatoCantidad, formatoCOP } from '@/lib/formato'
 import { INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
+import { RANGO_COSTO } from '@/lib/calculo/costo'
 import { sumarLista } from '@/lib/recetas/lista'
 
 // Lista de ejemplo con dos recetas en sus porciones base. Agregar recetas desde la ficha llega en la Fase 4.
@@ -107,8 +108,9 @@ export function Lista() {
             </ul>
             <div className="grid gap-1 rounded-md border-y-2 border-dashed border-line-strong bg-surface px-5 py-4">
               <p className="text-sm font-bold text-ink-soft">Costo estimado de la lista</p>
-              <p className="text-3xl font-bold tabular-nums">
-                {formatoCOP(Math.round(total * 0.9))} a {formatoCOP(Math.round(total * 1.1))}
+              <p className="text-2xl font-bold tabular-nums">
+                <span className="whitespace-nowrap">{formatoCOP(Math.round(total * (1 - RANGO_COSTO)))}</span> a{' '}
+                <span className="whitespace-nowrap">{formatoCOP(Math.round(total * (1 + RANGO_COSTO)))}</span>
               </p>
               <p className="text-sm text-ink-soft">Con precios de ejemplo.</p>
             </div>
