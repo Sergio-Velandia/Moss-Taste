@@ -4,7 +4,7 @@ import { NAV_PIE } from './navegacion'
 
 export function Pie() {
   return (
-    <footer className="mt-auto border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]">
+    <footer className="mt-auto border-t print:hidden border-line bg-surface pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-[1fr_auto] sm:items-end sm:px-6">
         <div className="grid gap-2">
           <Marca />

@@ -35,8 +35,8 @@ describe('rutas', () => {
   })
 
   it('las rutas de receta y modo cocina abren', async () => {
-    expect(await visitar('/recetas/ajiaco')).toHaveLength(1)
+    expect(await visitar('/recetas/ajiaco-santafereno')).toHaveLength(1)
     cleanup()
-    expect(await visitar('/recetas/ajiaco/cocinar')).toHaveLength(1)
+    expect(await visitar('/recetas/ajiaco-santafereno/cocinar')).toHaveLength(1)
   })
 })

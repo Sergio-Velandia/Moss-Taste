@@ -14,7 +14,7 @@ export function ResumenCosto({ costo, porciones, ejemplo }: Props) {
       <h2 id="titulo-costo" className="font-body text-sm font-bold text-ink-soft">
         Costo estimado para {formatoPorciones(porciones)}
       </h2>
-      <p className="font-display text-3xl tabular-nums">
+      <p className="text-3xl font-bold tabular-nums">
         {formatoCOP(costo.minimo)} a {formatoCOP(costo.maximo)}
       </p>
       <p className="tabular-nums">

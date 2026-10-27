@@ -33,7 +33,7 @@ export function Cabecera() {
   }, [abierto])
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-bg pt-[env(safe-area-inset-top)]">
+    <header className="sticky top-0 z-30 border-b print:hidden border-line bg-bg pt-[env(safe-area-inset-top)]">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 sm:px-6">
         <Marca />
 
