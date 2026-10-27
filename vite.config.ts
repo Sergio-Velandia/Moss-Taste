@@ -11,8 +11,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: {
-    environment: 'node',
     // Las pruebas de interfaz piden jsdom con el comentario `// @vitest-environment jsdom`.
-    passWithNoTests: true,
+    environment: 'node',
   },
 })
