@@ -73,7 +73,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | Fase | Qué se hace | Versión | Estado |
 |---|---|---|---|
 | 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha y publicada |
-| 1.5 | Pulido del repo | `0.1.1` | pendiente |
+| 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha (falta push y tag) |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | pendiente |
 | 4 | Exportar y lista de compras | `0.4.0` | pendiente |
@@ -89,18 +89,24 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 
 Subir fotos (Cloud Storage exige Blaze), publicar recetas desde la app, backend propio, Blaze o servicios de pago, subir archivos Excel, feed con algoritmo, dominio aparte y términos largos mientras sea de uso familiar.
 
+## Convenciones
+
+Ramas, commits, versiones y reglas de contenido y diseño: [CONTRIBUTING.md](CONTRIBUTING.md). Formato del editor en `.editorconfig`; versión de Node en `.nvmrc` (la misma que usa CI).
+
 ## Mapa del código
 
 Se completa a medida que se construye.
 
 ```
 index.html              metadatos base, script que aplica el tema antes de pintar, precarga de fuentes
-public/                 favicon.svg, site.webmanifest
+public/                 favicon.svg, site.webmanifest, og-imagen.png (para compartir), apple-touch-icon.png, icono-192/512.png
+docs/imagenes.md        cómo se generaron las imágenes del sitio
 scripts/
 └─ paginasEstaticas.ts  plugin de Vite: index.html por ruta fija, 404.html y sitemap.xml
 .github/
 ├─ workflows/desplegar.yml  pruebas, lint y build en cada push y PR; despliegue a GitHub Pages desde main
-└─ dependabot.yml           PR semanal con dependencias y mensual con acciones
+├─ dependabot.yml           PR semanal con dependencias y mensual con acciones
+└─ ISSUE_TEMPLATE/          plantilla para reportar problemas; las recetas se proponen en /contacto
 src/
 ├─ main.tsx             punto de entrada
 ├─ sitio.ts             nombre, URL pública y helpers de título y canonical
