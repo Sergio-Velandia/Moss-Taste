@@ -110,19 +110,23 @@ src/
 │  └─ tema/             tema.ts (preferencia y almacenamiento), ProveedorTema, useTema, SelectorTema
 ├─ components/
 │  ├─ EncabezadoPagina.tsx  h1 + entrada de una página fija, con sus metadatos
-│  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
+│  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, GrupoChips, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
 ├─ components/receta/   TarjetaReceta, IlustracionCategoria, MetaReceta, SelectorPorciones, ListaIngredientes,
 │                       ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
 ├─ data/
 │  ├─ recetas/<slug>/receta.json   una carpeta por receta (hoy: 3 de ejemplo)
 │  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma y densidad
 │  └─ categorias.json
+├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador y BotonPantalla (visuales),
+│                       usePantallaEncendida (gancho pendiente de la fase funcional)
 ├─ pages/               una por ruta
 ├─ lib/
 │  ├─ recetas/          tipos, validar (propia, sin dependencias), catalogo (carga con import.meta.glob),
 │  │                    filtrar (filtros de la galería ⇄ URL), costoProvisional (PROVISIONAL, ver ROADMAP)
 │  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
+│  ├─ validarFormularios.ts  contacto y acceso
 │  └─ clases.ts, useMetadatos.ts
+├─ test/configuracion.ts     espera de hasta 5 s para las cargas bajo demanda en las pruebas
 ├─ assets/fonts/        .woff2 (subconjunto latino) + licencias OFL
 └─ styles/
    ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
@@ -131,6 +135,7 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
+- Lo que todavía no funciona (exportar, cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
 - **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
