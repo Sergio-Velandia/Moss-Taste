@@ -89,12 +89,29 @@ Subir fotos (Cloud Storage exige Blaze), publicar recetas desde la app, backend 
 Se completa a medida que se construye.
 
 ```
-index.html              script que aplica el tema guardado antes de pintar + precarga de fuentes
+index.html              metadatos base, script que aplica el tema antes de pintar, precarga de fuentes
+public/                 favicon.svg, site.webmanifest
+scripts/
+└─ paginasEstaticas.ts  plugin de Vite: index.html por ruta fija, 404.html y sitemap.xml
+.github/
+├─ workflows/desplegar.yml  pruebas, lint y build en cada push y PR; despliegue a GitHub Pages desde main
+└─ dependabot.yml           PR semanal con dependencias y mensual con acciones
 src/
 ├─ main.tsx             punto de entrada
+├─ sitio.ts             nombre, URL pública y helpers de título y canonical
+├─ rutas.ts             RUTAS_FIJAS: fuente única para el router, los metadatos y el plugin de páginas
 ├─ app/
-│  ├─ App.tsx           raíz de la app
+│  ├─ App.tsx           tema + MotionConfig (respeta reduced motion) + router con basename /Moss-Taste/
+│  ├─ rutasApp.tsx      árbol de rutas con carga bajo demanda; el modo cocina va fuera del layout
+│  ├─ Layout.tsx        salto al contenido, cabecera, main, pie; foco al h1 al navegar
+│  ├─ ErrorRuta.tsx     error inesperado de una ruta
+│  ├─ layout/           Cabecera (con menú móvil), Pie, Marca, navegacion.ts
 │  └─ tema/             tema.ts (preferencia y almacenamiento), ProveedorTema, useTema, SelectorTema
+├─ components/
+│  ├─ EncabezadoPagina.tsx  h1 + entrada de una página fija, con sus metadatos
+│  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, Chip, EstadoVacio, EstadoError, Cargando
+├─ pages/               una por ruta
+├─ lib/                 cx (clases), useMetadatos
 ├─ assets/fonts/        .woff2 (subconjunto latino) + licencias OFL
 └─ styles/
    ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
@@ -103,6 +120,13 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
+- **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
-- `tsconfig.test.json` cubre los `*.test.ts(x)` con tipos de Node; `tsconfig.app.json` los excluye.
+- `tsconfig.test.json` cubre los `*.test.ts(x)` de `src/` con tipos de Node; `tsconfig.app.json` los excluye; `tsconfig.node.json` cubre `vite.config.ts` y `scripts/`.
 - Clave de almacenamiento del tema: `moss-taste:tema` (la usan `tema.ts` y el script de `index.html`; una prueba verifica que coincidan).
+- En Windows el sistema de archivos no distingue mayúsculas: no crear archivos que solo difieran en ellas (por ejemplo `boton.ts` y `Boton.tsx`).
+
+## Despliegue
+
+- GitHub Pages con Actions (`.github/workflows/desplegar.yml`). En el repo, **Settings → Pages → Source** debe estar en **GitHub Actions**.
+- El dominio propio se configura solo en el repo raíz (`Sergio-Velandia.github.io`); este repo hereda `/Moss-Taste/`.
