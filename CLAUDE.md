@@ -33,7 +33,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-10-26 | Tema **claro por defecto**, selector claro / oscuro / sistema | Excepción deliberada al ECOSISTEMA: es una app de cocina que se usa de día |
 | 2026-10-26 | Identidad visual **Berenjena** (ver abajo) | La franja cálida del círculo ya la ocupan Nexus (carmesí y ámbar) y el portafolio (dorado); la berenjena queda en el hueco más amplio |
 | 2026-10-26 | Tipografía propia, **sin Inter** | Es un recetario, no una herramienta técnica como Moss y Nexus |
-| 2026-10-26 | Fuentes autoalojadas en `public/fonts/`, sin paquete | La IP del visitante no sale hacia un tercero y no suma dependencias |
+| 2026-10-26 | Fuentes autoalojadas en `src/assets/fonts/`, sin paquete | La IP del visitante no sale hacia un tercero y no suma dependencias |
 | 2026-10-26 | Un `index.html` por ruta fija, con script propio | Que los buscadores indexen las rutas; `/recetas/:slug` se prerenderiza en la Fase 3 |
 | 2026-10-26 | Recetas públicas en el repo y escritas con palabras propias; recetas personales privadas en Firestore | Lo público no es secreto; el login protege solo lo personal |
 | 2026-10-26 | Contacto solo por formulario (EmailJS → `contacto@sergio-velandia.dev`), sin WhatsApp ni teléfono | Ningún dato personal visible |
@@ -87,3 +87,22 @@ Subir fotos (Cloud Storage exige Blaze), publicar recetas desde la app, backend 
 ## Mapa del código
 
 Se completa a medida que se construye.
+
+```
+index.html              script que aplica el tema guardado antes de pintar + precarga de fuentes
+src/
+├─ main.tsx             punto de entrada
+├─ app/
+│  ├─ App.tsx           raíz de la app
+│  └─ tema/             tema.ts (preferencia y almacenamiento), ProveedorTema, useTema, SelectorTema
+├─ assets/fonts/        .woff2 (subconjunto latino) + licencias OFL
+└─ styles/
+   ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
+   ├─ tokens.test.ts    verifica el contraste AA de cada par de tokens
+   ├─ fuentes.css       @font-face
+   └─ index.css         estilos base y movimiento reducido
+```
+
+- Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
+- `tsconfig.test.json` cubre los `*.test.ts(x)` con tipos de Node; `tsconfig.app.json` los excluye.
+- Clave de almacenamiento del tema: `moss-taste:tema` (la usan `tema.ts` y el script de `index.html`; una prueba verifica que coincidan).
