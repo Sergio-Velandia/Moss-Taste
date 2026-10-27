@@ -1,8 +1,18 @@
+/// <reference types="vitest/config" />
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
+// GitHub Pages sirve el sitio en /Moss-Taste/ (el nombre del repo). Se usa la misma base en
+// desarrollo y en preview para que las rutas y los assets se comporten igual que en producción.
 export default defineConfig({
-  plugins: [react()],
+  base: '/Moss-Taste/',
+  plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+  test: {
+    environment: 'node',
+    // Las pruebas de interfaz piden jsdom con el comentario `// @vitest-environment jsdom`.
+    passWithNoTests: true,
+  },
 })
