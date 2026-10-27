@@ -1,0 +1,12 @@
+{
+  "name": "Moss Taste",
+  "short_name": "Moss Taste",
+  "description": "Recetario familiar: ingredientes y costo en pesos colombianos para cualquier número de porciones.",
+  "lang": "es-CO",
+  "start_url": "/Moss-Taste/",
+  "scope": "/Moss-Taste/",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#faf7f2",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
