@@ -37,7 +37,7 @@ export function Cabecera() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 sm:px-6">
         <Marca />
 
-        <nav aria-label="Principal" className="hidden md:block">
+        <nav aria-label="Principal" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {NAV_PRINCIPAL.map(({ a, texto }) => (
               <li key={a}>
@@ -49,7 +49,7 @@ export function Cabecera() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <SelectorTema />
           <BotonEnlace to="/acceso" variante="secundario" icono={<LogIn aria-hidden="true" className="size-5" />}>
             Entrar
@@ -62,7 +62,7 @@ export function Cabecera() {
           aria-expanded={abierto}
           aria-controls="menu-movil"
           onClick={() => setAbierto((valor) => !valor)}
-          className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-line-strong px-3 font-bold md:hidden"
+          className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-line-strong px-3 font-bold lg:hidden"
         >
           {abierto ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
           Menú
@@ -74,7 +74,7 @@ export function Cabecera() {
       <div
         id="menu-movil"
         className={cx(
-          'absolute inset-x-0 top-full border-b border-line bg-bg shadow-2 transition-[opacity,translate,visibility] ease-out md:hidden',
+          'absolute inset-x-0 top-full border-b border-line bg-bg shadow-2 transition-[opacity,translate,visibility] ease-out lg:hidden',
           abierto ? 'visible translate-y-0 opacity-100 duration-200' : 'pointer-events-none invisible -translate-y-2 opacity-0 duration-150',
         )}
       >
