@@ -1,0 +1,56 @@
+{
+  "id": "changua",
+  "titulo": "Changua",
+  "resumen": "Caldo de leche con cebolla larga y huevo entero, servido sobre calados con cilantro fresco.",
+  "categoria": "desayunos",
+  "porcionesBase": 4,
+  "tiempoMin": 20,
+  "imagenAlt": "Plato hondo de changua con un huevo entero, cebolla larga y cilantro; al lado, calados.",
+  "ingredientes": [
+    { "ingrediente": "agua", "cantidad": 500, "unidad": "ml" },
+    { "ingrediente": "leche", "cantidad": 1, "unidad": "l" },
+    { "ingrediente": "cebolla-larga", "cantidad": 2, "unidad": "unidad", "nota": "picada finita" },
+    { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "pequeño" },
+    { "ingrediente": "huevo", "cantidad": 4, "unidad": "unidad", "nota": "uno por porción" },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "pizca", "ajustarAlGusto": true },
+    { "ingrediente": "calado", "cantidad": 4, "unidad": "unidad", "alternativa": "o pan tostado" },
+    { "ingrediente": "queso-campesino", "cantidad": 100, "unidad": "g", "opcional": true }
+  ],
+  "miseEnPlace": [
+    "Pica la cebolla larga finita, con todo y la parte verde.",
+    "Pica el cilantro y resérvalo aparte: va al final, crudo.",
+    "Parte los calados en trozos y repártelos en los platos hondos.",
+    "Si vas a usar queso, córtalo en cubos pequeños."
+  ],
+  "pasos": [
+    {
+      "texto": "Pon el agua con la cebolla larga picada y una pizca de sal en una olla. Lleva a hervor.",
+      "ingredientes": ["agua", "cebolla-larga", "sal"]
+    },
+    {
+      "texto": "Agrega la leche y calienta a fuego medio hasta que empiece a humear, sin dejar que hierva fuerte: si hierve, se corta.",
+      "ingredientes": ["leche"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Baja el fuego al mínimo. Casca los huevos uno por uno y déjalos caer enteros en la leche, separados entre sí.",
+      "ingredientes": ["huevo"]
+    },
+    {
+      "texto": "Cocina sin revolver, hasta que la clara esté firme y la yema todavía blanda.",
+      "temporizadorMin": 4
+    },
+    {
+      "texto": "Prueba y ajusta la sal.",
+      "ingredientes": ["sal"]
+    },
+    {
+      "texto": "Sirve en cada plato un huevo con su caldo, sobre los calados. Agrega el cilantro picado y el queso encima.",
+      "ingredientes": ["calado", "cilantro", "queso-campesino"]
+    }
+  ],
+  "notas": [
+    "El truco está en no dejar hervir la leche. Humeando es suficiente.",
+    "Si prefieres la yema cocida, deja los huevos dos minutos más."
+  ]
+}
