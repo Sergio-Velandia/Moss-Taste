@@ -27,14 +27,16 @@ describe('datos del recetario', () => {
     expect(RECETAS.length).toBeGreaterThan(0)
   })
 
-  it('cada ingrediente de cada receta tiene un precio que se puede calcular', () => {
+  // Un precio puede faltar (la ficha dice «Sin precio», nunca asume cero), pero la medida siempre debe poder
+  // convertirse a la unidad del catálogo: si no, falta una densidad o un peso por unidad.
+  it('cada ingrediente de cada receta se puede convertir a la unidad del catálogo', () => {
     for (const receta of RECETAS) {
-      const sinPrecio = calcularReceta(receta, receta.porcionesBase, INGREDIENTES).lineas.filter(
-        (l) => l.subtotal === null && l.motivo !== 'no-se-costea',
+      const malas = calcularReceta(receta, receta.porcionesBase, INGREDIENTES).lineas.filter(
+        (l) => l.motivo === 'sin-conversion' || l.motivo === 'sin-ingrediente',
       )
       expect(
-        sinPrecio.map((l) => `recetas/${receta.id}: ${l.item.ingrediente} en ${l.item.unidad} (${l.motivo})`),
-        'Agrega el precio, la densidad o gramosPorUnidad en ingredientes.json',
+        malas.map((l) => `recetas/${receta.id}: ${l.item.ingrediente} en ${l.item.unidad} (${l.motivo})`),
+        'Agrega la densidad o gramosPorUnidad en ingredientes.json',
       ).toEqual([])
     }
   })
@@ -130,6 +132,11 @@ describe('validarIngredientes', () => {
     expect(
       validarIngredientes([{ id: 'agua', nombre: 'Agua', unidadBase: 'ml', precio: 100, porCantidad: 1000, merma: 0, noSeCostea: true }]).errores.join(),
     ).toMatch(/si no se costea, el precio va en null/)
+  })
+
+  it('un precio pendiente (null) no necesita fecha; un precio sí', () => {
+    expect(validarIngredientes([{ id: 'papa', nombre: 'Papa', unidadBase: 'g', precio: null, porCantidad: 1000, merma: 0 }]).errores).toEqual([])
+    expect(validarIngredientes([{ id: 'papa', nombre: 'Papa', unidadBase: 'g', precio: 3000, porCantidad: 1000, merma: 0 }]).errores.join()).toMatch(/fechaPrecio/)
   })
 
   it('acepta un ingrediente sin precio (null)', () => {

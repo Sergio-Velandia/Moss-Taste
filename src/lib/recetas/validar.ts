@@ -40,7 +40,8 @@ export function validarIngredientes(datos: unknown, archivo = 'ingredientes.json
     if (d.noSeCostea !== undefined && typeof d.noSeCostea !== 'boolean') errores.push(`${lugar}.noSeCostea: true o false`)
     if (d.noSeCostea === true && d.precio !== null) errores.push(`${lugar}.precio: si no se costea, el precio va en null`)
     if (typeof d.porCantidad !== 'number' || d.porCantidad <= 0) errores.push(`${lugar}.porCantidad: número mayor que 0`)
-    if (d.noSeCostea === true ? d.fechaPrecio !== undefined && !fechaValida(d.fechaPrecio) : !fechaValida(d.fechaPrecio))
+    // La fecha acompaña al precio: es obligatoria si hay precio y opcional si el precio es null.
+    if (d.precio === null ? d.fechaPrecio !== undefined && !fechaValida(d.fechaPrecio) : !fechaValida(d.fechaPrecio))
       errores.push(`${lugar}.fechaPrecio: fecha AAAA-MM-DD válida`)
     if (typeof d.merma !== 'number' || d.merma < 0 || d.merma >= 1) errores.push(`${lugar}.merma: número de 0 a menos de 1`)
     if (d.densidad !== undefined && (typeof d.densidad !== 'number' || d.densidad <= 0)) errores.push(`${lugar}.densidad: número mayor que 0`)

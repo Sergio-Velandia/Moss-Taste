@@ -15,7 +15,7 @@ export interface Ingrediente {
   /** Precio en COP entero por `porCantidad` de la unidad base. null = sin precio (se dice, no se asume cero). */
   precio: number | null
   porCantidad: number
-  /** Fecha del precio, AAAA-MM-DD. Obligatoria salvo en los ingredientes que no se costean. */
+  /** Fecha del precio, AAAA-MM-DD. Obligatoria si hay precio. */
   fechaPrecio?: string
   /** Fracción que se pierde al limpiar o pelar (0 a <1). La aplica src/lib/calculo/merma.ts. */
   merma: number
