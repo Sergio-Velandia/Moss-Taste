@@ -82,7 +82,7 @@ describe('lista de compras', () => {
     await router.navigate('/lista')
     await screen.findByRole('heading', { name: 'Recetas en la lista' })
     // 1,5 l de leche para 6 porciones → 3 l para 12.
-    const leche = screen.getByRole('checkbox', { name: /Leche entera 3 l/ })
+    const leche = screen.getByRole('checkbox', { name: /Leche entera.*Necesitas 3 l/ })
     expect(screen.getByRole('heading', { name: 'Lo que cuestan estas recetas' })).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Lo que pagas hoy en caja' })).toBeTruthy()
 

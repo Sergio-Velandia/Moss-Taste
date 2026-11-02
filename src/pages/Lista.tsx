@@ -138,10 +138,8 @@ export function Lista() {
                     <label className="grid min-h-14 cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)_auto] items-center gap-x-3 py-3">
                       <input type="checkbox" checked={comprado} onChange={() => lista.alternarComprado(item.clave)} className="size-5 cursor-pointer accent-accent" />
                       <span className={cx('grid', comprado && 'text-ink-soft line-through')}>
-                        <span className="font-bold">
-                          {item.ingrediente?.nombre ?? item.idIngrediente}{' '}
-                          <span className="font-normal tabular-nums">{formatoCantidad(item, item.ingrediente)}</span>
-                        </span>
+                        <span className="font-bold">{item.ingrediente?.nombre ?? item.idIngrediente}</span>
+                        <span className="text-sm tabular-nums">Necesitas {formatoCantidad(item, item.ingrediente)}</span>
                         <span className="text-sm text-ink-soft">En la tienda: {enTienda}</span>
                         <span className="text-sm text-ink-soft">Para {item.recetas.join(' y ')}</span>
                       </span>
@@ -164,7 +162,7 @@ export function Lista() {
             </ul>
 
             {/* Dos números distintos, nunca mezclados: lo que cuestan las recetas y lo que se paga en caja. */}
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3">
               <section aria-labelledby="titulo-cuestan" className="grid content-start gap-1 rounded-md border-y-2 border-dashed border-line-strong bg-surface px-5 py-4">
                 <h3 id="titulo-cuestan" className="font-body text-sm font-bold text-ink-soft">
                   Lo que cuestan estas recetas
