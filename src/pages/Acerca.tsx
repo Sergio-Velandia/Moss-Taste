@@ -56,8 +56,8 @@ export function Acerca() {
 
       <Bloque id="acerca-estado" titulo="En qué va">
         <p>
-          Por ahora el recetario muestra recetas y precios de ejemplo. En las próximas versiones llegan las recetas reales con sus
-          fotos, la lista de compras completa, exportar a Excel y las cuentas.
+          Ya están las primeras recetas de la casa, con ilustraciones generadas con IA. En las próximas versiones llegan más recetas,
+          la lista de compras completa, exportar a Excel y las cuentas.
         </p>
       </Bloque>
     </div>
