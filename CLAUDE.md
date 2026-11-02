@@ -3,7 +3,7 @@
 Recetario familiar: calcula ingredientes y costo en pesos colombianos para cualquier número de porciones, y exporta la receta o una lista de compras. Lo usan la familia y allegados; cualquiera puede crear cuenta. Proyecto **aparte** de Moss y Nexus: comparte el apellido de la familia, no el tema.
 
 - **Repo:** https://github.com/Sergio-Velandia/Moss-Taste
-- **Sitio:** `https://sergio-velandia.dev/Moss-Taste/` (GitHub Pages; aún sin desplegar)
+- **Sitio:** https://sergio-velandia.dev/Moss-Taste/ (GitHub Pages)
 - **Documentos base (fuera del repo):** PLAYBOOK, ECOSISTEMA, CONTEXTO-Moss-Taste y la guía maestra de diseño web. Si algo de aquí choca con el PLAYBOOK, gana este archivo, pero hay que avisarlo.
 - **Pendientes por fase:** [ROADMAP.md](ROADMAP.md).
 
@@ -73,9 +73,9 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | Fase | Qué se hace | Versión | Estado |
 |---|---|---|---|
 | 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha y publicada |
-| 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha (falta push y tag) |
+| 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha y publicada |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
-| 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | pendiente |
+| 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | en curso |
 | 4 | Exportar y lista de compras | `0.4.0` | pendiente |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |
 | 6 | Login, favoritos, notas y recetas personales | `0.6.0` | pendiente |

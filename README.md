@@ -2,7 +2,7 @@
 
 El recetario de la familia: las recetas de la casa con las cantidades y el costo en pesos colombianos para las porciones que vayas a servir. Pensado para la familia y los allegados que hoy cocinan con hojas de Excel y cuadernos.
 
-- **Sitio:** https://sergio-velandia.dev/Moss-Taste/ (se publica con el primer despliegue)
+- **Sitio:** https://sergio-velandia.dev/Moss-Taste/
 - **Repositorio:** https://github.com/Sergio-Velandia/Moss-Taste
 
 ## Estado

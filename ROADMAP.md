@@ -15,8 +15,8 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 ## Fase 1.5: pulido del repo (`0.2.1`)
 - [x] Imagen para compartir (1200 × 630), `apple-touch-icon` e íconos PNG del manifest.
 - [x] `CONTRIBUTING.md`, plantilla de issues, `.editorconfig`, `.nvmrc` y metadatos en `package.json`.
-- [ ] Metadatos del repo en GitHub (descripción, sitio y topics). Los pone el dueño desde la página del repo.
-- [ ] Push y tag `v0.2.1` (con OK del dueño).
+- [x] Metadatos del repo en GitHub (descripción, sitio y topics).
+- [x] Push, despliegue y tag `v0.2.1`.
 
 ## Fase 2: cerebro de cálculo
 - [x] Cerebro de cálculo en `src/lib/calculo/`: unidades (con densidad y peso por unidad), escalado, merma, costo en enteros y redondeo de cocina. Reemplaza al costo provisional.
