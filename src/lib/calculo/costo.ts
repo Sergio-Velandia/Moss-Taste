@@ -45,6 +45,14 @@ export interface CalculoReceta {
   opcionales: { nombres: string[]; total: number }
 }
 
+/**
+ * Costo por porción si se conoce: null cuando ningún ingrediente tiene precio. Así un filtro de
+ * presupuesto no deja pasar una receta sin precios como si costara cero.
+ */
+export function costoPorPorcionConocido(c: CalculoReceta): number | null {
+  return c.fechaPrecio === null ? null : c.porPorcion
+}
+
 /** Costo en COP entero de una cantidad en la unidad base del catálogo. */
 export function costoDe(ingrediente: Ingrediente, cantidadBase: number): number | null {
   if (ingrediente.precio === null || ingrediente.noSeCostea) return null

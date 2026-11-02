@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Ingrediente, Receta } from '@/lib/recetas/tipos'
-import { calcularReceta, costoDe } from './costo'
+import { calcularReceta, costoDe, costoPorPorcionConocido } from './costo'
 
 const ing = (datos: Partial<Ingrediente> & Pick<Ingrediente, 'id'>): Ingrediente => ({
   nombre: datos.id,
@@ -161,6 +161,15 @@ describe('calcularReceta', () => {
     const c = calcularReceta(receta([{ ingrediente: 'trufa', cantidad: 2, unidad: 'kg' }], 4), 40, caro)
     expect(c.total).toBe(180_000_000)
     expect(Number.isSafeInteger(c.total)).toBe(true)
+  })
+})
+
+describe('costoPorPorcionConocido', () => {
+  it('sin ningún precio es null, no cero', () => {
+    const sinPrecios = calcularReceta(receta([{ ingrediente: 'agua', cantidad: 1, unidad: 'l' }]), 4, catalogo)
+    expect(costoPorPorcionConocido(sinPrecios)).toBeNull()
+    const conPrecio = calcularReceta(receta([{ ingrediente: 'harina', cantidad: 1000, unidad: 'g' }]), 4, catalogo)
+    expect(costoPorPorcionConocido(conPrecio)).toBe(1100)
   })
 })
 
