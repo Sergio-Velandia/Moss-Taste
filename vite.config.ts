@@ -15,8 +15,8 @@ export default defineConfig({
     // Las pruebas de interfaz piden jsdom con el comentario `// @vitest-environment jsdom`.
     environment: 'node',
     setupFiles: ['./src/test/configuracion.ts'],
-    // Más que la espera de Testing Library (5 s): con muchas pruebas en paralelo, una carga diferida puede
+    // Más que la espera de Testing Library (10 s): con muchas pruebas en paralelo, una carga diferida puede
     // tardar, y si los dos límites son iguales la prueba falla sin margen.
-    testTimeout: 15_000,
+    testTimeout: 20_000,
   },
 })
