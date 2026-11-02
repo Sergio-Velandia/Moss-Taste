@@ -1,4 +1,4 @@
-import { UNIDADES, UNIDADES_BASE, type Categoria, type Ingrediente, type Receta } from './tipos'
+import { UNIDADES, UNIDADES_BASE, type Categoria, type Ingrediente, type Receta } from './tipos.ts'
 
 // Validación propia, sin dependencias. Cada error dice el archivo, el campo y qué falla,
 // para que `npm test` señale exactamente dónde corregir.

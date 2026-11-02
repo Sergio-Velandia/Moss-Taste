@@ -1,5 +1,5 @@
-import type { Categoria, Ingrediente, Receta } from './tipos'
-import { validarCategorias, validarIngredientes, validarReceta } from './validar'
+import type { Categoria, Ingrediente, Receta } from './tipos.ts'
+import { validarCategorias, validarIngredientes, validarReceta } from './validar.ts'
 
 // Arma un catálogo validado a partir de los archivos crudos. Lo usan los datos reales (catalogo.ts)
 // y los datos fijos de las pruebas (src/test/catalogoPrueba.ts), para que las pruebas de pantallas
