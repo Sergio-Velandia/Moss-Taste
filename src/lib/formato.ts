@@ -18,6 +18,10 @@ export function formatoMinutos(minutos: number): string {
   return resto ? `${horas} h ${resto} min` : `${horas} h`
 }
 
+const PORCENTAJE = new Intl.NumberFormat('es-CO', { style: 'percent', maximumFractionDigits: 0 })
+/** 0.15 → «15 %» */
+export const formatoPorcentaje = (fraccion: number): string => PORCENTAJE.format(fraccion)
+
 export const formatoPorciones = (n: number): string => `${n} ${n === 1 ? 'porción' : 'porciones'}`
 
 const NOMBRES_UNIDAD: Record<Exclude<Unidad, 'unidad'>, [string, string]> = {

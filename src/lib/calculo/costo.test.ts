@@ -125,6 +125,19 @@ describe('calcularReceta', () => {
     expect(c.total).toBe(4400)
   })
 
+  it('los opcionales suman al total y se informan aparte', () => {
+    const c = calcularReceta(
+      receta([
+        { ingrediente: 'harina', cantidad: 1000, unidad: 'g' },
+        { ingrediente: 'azucar', cantidad: 1, unidad: 'taza', opcional: true },
+      ]),
+      4,
+      catalogo,
+    )
+    expect(c.total).toBe(4400 + 816)
+    expect(c.opcionales).toEqual({ nombres: ['Azúcar'], total: 816 })
+  })
+
   it('la fecha es la del precio más antiguo que se usó', () => {
     const c = calcularReceta(
       receta([

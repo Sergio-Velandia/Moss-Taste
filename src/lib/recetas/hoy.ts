@@ -2,7 +2,7 @@ import { calcularReceta } from '@/lib/calculo/costo'
 import type { Ingrediente, Receta } from './tipos'
 
 // «¿Qué cocino hoy?» sin algoritmo complejo: cuenta cuántos ingredientes principales tienes de cada receta.
-// Los ingredientes «al gusto» (sal, especias) no cuentan como faltantes.
+// Los ingredientes «al gusto» (sal, especias) y los opcionales no cuentan como faltantes.
 
 export interface Sugerencia {
   receta: Receta
@@ -22,7 +22,7 @@ export function sugerirRecetas(
   return recetas
     .filter((r) => !maxPorcion || calcularReceta(r, r.porcionesBase, catalogo).porPorcion <= maxPorcion)
     .map((receta) => {
-      const principales = receta.ingredientes.filter((i) => !i.ajustarAlGusto)
+      const principales = receta.ingredientes.filter((i) => !i.ajustarAlGusto && !i.opcional)
       const faltantes = principales.filter((i) => !disponibles.has(i.ingrediente))
       return {
         receta,

@@ -26,6 +26,12 @@ describe('sugerirRecetas', () => {
     expect(arepas?.faltan).toEqual([])
   })
 
+  it('los opcionales no cuentan como faltantes', () => {
+    const [arroz] = sugerirRecetas(RECETAS, ['arroz', 'leche', 'canela', 'mantequilla'], null, INGREDIENTES)
+    expect(arroz?.receta.id).toBe('arroz-con-leche')
+    expect(arroz?.faltan).toEqual([])
+  })
+
   it('respeta el presupuesto por porción', () => {
     expect(ids(['pechuga-pollo', 'leche'], 5000)).not.toContain('ajiaco-santafereno')
   })

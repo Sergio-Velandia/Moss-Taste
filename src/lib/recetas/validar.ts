@@ -108,6 +108,8 @@ export function validarReceta(
       if (typeof ing.cantidad !== 'number' || !(ing.cantidad > 0)) e(`${campo}.cantidad`, 'número mayor que 0')
       if (!(UNIDADES as readonly unknown[]).includes(ing.unidad)) e(`${campo}.unidad`, `debe ser ${UNIDADES.join(', ')}`)
       if (ing.ajustarAlGusto !== undefined && typeof ing.ajustarAlGusto !== 'boolean') e(`${campo}.ajustarAlGusto`, 'true o false')
+      if (ing.opcional !== undefined && typeof ing.opcional !== 'boolean') e(`${campo}.opcional`, 'true o false')
+      if (ing.alternativa !== undefined && !esTexto(ing.alternativa, 80)) e(`${campo}.alternativa`, 'texto de 1 a 80 caracteres, por ejemplo «o pan tostado»')
       if (ing.nota !== undefined && !esTexto(ing.nota, 80)) e(`${campo}.nota`, 'texto de 1 a 80 caracteres')
       return undefined
     })

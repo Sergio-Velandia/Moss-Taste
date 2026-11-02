@@ -44,6 +44,10 @@ export interface IngredienteReceta {
   unidad: Unidad
   /** No escala de forma lineal (sal, especias): se ajusta al gusto. */
   ajustarAlGusto?: boolean
+  /** Se puede omitir (el queso de la changua). Suma al costo, y la ficha lo marca para restarlo de un vistazo. */
+  opcional?: boolean
+  /** Otra opción que lo reemplaza, sin sumarse: «o pan tostado». Solo cuenta el ingrediente principal. */
+  alternativa?: string
   nota?: string
 }
 

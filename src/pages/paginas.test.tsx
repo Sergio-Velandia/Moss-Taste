@@ -80,7 +80,19 @@ describe('modo lectura', () => {
 
   it('muestra cuánto comprar cuando hay merma', async () => {
     await visitar('/recetas/ajiaco-santafereno')
-    expect(screen.getByText('Compra aprox. 890 g')).toBeTruthy()
+    // Según la versión de Intl, el porcentaje sale «10%» o «10 %»: la prueba acepta los dos.
+    const merma = (_: string, el: Element | null) => el?.tagName === 'SPAN' && /^Compra aprox\. 890 g \(merma estimada del 10\s?%\)$/.test(el.textContent ?? '')
+    expect(screen.getByText(merma)).toBeTruthy()
+    // 2 mazorcas en una receta que las cuenta, con precio por kilo: el peso es estimado.
+    expect(screen.getByText('≈ 600 g')).toBeTruthy()
+  })
+
+  it('marca los opcionales en la fila, en su precio y en la tirilla, y muestra la alternativa', async () => {
+    await visitar('/recetas/arroz-con-leche')
+    expect(screen.getByText('Opcional')).toBeTruthy()
+    expect(screen.getByText('opcional')).toBeTruthy()
+    expect(screen.getByText(/Incluye .* de opcionales \(uvas pasas\)\./)).toBeTruthy()
+    expect(screen.getByText('o panela rallada')).toBeTruthy()
   })
 
   it('una receta que no existe muestra la 404', async () => {

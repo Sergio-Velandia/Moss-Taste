@@ -41,6 +41,8 @@ export interface CalculoReceta {
   sinPrecio: string[]
   /** Fecha del precio más antiguo usado (AAAA-MM-DD), o null si ninguno tiene precio. */
   fechaPrecio: string | null
+  /** Lo que suman los ingredientes opcionales (ya incluido en el total), para restarlo de un vistazo. */
+  opcionales: { nombres: string[]; total: number }
 }
 
 /** Costo en COP entero de una cantidad en la unidad base del catálogo. */
@@ -78,5 +80,9 @@ export function calcularReceta(receta: Receta, porciones: number, catalogo: Read
     // Lo que no se costea (agua, sal) no es un faltante: no se lista como «sin precio».
     sinPrecio: lineas.filter((l) => l.subtotal === null && l.motivo !== 'no-se-costea').map((l) => l.ingrediente?.nombre ?? l.item.ingrediente),
     fechaPrecio: fechas[0] ?? null,
+    opcionales: {
+      nombres: lineas.filter((l) => l.item.opcional).map((l) => l.ingrediente?.nombre ?? l.item.ingrediente),
+      total: lineas.filter((l) => l.item.opcional).reduce((suma, l) => suma + (l.subtotal ?? 0), 0),
+    },
   }
 }

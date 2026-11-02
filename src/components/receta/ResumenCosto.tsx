@@ -26,6 +26,11 @@ export function ResumenCosto({ costo, porciones, ejemplo }: Props) {
           {ejemplo && ', con precios de ejemplo'}.
         </p>
       )}
+      {costo.opcionales.total > 0 && (
+        <p className="text-sm text-ink-soft tabular-nums">
+          Incluye {formatoCOP(costo.opcionales.total)} de opcionales ({costo.opcionales.nombres.join(', ').toLocaleLowerCase('es')}).
+        </p>
+      )}
       {costo.lineas.some((l) => l.compra !== null && (l.ingrediente?.merma ?? 0) > 0) && (
         <p className="text-sm text-ink-soft">Incluye lo que se pierde al pelar o limpiar, con una merma estimada.</p>
       )}

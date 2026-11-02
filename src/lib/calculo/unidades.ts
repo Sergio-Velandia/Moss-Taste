@@ -39,6 +39,11 @@ function desdeGramos(gramos: number, dimension: Dimension, { densidad, gramosPor
   return gramosPorUnidad ? gramos / gramosPorUnidad : null
 }
 
+/** true si convertir de `desde` a `a` pasa por una densidad o un peso por unidad: el resultado es aproximado. */
+export function esConversionEstimada(desde: Unidad, a: UnidadBase): boolean {
+  return EQUIVALENCIAS[desde].dimension !== DIMENSION_BASE[a]
+}
+
 /**
  * Convierte `cantidad` de `desde` a la unidad base del catálogo (`a`).
  * Dentro de la misma dimensión siempre se puede; entre dimensiones pasa por gramos usando
