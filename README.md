@@ -12,13 +12,14 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 1 · Estructura y diseño | Sistema visual, todas las pantallas navegables y el modo cocina, con **3 recetas y precios de ejemplo** | `0.1.0` |
 | 2 · Cerebro de cálculo | Porciones, unidades, merma y costo calculados de verdad, con pruebas | `0.2.0` |
 | 1.5 · Pulido del repo | Imagen para compartir, íconos, convenciones y plantilla de issues | `0.2.1` |
-| 3 · Recetas de la casa | Ajiaco santafereño, changua y arroz con leche, con ilustraciones y el catálogo real (precios en cotización) | `0.3.0` |
+| 3 · Recetas de la casa | Ajiaco santafereño, changua y arroz con leche, con ilustraciones y el catálogo real | `0.3.0` |
+| 3 · Precios | Precios cotizados del catálogo | `0.3.1` |
 
 Lo que todavía no funciona (exportar, agregar recetas a la lista, cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
-- Cocinar las primeras recetas de la casa: ajiaco santafereño, changua y arroz con leche. Los precios del catálogo se están cotizando: mientras tanto la ficha dice «Sin precio» y el costo aparece como pendiente, pero las cantidades sí se calculan.
+- Cocinar las primeras recetas de la casa: ajiaco santafereño, changua y arroz con leche, con su costo estimado al 2 de noviembre de 2026.
 
 - Buscar recetas por nombre o ingrediente y filtrarlas por categoría y presupuesto por porción. Los filtros quedan en la URL.
 - Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.

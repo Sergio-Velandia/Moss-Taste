@@ -46,6 +46,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-02 | Opcionales suman al costo y se marcan en la fila, el precio y la tirilla; de las alternativas solo cuenta la principal | No inflar el costo y poder restar lo opcional de un vistazo |
 | 2026-11-02 | Imágenes: ilustraciones SVG generadas por Claude (IA) en estilo común; se pueden reemplazar por fotos de Gemini sin tocar código | El SVG fuente queda en el repo y la imagen se regenera exacta; siempre se etiquetan como IA |
 | 2026-11-02 | Un precio puede quedar en null mientras se cotiza: la ficha dice «Sin precio» y el costo «Pendiente», y el filtro de presupuesto no la deja pasar | Nunca asumir cero |
+| 2026-11-02 | Precio del catálogo = punto medio del rango cotizado | El sitio ya muestra ±10 %, que cubre la mayor parte del rango |
 | — | Licencia | Se decide en la Fase Legal |
 | — | Librería de Excel | Se decide en la Fase 4, verificando mantenimiento y licencia (no `xlsx` sin comprobarlo) |
 
@@ -79,7 +80,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 1 | Estructura y diseño con datos de ejemplo | `0.1.0` | hecha y publicada |
 | 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha y publicada |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
-| 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` | hecha y publicada (precios pendientes) |
+| 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` y `0.3.1` (precios) | hecha (0.3.1 falta push y tag) |
 | 4 | Exportar y lista de compras | `0.4.0` | pendiente |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |
 | 6 | Login, favoritos, notas y recetas personales | `0.6.0` | pendiente |

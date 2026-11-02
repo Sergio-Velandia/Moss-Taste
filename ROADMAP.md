@@ -29,7 +29,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Imágenes de respaldo por categoría y validación que exige imagen, miniatura y texto alternativo.
 - [x] Opcionales, alternativas y valores estimados visibles en la ficha; notas de la casa.
 - [x] Prerenderizado de `/recetas/:slug` (indexable) y `/recetas/:slug/cocinar` (con `noindex`), con imagen para compartir propia.
-- [ ] **Precios reales con fecha** en `src/data/ingredientes.json` (hoy en `null`; la ficha dice «Sin precio» y el costo «Pendiente»). La 0.3.0 salió sin ellos por decisión del dueño; llegan en una versión PATCH. Confirmar también los empaques supuestos: manojo de cebolla larga de 8 tallos, paquete de 10 calados, sobre de 3 astillas de canela y frasco de 50 g de canela en polvo.
+- [x] Precios cotizados con fecha (0.3.1): punto medio de cada rango que cotizó el dueño, mostrado con ±10 %. Empaques confirmados; la canela en polvo es de 40 g.
 - [x] README, CHANGELOG, versión 0.3.0 y push.
 - [ ] Opcional: reemplazar las ilustraciones por fotos de Gemini con el prompt de `docs/prompt-imagenes.md`.
 
