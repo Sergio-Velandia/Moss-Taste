@@ -39,6 +39,30 @@ describe('datos del recetario', () => {
     }
   })
 
+  // Archivos de imagen presentes en cada carpeta de receta (solo se mira que existan).
+  const imagenes = new Set(Object.keys(import.meta.glob('/src/data/recetas/*/{imagen,miniatura}.webp')))
+  const tieneImagenes = (slug: string) =>
+    imagenes.has(`/src/data/recetas/${slug}/imagen.webp`) && imagenes.has(`/src/data/recetas/${slug}/miniatura.webp`)
+
+  it('cada receta real tiene imagen, miniatura y texto alternativo', () => {
+    const faltan = RECETAS.filter((r) => !r.ejemplo && (!tieneImagenes(r.id) || !r.imagenAlt)).map(
+      (r) => `recetas/${r.id}: falta imagen.webp, miniatura.webp (npm run imagenes) o imagenAlt en receta.json`,
+    )
+    expect(faltan).toEqual([])
+  })
+
+  it('una receta con imagen describe la imagen', () => {
+    expect(RECETAS.filter((r) => tieneImagenes(r.id) && !r.imagenAlt).map((r) => `recetas/${r.id}: falta imagenAlt`)).toEqual([])
+  })
+
+  it('cada categoría con recetas reales tiene imagen de respaldo con imagen propia', () => {
+    const conReales = new Set(RECETAS.filter((r) => !r.ejemplo).map((r) => r.categoria))
+    const faltan = CATEGORIAS.filter((c) => conReales.has(c.id) && !(c.imagenRespaldo && tieneImagenes(c.imagenRespaldo))).map(
+      (c) => `categorias.json → ${c.id}: imagenRespaldo debe ser el slug de una receta con imagen`,
+    )
+    expect(faltan).toEqual([])
+  })
+
   it('cada categoría tiene al menos una receta', () => {
     for (const { id } of CATEGORIAS) expect(RECETAS.some((r) => r.categoria === id), `categoría «${id}» sin recetas`).toBe(true)
   })
