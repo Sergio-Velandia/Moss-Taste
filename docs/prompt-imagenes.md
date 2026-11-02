@@ -1,8 +1,12 @@
 # Imágenes de las recetas
 
-Las imágenes de las recetas se generan con Gemini usando el mismo prompt base, para que todas tengan el mismo estilo y se puedan rehacer. Son **ilustrativas**: pueden no coincidir con el plato real, y el sitio lo dice debajo de cada una («Imagen ilustrativa generada con IA»).
+Las imágenes de las recetas son generadas con IA y siguen un mismo estilo, para que se vean como una familia y se puedan rehacer. Son **ilustrativas**: pueden no coincidir con el plato real, y el sitio lo dice debajo de cada una («Imagen ilustrativa generada con IA»).
 
-## Prompt base
+## Imágenes actuales
+
+Las tres primeras recetas usan **ilustraciones vectoriales** dibujadas por Claude (IA) con el mismo estilo: vista cenital, mesa de madera clara, loza blanca y servilleta berenjena. La fuente de cada una es `src/data/recetas/<slug>/ilustracion.svg`, que se sube al repo; `npm run imagenes` la convierte en `imagen.webp` y `miniatura.webp`. Se pueden reemplazar por fotos de Gemini con el prompt de abajo, sin tocar código: un `original.png` en la carpeta gana sobre el SVG.
+
+## Prompt base (para fotos con Gemini)
 
 ```
 Fotografía cenital de <plato> servido en loza blanca sencilla, sobre una mesa de madera clara.
