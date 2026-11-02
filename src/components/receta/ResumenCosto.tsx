@@ -26,6 +26,9 @@ export function ResumenCosto({ costo, porciones, ejemplo }: Props) {
           {ejemplo && ', con precios de ejemplo'}.
         </p>
       )}
+      {costo.lineas.some((l) => l.compra !== null && (l.ingrediente?.merma ?? 0) > 0) && (
+        <p className="text-sm text-ink-soft">Incluye lo que se pierde al pelar o limpiar, con una merma estimada.</p>
+      )}
       {costo.sinPrecio.length > 0 && (
         <p className="text-sm text-ink-soft">Sin precio, no suman al total: {costo.sinPrecio.join(', ')}.</p>
       )}

@@ -57,7 +57,7 @@ describe('modo lectura', () => {
 
   it('muestra cuánto comprar cuando hay merma', async () => {
     await visitar('/recetas/ajiaco-santafereno')
-    expect(screen.getByText('Compra 890 g')).toBeTruthy()
+    expect(screen.getByText('Compra aprox. 890 g')).toBeTruthy()
   })
 
   it('una receta que no existe muestra la 404', async () => {

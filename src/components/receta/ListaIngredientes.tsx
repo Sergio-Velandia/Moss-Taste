@@ -9,7 +9,7 @@ const SIN_PRECIO: Record<MotivoSinPrecio, string> = {
 }
 
 // Ingredientes como una carta: nombre, puntos guía, cantidad y precio alineados a la derecha.
-// Si al limpiar o pelar se pierde algo (merma), dice cuánto hay que comprar.
+// Si al limpiar o pelar se pierde algo (merma), dice cuánto hay que comprar; es aproximado porque la merma es estimada.
 export function ListaIngredientes({ lineas }: { lineas: LineaCalculada[] }) {
   return (
     <ul className="grid">
@@ -25,7 +25,7 @@ export function ListaIngredientes({ lineas }: { lineas: LineaCalculada[] }) {
               {item.ajustarAlGusto && <span className="rounded-full bg-accent-soft px-2 py-0.5 font-bold text-ink">Al gusto</span>}
               {ingrediente && compra !== null && ingrediente.merma > 0 && (
                 <span className="tabular-nums">
-                  Compra {formatoCantidad({ cantidad: compra, unidad: ingrediente.unidadBase }, ingrediente)}
+                  Compra aprox. {formatoCantidad({ cantidad: compra, unidad: ingrediente.unidadBase }, ingrediente)}
                 </span>
               )}
               {item.nota && <span>{item.nota}</span>}

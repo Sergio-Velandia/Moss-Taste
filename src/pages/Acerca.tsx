@@ -34,7 +34,8 @@ export function Acerca() {
         <p>
           Cada ingrediente tiene un precio en pesos colombianos y la fecha de ese precio. Al elegir las porciones, la receta escala las
           cantidades, convierte tazas, cucharadas y libras a la unidad en que se vende cada ingrediente, y suma lo que se pierde al
-          limpiar o pelar: el costo es el de lo que se compra, no solo el de lo que se usa.
+          limpiar o pelar: el costo es el de lo que se compra, no solo el de lo que se usa. Esa pérdida (la merma) y lo que pesa
+          una taza de cada ingrediente son estimados de cocina, así que las cantidades a comprar son aproximadas.
         </p>
         <p>
           El resultado se muestra con un rango de más o menos 10 %, porque los precios cambian según el lugar y la semana, y siempre
