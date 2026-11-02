@@ -1,19 +1,20 @@
 /**
  * Optimiza las imágenes de las recetas: `npm run imagenes`.
  *
- * Pon la imagen que entrega el generador (PNG, JPG o WebP) en la carpeta de la receta con el nombre
- * `original.<ext>`. Este script crea a su lado:
+ * Fuente de cada receta, en su carpeta (gana la primera que exista):
+ *   - original.png | .jpg | .jpeg | .webp  la imagen que entrega el generador (no se sube al repo: pesa mucho)
+ *   - ilustracion.svg                      una ilustración vectorial (sí se sube: es liviana y se regenera exacta)
+ * Este script crea a su lado:
  *   - imagen.webp     lado mayor de 1600 px, para la portada de la ficha
  *   - miniatura.webp  400 px de ancho, para las tarjetas
- * Los originales no se suben al repo (.gitignore): pesan mucho y se pueden regenerar con el prompt
- * de docs/prompt-imagenes.md. Solo se regeneran las imágenes cuyo original es más nuevo.
+ * Solo se regeneran las imágenes cuya fuente es más nueva. Ver docs/prompt-imagenes.md.
  */
 import { existsSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import sharp from 'sharp'
 
 const RECETAS = join(import.meta.dirname, '..', 'src', 'data', 'recetas')
-const EXTENSIONES = ['png', 'jpg', 'jpeg', 'webp']
+const FUENTES = ['original.png', 'original.jpg', 'original.jpeg', 'original.webp', 'ilustracion.svg']
 
 const kb = (ruta: string) => `${Math.round(statSync(ruta).size / 1024)} KB`
 const masNuevo = (fuente: string, destino: string) => !existsSync(destino) || statSync(fuente).mtimeMs > statSync(destino).mtimeMs
@@ -21,7 +22,7 @@ const masNuevo = (fuente: string, destino: string) => !existsSync(destino) || st
 let procesadas = 0
 for (const slug of readdirSync(RECETAS, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)) {
   const carpeta = join(RECETAS, slug)
-  const original = EXTENSIONES.map((ext) => join(carpeta, `original.${ext}`)).find(existsSync)
+  const original = FUENTES.map((nombre) => join(carpeta, nombre)).find(existsSync)
   if (!original) continue
 
   const imagen = join(carpeta, 'imagen.webp')
@@ -35,4 +36,4 @@ for (const slug of readdirSync(RECETAS, { withFileTypes: true }).filter((d) => d
   procesadas++
 }
 
-console.log(procesadas ? `Listo: ${procesadas} receta(s) actualizada(s).` : 'Nada que actualizar: no hay originales nuevos. Pon un original.png o original.jpg en la carpeta de la receta.')
+console.log(procesadas ? `Listo: ${procesadas} receta(s) actualizada(s).` : 'Nada que actualizar: no hay fuentes nuevas (original.png, original.jpg o ilustracion.svg).')
