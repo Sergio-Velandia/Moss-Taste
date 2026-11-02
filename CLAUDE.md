@@ -42,6 +42,10 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-10-27 | Los ingredientes «al gusto» escalan como referencia y conservan la marca | Que la familia vea una cantidad orientativa y ajuste |
 | 2026-10-27 | El costo es el de lo que se **compra** (uso + merma) | Es lo que sale del bolsillo |
 | 2026-10-27 | Dinero: cada línea se redondea al peso y el total es la suma de las líneas; las cantidades se redondean solo para mostrar | Que lo que se ve cuadre; el costo usa la cantidad exacta |
+| 2026-11-02 | Recetas: las cantidades son lo que va a la olla; la merma dice cuánto comprar. El pollo con hueso lleva merma 0 porque el hueso va al caldo. Lo que se cuenta por unidades lleva merma 0 | Lo acordó el dueño al revisar las recetas |
+| 2026-11-02 | Opcionales suman al costo y se marcan en la fila, el precio y la tirilla; de las alternativas solo cuenta la principal | No inflar el costo y poder restar lo opcional de un vistazo |
+| 2026-11-02 | Imágenes: ilustraciones SVG generadas por Claude (IA) en estilo común; se pueden reemplazar por fotos de Gemini sin tocar código | El SVG fuente queda en el repo y la imagen se regenera exacta; siempre se etiquetan como IA |
+| 2026-11-02 | Un precio puede quedar en null mientras se cotiza: la ficha dice «Sin precio» y el costo «Pendiente», y el filtro de presupuesto no la deja pasar | Nunca asumir cero |
 | — | Licencia | Se decide en la Fase Legal |
 | — | Librería de Excel | Se decide en la Fase 4, verificando mantenimiento y licencia (no `xlsx` sin comprobarlo) |
 
@@ -101,6 +105,7 @@ Se completa a medida que se construye.
 index.html              metadatos base, script que aplica el tema antes de pintar, precarga de fuentes
 public/                 favicon.svg, site.webmanifest, og-imagen.png (para compartir), apple-touch-icon.png, icono-192/512.png
 docs/imagenes.md        cómo se generaron las imágenes del sitio
+docs/prompt-imagenes.md prompt base, flujo de las imágenes de recetas y revisión de los términos de Google
 scripts/
 └─ paginasEstaticas.ts  plugin de Vite: index.html por ruta fija, 404.html y sitemap.xml
 .github/
@@ -121,24 +126,28 @@ src/
 ├─ components/
 │  ├─ EncabezadoPagina.tsx  h1 + entrada de una página fija, con sus metadatos
 │  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, GrupoChips, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
-├─ components/receta/   TarjetaReceta, IlustracionCategoria, MetaReceta, SelectorPorciones, ListaIngredientes,
-│                       ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
+├─ components/receta/   TarjetaReceta, ImagenReceta (imagen + aviso de IA + respaldo), IlustracionCategoria, MetaReceta,
+│                       SelectorPorciones, ListaIngredientes, ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
 ├─ data/
-│  ├─ recetas/<slug>/receta.json   una carpeta por receta (hoy: 3 de ejemplo)
+│  ├─ recetas/<slug>/      receta.json + ilustracion.svg (o original.png sin subir) → imagen.webp y miniatura.webp
 │  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma, densidad y gramosPorUnidad
 │  └─ categorias.json
 ├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador y BotonPantalla (visuales),
 │                       usePantallaEncendida (gancho pendiente de la fase funcional)
 ├─ pages/               una por ruta
 ├─ lib/
-│  ├─ recetas/          tipos, validar (propia, sin dependencias), catalogo (carga con import.meta.glob),
+│  ├─ recetas/          tipos, validar (propia, sin dependencias), crearCatalogo (validación + imágenes, reutilizable),
+│  │                    catalogo (datos reales con import.meta.glob),
 │  │                    filtrar (filtros de la galería ⇄ URL), hoy (sugerencias), lista (suma de compras),
 │  │                    porciones (?porciones= en la URL)
 │  ├─ calculo/          CEREBRO DE CÁLCULO, puro y sin React: unidades, escalar, merma, costo, redondeo
 │  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
 │  ├─ validarFormularios.ts  contacto y acceso
 │  └─ clases.ts, useMetadatos.ts
-├─ test/configuracion.ts     espera de hasta 5 s para las cargas bajo demanda en las pruebas
+├─ test/
+│  ├─ configuracion.ts  espera de hasta 10 s para las cargas bajo demanda en las pruebas
+│  ├─ datos/            recetas, ingredientes y categorías ficticios y fijos para las pruebas
+│  └─ catalogoPrueba.ts catálogo de prueba; las pruebas de pantallas lo usan con vi.mock('@/lib/recetas/catalogo', …)
 ├─ assets/fonts/        .woff2 (subconjunto latino) + licencias OFL
 └─ styles/
    ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
@@ -149,7 +158,7 @@ src/
 
 - Lo que todavía no funciona (exportar, cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
 - **Cálculo:** todo pasa por `calcularReceta(receta, porciones, catalogo)` en `src/lib/calculo/costo.ts`. Si una línea no se puede calcular, trae `motivo` (`sin-ingrediente`, `sin-precio`, `sin-conversion`) y no suma al total. Para mostrar cantidades se usa `formatoCantidad`, que aplica el redondeo de cocina.
-- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`. Una prueba falla si alguna línea queda sin precio calculable. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
+- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`. Una prueba falla si alguna medida no se puede convertir. La imagen: `ilustracion.svg` u `original.png` en la carpeta y `npm run imagenes` (ver `docs/prompt-imagenes.md`), más `imagenAlt` en el `receta.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
 - `tsconfig.test.json` cubre los `*.test.ts(x)` de `src/` con tipos de Node; `tsconfig.app.json` los excluye; `tsconfig.node.json` cubre `vite.config.ts` y `scripts/`.
