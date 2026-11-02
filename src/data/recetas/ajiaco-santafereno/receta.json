@@ -1,58 +1,79 @@
 {
   "id": "ajiaco-santafereno",
   "titulo": "Ajiaco santafereño",
-  "resumen": "Sopa espesa de tres papas con pollo, mazorca y guascas, servida con crema y alcaparras.",
+  "resumen": "Sopa espesa de tres papas con pollo, mazorca y guascas, servida con crema, alcaparras y aguacate.",
   "categoria": "sopas",
-  "porcionesBase": 4,
-  "tiempoMin": 100,
-  "ejemplo": true,
+  "porcionesBase": 6,
+  "tiempoMin": 80,
+  "imagenAlt": "Plato hondo de ajiaco con papa, mazorca, pollo desmenuzado y guascas; al lado, pocillos con crema, alcaparras y aguacate.",
   "ingredientes": [
-    { "ingrediente": "pechuga-pollo", "cantidad": 800, "unidad": "g" },
-    { "ingrediente": "papa-criolla", "cantidad": 1, "unidad": "libra" },
-    { "ingrediente": "papa-sabanera", "cantidad": 500, "unidad": "g" },
-    { "ingrediente": "papa-pastusa", "cantidad": 500, "unidad": "g" },
-    { "ingrediente": "mazorca", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "pechuga-pollo-hueso", "cantidad": 800, "unidad": "g", "nota": "el hueso va al caldo" },
+    { "ingrediente": "papa-pastusa", "cantidad": 500, "unidad": "g", "nota": "pelada" },
+    { "ingrediente": "papa-sabanera", "cantidad": 500, "unidad": "g", "nota": "pelada" },
+    { "ingrediente": "papa-criolla", "cantidad": 500, "unidad": "g", "nota": "pelada; es la que espesa" },
+    { "ingrediente": "mazorca", "cantidad": 3, "unidad": "unidad", "nota": "en trozos" },
+    { "ingrediente": "guascas", "cantidad": 15, "unidad": "g" },
     { "ingrediente": "cebolla-larga", "cantidad": 2, "unidad": "unidad" },
     { "ingrediente": "ajo", "cantidad": 3, "unidad": "unidad" },
-    { "ingrediente": "guascas", "cantidad": 1, "unidad": "unidad", "ajustarAlGusto": true },
-    { "ingrediente": "sal", "cantidad": 10, "unidad": "g", "ajustarAlGusto": true },
+    { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "pequeño" },
+    { "ingrediente": "agua", "cantidad": 3, "unidad": "l" },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "cucharadita", "ajustarAlGusto": true },
     { "ingrediente": "crema-leche", "cantidad": 200, "unidad": "ml", "nota": "para servir" },
-    { "ingrediente": "alcaparras", "cantidad": 50, "unidad": "g", "ajustarAlGusto": true, "nota": "para servir" }
+    { "ingrediente": "alcaparras", "cantidad": 60, "unidad": "g", "nota": "para servir" },
+    { "ingrediente": "aguacate", "cantidad": 2, "unidad": "unidad", "nota": "para servir" }
   ],
   "miseEnPlace": [
-    "Pela la papa sabanera y la pastusa y córtalas en rodajas. La criolla va entera, solo lavada.",
-    "Parte cada mazorca en tres pedazos.",
-    "Machaca los dientes de ajo y amarra las cebollas largas para poder sacarlas del caldo.",
-    "Deja las guascas, la crema y las alcaparras a la mano para el final."
+    "Pela las tres papas y déjalas en agua para que no se oscurezcan.",
+    "Corta la pastusa y la sabanera en rodajas de un centímetro. La criolla déjala entera o partida por la mitad.",
+    "Parte cada mazorca en tres trozos.",
+    "Machaca los ajos y corta la cebolla larga en trozos grandes.",
+    "Sirve la crema, las alcaparras y el aguacate en pocillos aparte."
   ],
   "pasos": [
     {
-      "texto": "Pon el pollo en una olla grande con tres litros de agua, la cebolla, el ajo y la sal. Cocina a fuego medio hasta que el pollo esté tierno.",
-      "ingredientes": ["pechuga-pollo", "cebolla-larga", "ajo", "sal"],
-      "temporizadorMin": 35
+      "texto": "Pon el pollo en una olla grande con el agua, la cebolla larga, el ajo y una cucharadita de sal. Lleva a hervor y baja el fuego.",
+      "ingredientes": ["pechuga-pollo-hueso", "agua", "cebolla-larga", "ajo", "sal"]
     },
     {
-      "texto": "Saca el pollo, deja que se enfríe un poco y desmenúzalo. Retira la cebolla del caldo.",
-      "ingredientes": ["pechuga-pollo"]
-    },
-    {
-      "texto": "Agrega al caldo la papa sabanera, la pastusa y las mazorcas. Cocina hasta que las papas empiecen a deshacerse.",
-      "ingredientes": ["papa-sabanera", "papa-pastusa", "mazorca"],
+      "texto": "Cocina a fuego medio, retirando la espuma que sube al principio.",
       "temporizadorMin": 30
     },
     {
-      "texto": "Añade la papa criolla y revuelve de vez en cuando para que el caldo espese sin pegarse al fondo.",
+      "texto": "Saca el pollo, déjalo entibiar y desmenúzalo. Devuelve los huesos a la olla cinco minutos más y luego retíralos junto con la cebolla y el ajo.",
+      "ingredientes": ["pechuga-pollo-hueso"]
+    },
+    {
+      "texto": "Agrega la papa pastusa y la sabanera al caldo. Cocina hasta que estén blandas pero enteras.",
+      "ingredientes": ["papa-pastusa", "papa-sabanera"],
+      "temporizadorMin": 15
+    },
+    {
+      "texto": "Agrega la papa criolla y cocina a fuego medio hasta que se deshaga y el caldo espese. Revuelve de vez en cuando raspando el fondo.",
       "ingredientes": ["papa-criolla"],
       "temporizadorMin": 20
     },
     {
-      "texto": "Agrega las guascas y el pollo desmenuzado. Deja cinco minutos más y prueba la sal.",
-      "ingredientes": ["guascas", "pechuga-pollo", "sal"],
+      "texto": "Añade los trozos de mazorca y cocina unos minutos más.",
+      "ingredientes": ["mazorca"],
+      "temporizadorMin": 10
+    },
+    {
+      "texto": "Agrega las guascas, revuelve y deja al fuego apenas tres minutos: si se pasan, amargan.",
+      "ingredientes": ["guascas"],
+      "temporizadorMin": 3
+    },
+    {
+      "texto": "Devuelve el pollo desmenuzado, prueba y ajusta la sal. Apaga el fuego y deja reposar.",
+      "ingredientes": ["pechuga-pollo-hueso", "sal"],
       "temporizadorMin": 5
     },
     {
-      "texto": "Sirve caliente, con la crema y las alcaparras aparte para que cada quien ponga a su gusto.",
-      "ingredientes": ["crema-leche", "alcaparras"]
+      "texto": "Sirve bien caliente, con el cilantro picado por encima. Cada quien agrega a su plato la crema, las alcaparras y el aguacate.",
+      "ingredientes": ["cilantro", "crema-leche", "alcaparras", "aguacate"]
     }
+  ],
+  "notas": [
+    "Las tres papas cumplen papeles distintos: la criolla espesa, la pastusa da cuerpo y la sabanera se mantiene entera. Por eso no se reemplazan entre sí.",
+    "Si el caldo queda muy espeso, se corrige con agua caliente, nunca fría."
   ]
 }
