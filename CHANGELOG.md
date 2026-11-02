@@ -4,6 +4,28 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.3.0] - 2026-11-02
+
+Las primeras recetas de la casa, con el catálogo real.
+
+### Añadido
+
+- Tres recetas de la casa: ajiaco santafereño, changua y arroz con leche, con sus pasos, temporizadores y notas de la casa.
+- Ilustraciones de cada receta, generadas con IA y etiquetadas así en la ficha y en las tarjetas. Cada categoría tiene una imagen de respaldo para las recetas que todavía no tienen la suya.
+- Catálogo real de ingredientes con sus empaques, mermas y densidades aproximadas. Los precios se están cotizando: mientras tanto la ficha dice «Sin precio» y el costo aparece como pendiente.
+- Ingredientes opcionales, marcados en la fila, en su precio y en el costo total; y alternativas («o pan tostado») que no se suman.
+- Los valores estimados se ven en la ficha: el peso aproximado de una medida («≈ 15 g») y la merma con que se calcula la compra.
+- Cada receta tiene su propia página para buscadores y su imagen para compartir.
+
+### Cambiado
+
+- El agua y la sal no se cuentan en el costo.
+- Al filtrar por presupuesto, una receta sin precios no aparece como si costara cero.
+
+### Eliminado
+
+- Las recetas y los precios de ejemplo.
+
 ## [0.2.1] - 2026-10-27
 
 Pulido del repo (Fase 1.5) y ajustes al cálculo de porciones.
@@ -59,7 +81,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Sergio-Velandia/Moss-Taste/releases/tag/v0.1.0
