@@ -1,5 +1,5 @@
 [
   { "id": "sopas", "nombre": "Sopas", "descripcion": "Sopas y caldos para el almuerzo.", "imagenRespaldo": "ajiaco-santafereno" },
   { "id": "desayunos", "nombre": "Desayunos", "descripcion": "Changua, huevos y lo que se come temprano.", "imagenRespaldo": "changua" },
-  { "id": "postres", "nombre": "Postres", "descripcion": "Dulces para después de comer o para el algo." }
+  { "id": "postres", "nombre": "Postres", "descripcion": "Dulces para después de comer o para el algo.", "imagenRespaldo": "arroz-con-leche" }
 ]
