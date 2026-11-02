@@ -4,7 +4,7 @@ import { INGREDIENTES } from '@/lib/recetas/catalogo'
 import { calcularReceta } from '@/lib/calculo/costo'
 import type { Receta } from '@/lib/recetas/tipos'
 import { AvisoEjemplo } from './AvisoEjemplo'
-import { IlustracionCategoria } from './IlustracionCategoria'
+import { ImagenReceta } from './ImagenReceta'
 import { MetaReceta } from './MetaReceta'
 
 // Toda la tarjeta es clicable por el enlace del título (se estira con ::after), así hay un solo
@@ -13,7 +13,7 @@ export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta
   const costo = calcularReceta(receta, receta.porcionesBase, INGREDIENTES)
   return (
     <article className="relative grid grid-rows-[auto_1fr] overflow-hidden rounded-lg border border-line bg-surface hover:border-accent has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent">
-      <IlustracionCategoria categoria={receta.categoria} className="aspect-[4/3]" />
+      <ImagenReceta receta={receta} variante="tarjeta" />
       <div className="grid content-start gap-3 p-5">
         {receta.ejemplo && <AvisoEjemplo />}
         <Titulo className="text-2xl">

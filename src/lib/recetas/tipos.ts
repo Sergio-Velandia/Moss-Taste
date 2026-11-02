@@ -34,6 +34,8 @@ export interface Categoria {
   id: string
   nombre: string
   descripcion: string
+  /** Slug de la receta cuya imagen representa la categoría en las recetas que no tienen foto. */
+  imagenRespaldo?: string
 }
 
 export interface IngredienteReceta {
@@ -62,6 +64,8 @@ export interface Receta {
   ingredientes: IngredienteReceta[]
   miseEnPlace: string[]
   pasos: Paso[]
+  /** Descripción de imagen.webp para quien no la ve. Obligatoria si la receta tiene imagen. */
+  imagenAlt?: string
   /** Consejos de la casa: por qué se hace así, cómo corregir si algo sale distinto. */
   notas?: string[]
   /** Receta ficticia de la Fase 1: se marca visiblemente como ejemplo. */

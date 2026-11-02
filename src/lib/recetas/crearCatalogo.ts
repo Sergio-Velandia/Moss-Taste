@@ -10,6 +10,21 @@ export interface DatosCrudos {
   recetas: Record<string, unknown>
   ingredientes: unknown
   categorias: unknown
+  /** URLs de imagen.webp y miniatura.webp por slug. */
+  imagenes?: Record<string, ArchivosImagen>
+}
+
+export interface ArchivosImagen {
+  imagen?: string
+  miniatura?: string
+}
+
+export interface ImagenReceta {
+  imagen: string
+  miniatura: string
+  alt: string
+  /** false si es la imagen de respaldo de la categoría, no la del plato. */
+  propia: boolean
 }
 
 export interface Catalogo {
@@ -22,6 +37,8 @@ export interface Catalogo {
   recetaPorSlug: (slug: string) => Receta | undefined
   categoria: (id: string) => Categoria | undefined
   ingrediente: (id: string) => Ingrediente | undefined
+  /** La imagen de la receta; si no tiene, la de respaldo de su categoría; si tampoco, null. */
+  imagenDe: (receta: Receta) => ImagenReceta | null
 }
 
 /** { '/src/data/recetas/ajiaco/receta.json': {...} } → { ajiaco: {...} } */
@@ -29,7 +46,19 @@ export function porCarpeta<T>(archivos: Record<string, T>): Record<string, T> {
   return Object.fromEntries(Object.entries(archivos).map(([ruta, valor]) => [ruta.split('/').at(-2) ?? ruta, valor]))
 }
 
-export function crearCatalogo({ recetas, ingredientes, categorias }: DatosCrudos): Catalogo {
+function completa(archivos: ArchivosImagen | undefined): { imagen: string; miniatura: string } | null {
+  return archivos?.imagen && archivos.miniatura ? { imagen: archivos.imagen, miniatura: archivos.miniatura } : null
+}
+
+/** Junta las URLs de imagen.webp y miniatura.webp de cada carpeta. */
+export function juntarImagenes(imagen: Record<string, string>, miniatura: Record<string, string>): Record<string, ArchivosImagen> {
+  const res: Record<string, ArchivosImagen> = {}
+  for (const [slug, url] of Object.entries(porCarpeta(imagen))) res[slug] = { ...res[slug], imagen: url }
+  for (const [slug, url] of Object.entries(porCarpeta(miniatura))) res[slug] = { ...res[slug], miniatura: url }
+  return res
+}
+
+export function crearCatalogo({ recetas, ingredientes, categorias, imagenes = {} }: DatosCrudos): Catalogo {
   const resIngredientes = validarIngredientes(ingredientes)
   const resCategorias = validarCategorias(categorias)
   const errores = [...resIngredientes.errores, ...resCategorias.errores]
@@ -55,5 +84,13 @@ export function crearCatalogo({ recetas, ingredientes, categorias }: DatosCrudos
     recetaPorSlug: (slug) => RECETAS.find((r) => r.id === slug),
     categoria: (id) => CATEGORIAS.find((c) => c.id === id),
     ingrediente: (id) => INGREDIENTES.get(id),
+    imagenDe: (receta) => {
+      const propia = completa(imagenes[receta.id])
+      if (propia) return { ...propia, alt: receta.imagenAlt ?? '', propia: true }
+      const slug = CATEGORIAS.find((c) => c.id === receta.categoria)?.imagenRespaldo
+      const respaldo = slug ? completa(imagenes[slug]) : null
+      // La de respaldo muestra otro plato: es decorativa, sin texto alternativo.
+      return respaldo ? { ...respaldo, alt: '', propia: false } : null
+    },
   }
 }

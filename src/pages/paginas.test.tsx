@@ -33,6 +33,23 @@ describe('modo lectura', () => {
     await waitFor(() => expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex'))
   })
 
+  it('muestra la imagen del plato con su texto alternativo y el aviso de IA', async () => {
+    await visitar('/recetas/ajiaco-santafereno')
+    expect(screen.getByRole('img', { name: 'Plato hondo de ajiaco con mazorca, crema y alcaparras al lado.' })).toBeTruthy()
+    expect(screen.getByText('Imagen ilustrativa generada con IA.')).toBeTruthy()
+  })
+
+  it('sin imagen propia usa la de su categoría, decorativa y avisada', async () => {
+    await visitar('/recetas/arroz-con-leche')
+    expect(screen.getByText('Imagen de postres, ilustrativa y generada con IA.')).toBeTruthy()
+    expect(document.querySelector('figure img')?.getAttribute('alt')).toBe('')
+  })
+
+  it('sin imagen ni respaldo muestra la ilustración de la categoría', async () => {
+    await visitar('/recetas/arepas-de-queso')
+    expect(document.querySelector('figure')).toBeNull()
+  })
+
   it('muestra las notas de la casa', async () => {
     await visitar('/recetas/arroz-con-leche')
     expect(screen.getByRole('heading', { name: 'Notas de la casa' })).toBeTruthy()

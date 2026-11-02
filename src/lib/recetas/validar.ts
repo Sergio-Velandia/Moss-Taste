@@ -67,6 +67,8 @@ export function validarCategorias(datos: unknown, archivo = 'categorias.json'): 
     else vistos.add(d.id)
     if (!esTexto(d.nombre, 40)) errores.push(`${donde}.nombre: texto de 1 a 40 caracteres`)
     if (!esTexto(d.descripcion, 160)) errores.push(`${donde}.descripcion: texto de 1 a 160 caracteres`)
+    if (d.imagenRespaldo !== undefined && (typeof d.imagenRespaldo !== 'string' || !ID.test(d.imagenRespaldo)))
+      errores.push(`${donde}.imagenRespaldo: el slug de una receta`)
     return undefined
   })
   return errores.length ? { errores } : { valor: datos as Categoria[], errores }
@@ -112,6 +114,7 @@ export function validarReceta(
 
   if (!Array.isArray(d.miseEnPlace) || d.miseEnPlace.some((m) => !esTexto(m, 300))) e('miseEnPlace', 'lista de textos de 1 a 300 caracteres')
 
+  if (d.imagenAlt !== undefined && !esTexto(d.imagenAlt, 200)) e('imagenAlt', 'texto de 1 a 200 caracteres que describa la imagen')
   if (d.notas !== undefined && (!Array.isArray(d.notas) || d.notas.some((n) => !esTexto(n, 400)))) e('notas', 'lista de textos de 1 a 400 caracteres')
 
   if (!Array.isArray(d.pasos) || d.pasos.length === 0) e('pasos', 'lista con al menos un paso')

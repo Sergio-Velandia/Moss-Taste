@@ -6,6 +6,7 @@
   "porcionesBase": 4,
   "tiempoMin": 100,
   "ejemplo": true,
+  "imagenAlt": "Plato hondo de ajiaco con mazorca, crema y alcaparras al lado.",
   "ingredientes": [
     { "ingrediente": "pechuga-pollo", "cantidad": 800, "unidad": "g" },
     { "ingrediente": "papa-criolla", "cantidad": 1, "unidad": "libra" },

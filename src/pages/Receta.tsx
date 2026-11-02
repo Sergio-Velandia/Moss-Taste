@@ -2,7 +2,7 @@ import { ChefHat, ChevronLeft, Download } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
-import { IlustracionCategoria } from '@/components/receta/IlustracionCategoria'
+import { ImagenReceta } from '@/components/receta/ImagenReceta'
 import { ListaIngredientes } from '@/components/receta/ListaIngredientes'
 import { MetaReceta } from '@/components/receta/MetaReceta'
 import { MiseEnPlace } from '@/components/receta/MiseEnPlace'
@@ -72,7 +72,7 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
           </div>
           <AvisoEnVivo mensaje={aviso} />
         </div>
-        <IlustracionCategoria categoria={receta.categoria} className="aspect-video rounded-xl sm:aspect-[4/3] print:hidden" />
+        <ImagenReceta receta={receta} variante="portada" className="print:hidden" />
       </header>
 
       <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
