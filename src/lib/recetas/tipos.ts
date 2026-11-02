@@ -25,6 +25,11 @@ export interface Ingrediente {
   gramosPorUnidad?: number
   /** Cómo se dice «unidad» para este ingrediente en una receta: { singular: 'diente', plural: 'dientes' }. */
   unidadNombre?: { singular: string; plural: string }
+  /**
+   * Se vende en empaques de `porCantidad` (un sobre de 15 g, una caja de 200 ml). Sin esto, se vende suelto:
+   * por peso o por unidad, y se paga lo que se compra.
+   */
+  empaque?: { singular: string; plural: string }
   /** El agua de la llave o la sal: se usan pero no se cuentan en el costo. Su precio va en null. */
   noSeCostea?: boolean
   ejemplo?: boolean

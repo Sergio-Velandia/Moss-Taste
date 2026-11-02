@@ -1,4 +1,5 @@
 import { calcularReceta, costoDe } from '@/lib/calculo/costo'
+import { compraEnTienda, type Compra } from '@/lib/calculo/empaques'
 import type { Ingrediente, Receta, Unidad } from './tipos'
 
 /*
@@ -22,8 +23,19 @@ export interface ItemLista {
   unidad: Unidad
   /** Títulos de las recetas que lo piden. */
   recetas: string[]
-  /** COP entero, o null si no se puede calcular. */
+  /** Costo proporcional a lo que se compra (con merma), COP entero; null si no se puede calcular. */
   subtotal: number | null
+  /** Cómo se compra en la tienda y cuánto se paga en caja; null si la cantidad no se pudo convertir. */
+  tienda: Compra | null
+}
+
+export interface TotalesLista {
+  /** Lo que cuestan las recetas: proporcional a lo que se usa. */
+  proporcional: number
+  /** Lo que se paga hoy en caja comprando empaques completos. */
+  caja: number
+  /** Nombres sin precio: no suman a ninguno de los dos totales. */
+  sinPrecio: string[]
 }
 
 export function sumarLista(entradas: readonly EntradaLista[], catalogo: ReadonlyMap<string, Ingrediente>): ItemLista[] {
@@ -40,7 +52,7 @@ export function sumarLista(entradas: readonly EntradaLista[], catalogo: Readonly
         existente.cantidad += cantidad
         if (!existente.recetas.includes(receta.titulo)) existente.recetas.push(receta.titulo)
       } else {
-        items.set(clave, { clave, ingrediente: linea.ingrediente, idIngrediente: id, cantidad, unidad, recetas: [receta.titulo], subtotal: null })
+        items.set(clave, { clave, ingrediente: linea.ingrediente, idIngrediente: id, cantidad, unidad, recetas: [receta.titulo], subtotal: null, tienda: null })
       }
     }
   }
@@ -49,6 +61,16 @@ export function sumarLista(entradas: readonly EntradaLista[], catalogo: Readonly
       ...item,
       // El precio se calcula sobre el total a comprar, no sumando líneas redondeadas.
       subtotal: item.ingrediente && !item.clave.includes(':') ? costoDe(item.ingrediente, item.cantidad) : null,
+      tienda: item.ingrediente && !item.clave.includes(':') ? compraEnTienda(item.ingrediente, item.cantidad) : null,
     }))
     .sort((a, b) => (a.ingrediente?.nombre ?? a.idIngrediente).localeCompare(b.ingrediente?.nombre ?? b.idIngrediente, 'es'))
+}
+
+export function totalesLista(items: readonly ItemLista[]): TotalesLista {
+  const costeables = items.filter((i) => !i.ingrediente?.noSeCostea)
+  return {
+    proporcional: costeables.reduce((s, i) => s + (i.subtotal ?? 0), 0),
+    caja: costeables.reduce((s, i) => s + (i.tienda?.costoCaja ?? 0), 0),
+    sinPrecio: costeables.filter((i) => i.subtotal === null).map((i) => i.ingrediente?.nombre ?? i.idIngrediente),
+  }
 }

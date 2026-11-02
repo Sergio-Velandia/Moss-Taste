@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { INGREDIENTES, recetaPorSlug, RECETAS } from '@/test/catalogoPrueba'
 import { sugerirRecetas } from './recetas/hoy'
-import { sumarLista } from './recetas/lista'
+import { sumarLista, totalesLista } from './recetas/lista'
 import type { Receta } from './recetas/tipos'
 import { validarAcceso, validarContacto, validarCorreo, type DatosContacto } from './validarFormularios'
 
@@ -56,6 +56,16 @@ describe('sumarLista', () => {
     expect(pollo?.unidad).toBe('g')
     expect(pollo?.cantidad).toBeCloseTo(1777.78, 2)
     expect(pollo?.subtotal).toBe(32000)
+  })
+
+  it('separa lo que cuesta la receta de lo que se paga en caja', () => {
+    const arroz = recetaPorSlug('arroz-con-leche')
+    if (!arroz) throw new Error('falta el arroz de prueba')
+    const items = sumarLista([{ receta: arroz, porciones: arroz.porcionesBase }], INGREDIENTES)
+    const totales = totalesLista(items)
+    expect(totales.caja).toBeGreaterThanOrEqual(totales.proporcional)
+    expect(totales.proporcional).toBe(items.reduce((s, i) => s + (i.subtotal ?? 0), 0))
+    expect(items.every((i) => i.tienda !== null)).toBe(true)
   })
 
   it('una lista sin recetas está vacía', () => {
