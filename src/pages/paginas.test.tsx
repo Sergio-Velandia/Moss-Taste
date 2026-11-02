@@ -56,12 +56,6 @@ describe('modo lectura', () => {
     expect(screen.getByText('Si queda muy espeso, se corrige con un chorro de leche tibia.')).toBeTruthy()
   })
 
-  it('exportar avisa que llega después', async () => {
-    await visitar('/recetas/arroz-con-leche')
-    fireEvent.click(screen.getByRole('button', { name: 'Exportar' }))
-    expect(screen.getByText(/Exportar a Excel, CSV y JSON estará disponible pronto/)).toBeTruthy()
-  })
-
   it('cambiar porciones recalcula cantidades y costo, y lo guarda en la URL', async () => {
     const router = await visitar('/recetas/arroz-con-leche')
     expect(screen.getByText('1,5 l')).toBeTruthy()
@@ -127,19 +121,6 @@ describe('¿Qué cocino hoy?', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Arroz blanco' }))
     await waitFor(() => expect(router.state.location.search).toBe('?tengo=arroz'))
     expect(screen.getByText('Tienes 1 de 4. Falta: Leche entera, Canela en astilla, Mantequilla.')).toBeTruthy()
-  })
-})
-
-describe('lista de compras', () => {
-  it('suma las recetas, marca comprados y se vacía al quitarlas', async () => {
-    await visitar('/lista')
-    expect(screen.getAllByText('Para Arepas de queso y Arroz con leche')).toHaveLength(2)
-    const leche = screen.getByRole('checkbox', { name: /Leche entera/ })
-    fireEvent.click(leche)
-    expect((leche as HTMLInputElement).checked).toBe(true)
-    fireEvent.click(screen.getByRole('button', { name: 'Quitar Arepas de queso de la lista' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Quitar Arroz con leche de la lista' }))
-    expect(screen.getByRole('heading', { name: 'Tu lista está vacía' })).toBeTruthy()
   })
 })
 

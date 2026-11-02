@@ -1,6 +1,7 @@
-import { ChefHat, ChevronLeft, Download } from 'lucide-react'
+import { ChefHat, ChevronLeft, ShoppingBasket } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { MenuExportar, type Formato } from '@/components/exportar/MenuExportar'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
 import { ImagenReceta } from '@/components/receta/ImagenReceta'
 import { ListaIngredientes } from '@/components/receta/ListaIngredientes'
@@ -13,8 +14,13 @@ import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { Boton } from '@/components/ui/Boton'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
 import { calcularReceta } from '@/lib/calculo/costo'
+import { aCSV } from '@/lib/exportar/csv'
+import { hoy } from '@/lib/exportar/descargar'
+import { hojasDeReceta } from '@/lib/exportar/hojas'
+import { recetaAJSON } from '@/lib/exportar/json'
 import { formatoPorciones } from '@/lib/formato'
-import { INGREDIENTES, recetaPorSlug } from '@/lib/recetas/catalogo'
+import { useListaCompras } from '@/lib/lista/useListaCompras'
+import { categoria, INGREDIENTES, recetaPorSlug } from '@/lib/recetas/catalogo'
 import { consultaPorciones, leerPorciones, MAX_PORCIONES, MIN_PORCIONES } from '@/lib/recetas/porciones'
 import type { Receta as TipoReceta } from '@/lib/recetas/tipos'
 import { useMetadatos } from '@/lib/useMetadatos'
@@ -33,11 +39,35 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
   const [params, setParams] = useSearchParams()
   const porciones = leerPorciones(params, receta.porcionesBase)
   const [aviso, setAviso] = useState('')
+  const [agregada, setAgregada] = useState(false)
+  const lista = useListaCompras()
   const calculo = calcularReceta(receta, porciones, INGREDIENTES)
   const consulta = consultaPorciones(porciones, receta.porcionesBase)
 
   // replace: cambiar porciones no llena el historial.
   const cambiarPorciones = (n: number) => setParams(n === receta.porcionesBase ? {} : { porciones: String(n) }, { replace: true })
+
+  function agregarALista() {
+    const resultado = lista.agregar(receta.id, porciones)
+    setAgregada(resultado !== 'llena')
+    setAviso(
+      resultado === 'agregada'
+        ? `Agregaste la receta a la lista de compras, para ${formatoPorciones(porciones)}.`
+        : resultado === 'actualizada'
+          ? `La receta ya estaba en la lista: ahora es para ${formatoPorciones(porciones)}.`
+          : 'La lista admite hasta 20 recetas. Quita alguna para agregar esta.',
+    )
+  }
+
+  // Exporta con las porciones elegidas. El CSV es una sola tabla: ingredientes y total.
+  async function generar(formato: Formato) {
+    const fecha = hoy()
+    if (formato === 'json') return recetaAJSON(receta, porciones, INGREDIENTES, fecha)
+    const hojas = hojasDeReceta(receta, porciones, INGREDIENTES, categoria(receta.categoria)?.nombre ?? receta.categoria, fecha)
+    if (formato === 'csv') return aCSV(hojas.slice(1, 3))
+    const { generarExcel } = await import('@/lib/exportar/excel')
+    return generarExcel(hojas)
+  }
 
   const enlaceCocinar = (
     <BotonEnlace to={`/recetas/${receta.id}/cocinar${consulta}`} tamano="lg" icono={<ChefHat aria-hidden="true" className="size-5" />}>
@@ -59,18 +89,21 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
           </h1>
           <p className="max-w-prose text-xl text-ink-soft">{receta.resumen}</p>
           <MetaReceta receta={receta} conPorciones={false} />
-          <div className="flex flex-wrap gap-3 print:hidden">
+          <div className="flex flex-wrap items-start gap-3 print:hidden">
             {enlaceCocinar}
-            <Boton
-              tamano="lg"
-              variante="secundario"
-              icono={<Download aria-hidden="true" className="size-5" />}
-              onClick={() => setAviso('Exportar a Excel, CSV y JSON estará disponible pronto.')}
-            >
-              Exportar
+            <Boton tamano="lg" variante="secundario" onClick={agregarALista} icono={<ShoppingBasket aria-hidden="true" className="size-5" />}>
+              Agregar a la lista
             </Boton>
+            <MenuExportar nombre={`${receta.id}-${porciones}-porciones`} generar={generar} />
           </div>
-          <AvisoEnVivo mensaje={aviso} />
+          <div className="flex flex-wrap items-center gap-x-3 print:hidden">
+            <AvisoEnVivo mensaje={aviso} />
+            {agregada && (
+              <BotonEnlace to="/lista" variante="fantasma">
+                Ver la lista
+              </BotonEnlace>
+            )}
+          </div>
         </div>
         <ImagenReceta receta={receta} variante="portada" className="print:hidden" />
       </header>
