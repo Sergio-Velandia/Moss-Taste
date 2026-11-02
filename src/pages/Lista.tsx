@@ -100,7 +100,7 @@ export function Lista() {
                         </span>
                         <span className="text-sm text-ink-soft">Para {item.recetas.join(' y ')}</span>
                       </span>
-                      <span className="text-right text-sm text-ink-soft tabular-nums">{item.subtotal === null ? 'Sin precio' : formatoCOP(item.subtotal)}</span>
+                      <span className="text-right text-sm text-ink-soft tabular-nums">{item.subtotal !== null ? formatoCOP(item.subtotal) : item.ingrediente?.noSeCostea ? 'No se costea' : 'Sin precio'}</span>
                     </label>
                   </li>
                 )

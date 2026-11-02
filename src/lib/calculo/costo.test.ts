@@ -21,6 +21,7 @@ const catalogo = new Map<string, Ingrediente>(
     ing({ id: 'leche', nombre: 'Leche', unidadBase: 'ml', precio: 4200 }),
     ing({ id: 'agua', nombre: 'Agua', unidadBase: 'ml', precio: null }),
     ing({ id: 'ajo', nombre: 'Ajo', unidadBase: 'unidad', precio: 300, porCantidad: 1 }),
+    ing({ id: 'llave', nombre: 'Agua', unidadBase: 'ml', precio: null, noSeCostea: true, fechaPrecio: undefined }),
   ].map((i) => [i.id, i]),
 )
 
@@ -107,6 +108,21 @@ describe('calcularReceta', () => {
     expect(c.lineas.map((l) => l.motivo)).toEqual(['sin-precio', 'sin-conversion', 'sin-ingrediente', undefined])
     expect(c.sinPrecio).toEqual(['Agua', 'Harina', 'fantasma'])
     expect(c.total).toBe(420)
+  })
+
+  it('lo que no se costea no suma ni se reporta como faltante', () => {
+    const c = calcularReceta(
+      receta([
+        { ingrediente: 'llave', cantidad: 3, unidad: 'l' },
+        { ingrediente: 'harina', cantidad: 1000, unidad: 'g' },
+      ]),
+      4,
+      catalogo,
+    )
+    expect(c.lineas[0]?.motivo).toBe('no-se-costea')
+    expect(c.lineas[0]?.uso).toBe(3000)
+    expect(c.sinPrecio).toEqual([])
+    expect(c.total).toBe(4400)
   })
 
   it('la fecha es la del precio más antiguo que se usó', () => {

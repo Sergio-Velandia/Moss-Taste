@@ -12,7 +12,7 @@ import { convertir } from './unidades'
 
 export const RANGO_COSTO = 0.1
 
-export type MotivoSinPrecio = 'sin-ingrediente' | 'sin-precio' | 'sin-conversion'
+export type MotivoSinPrecio = 'sin-ingrediente' | 'sin-precio' | 'sin-conversion' | 'no-se-costea'
 
 export interface LineaCalculada {
   item: IngredienteReceta
@@ -45,7 +45,7 @@ export interface CalculoReceta {
 
 /** Costo en COP entero de una cantidad en la unidad base del catálogo. */
 export function costoDe(ingrediente: Ingrediente, cantidadBase: number): number | null {
-  if (ingrediente.precio === null) return null
+  if (ingrediente.precio === null || ingrediente.noSeCostea) return null
   return Math.round((ingrediente.precio * cantidadBase) / ingrediente.porCantidad)
 }
 
@@ -55,6 +55,7 @@ export function calcularLinea(item: IngredienteReceta, ingrediente: Ingrediente 
   const uso = convertir(cantidad, item.unidad, ingrediente.unidadBase, ingrediente)
   if (uso === null) return { item, ingrediente, cantidad, uso, compra: null, subtotal: null, motivo: 'sin-conversion' }
   const compra = cantidadACompra(uso, ingrediente.merma)
+  if (ingrediente.noSeCostea) return { item, ingrediente, cantidad, uso, compra, subtotal: null, motivo: 'no-se-costea' }
   const subtotal = costoDe(ingrediente, compra)
   return subtotal === null ? { item, ingrediente, cantidad, uso, compra, subtotal, motivo: 'sin-precio' } : { item, ingrediente, cantidad, uso, compra, subtotal }
 }
@@ -63,7 +64,7 @@ export function calcularReceta(receta: Receta, porciones: number, catalogo: Read
   const lineas = receta.ingredientes.map((item) => calcularLinea(item, catalogo.get(item.ingrediente), receta.porcionesBase, porciones))
   const conPrecio = lineas.filter((l) => l.subtotal !== null)
   const total = conPrecio.reduce((suma, l) => suma + (l.subtotal ?? 0), 0)
-  const fechas = conPrecio.flatMap((l) => (l.ingrediente ? [l.ingrediente.fechaPrecio] : [])).sort()
+  const fechas = conPrecio.flatMap((l) => (l.ingrediente?.fechaPrecio ? [l.ingrediente.fechaPrecio] : [])).sort()
 
   return {
     porciones,
@@ -74,7 +75,8 @@ export function calcularReceta(receta: Receta, porciones: number, catalogo: Read
     porPorcion: Math.round(total / porciones),
     porPorcionMinimo: Math.round((total * (1 - RANGO_COSTO)) / porciones),
     porPorcionMaximo: Math.round((total * (1 + RANGO_COSTO)) / porciones),
-    sinPrecio: lineas.filter((l) => l.subtotal === null).map((l) => l.ingrediente?.nombre ?? l.item.ingrediente),
+    // Lo que no se costea (agua, sal) no es un faltante: no se lista como «sin precio».
+    sinPrecio: lineas.filter((l) => l.subtotal === null && l.motivo !== 'no-se-costea').map((l) => l.ingrediente?.nombre ?? l.item.ingrediente),
     fechaPrecio: fechas[0] ?? null,
   }
 }

@@ -15,8 +15,8 @@ export interface Ingrediente {
   /** Precio en COP entero por `porCantidad` de la unidad base. null = sin precio (se dice, no se asume cero). */
   precio: number | null
   porCantidad: number
-  /** Fecha del precio, AAAA-MM-DD. */
-  fechaPrecio: string
+  /** Fecha del precio, AAAA-MM-DD. Obligatoria salvo en los ingredientes que no se costean. */
+  fechaPrecio?: string
   /** Fracción que se pierde al limpiar o pelar (0 a <1). La aplica src/lib/calculo/merma.ts. */
   merma: number
   /** g/ml, para convertir volumen a peso. */
@@ -25,6 +25,8 @@ export interface Ingrediente {
   gramosPorUnidad?: number
   /** Cómo se dice «unidad» para este ingrediente en una receta: { singular: 'diente', plural: 'dientes' }. */
   unidadNombre?: { singular: string; plural: string }
+  /** El agua de la llave o la sal: se usan pero no se cuentan en el costo. Su precio va en null. */
+  noSeCostea?: boolean
   ejemplo?: boolean
 }
 

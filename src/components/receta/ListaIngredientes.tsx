@@ -5,6 +5,7 @@ const SIN_PRECIO: Record<MotivoSinPrecio, string> = {
   'sin-precio': 'Sin precio',
   'sin-conversion': 'Sin equivalencia',
   'sin-ingrediente': 'No está en el catálogo',
+  'no-se-costea': 'No se costea',
 }
 
 // Ingredientes como una carta: nombre, puntos guía, cantidad y precio alineados a la derecha.

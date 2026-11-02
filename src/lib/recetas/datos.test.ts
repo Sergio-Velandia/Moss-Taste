@@ -29,7 +29,9 @@ describe('datos del recetario', () => {
 
   it('cada ingrediente de cada receta tiene un precio que se puede calcular', () => {
     for (const receta of RECETAS) {
-      const sinPrecio = calcularReceta(receta, receta.porcionesBase, INGREDIENTES).lineas.filter((l) => l.subtotal === null)
+      const sinPrecio = calcularReceta(receta, receta.porcionesBase, INGREDIENTES).lineas.filter(
+        (l) => l.subtotal === null && l.motivo !== 'no-se-costea',
+      )
       expect(
         sinPrecio.map((l) => `recetas/${receta.id}: ${l.item.ingrediente} en ${l.item.unidad} (${l.motivo})`),
         'Agrega el precio, la densidad o gramosPorUnidad en ingredientes.json',
@@ -92,6 +94,13 @@ describe('validarIngredientes', () => {
     ]).errores.join('\n')
     expect(errores).toMatch(/precio: entero en COP o null/)
     expect(errores).toMatch(/fechaPrecio/)
+  })
+
+  it('lo que no se costea lleva precio null y puede no tener fecha', () => {
+    expect(validarIngredientes([{ id: 'agua', nombre: 'Agua', unidadBase: 'ml', precio: null, porCantidad: 1000, merma: 0, noSeCostea: true }]).errores).toEqual([])
+    expect(
+      validarIngredientes([{ id: 'agua', nombre: 'Agua', unidadBase: 'ml', precio: 100, porCantidad: 1000, merma: 0, noSeCostea: true }]).errores.join(),
+    ).toMatch(/si no se costea, el precio va en null/)
   })
 
   it('acepta un ingrediente sin precio (null)', () => {
