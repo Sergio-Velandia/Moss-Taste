@@ -24,9 +24,17 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Push, despliegue y tag `v0.2.0`. Sitio desplegado probado.
 
 ## Fase 3: catálogo real y primeras recetas
-- [ ] Reemplazar las 3 recetas y el catálogo de ejemplo por los reales, con imagen. La validación debe exigir la imagen cuando exista el modelo de imágenes.
-- [ ] El modo lectura de una receta real debe ser indexable (hoy las de ejemplo llevan `noindex`).
-- [ ] Prerenderizar `/recetas/:slug` cuando existan las recetas reales, y decidir si también `/recetas/:slug/cocinar`. En la Fase 1 solo se generan las rutas fijas: las recetas de ejemplo son ficticias y no vale la pena indexarlas. Mientras tanto, esas rutas se sirven desde `404.html`, con `noindex`.
+- [x] Las 3 recetas de la casa (ajiaco santafereño, changua y arroz con leche) reemplazan a las de ejemplo, con ilustraciones SVG generadas con IA, imagen y miniatura.
+- [x] Catálogo real con empaques, mermas y densidades aproximadas aprobadas; agua y sal no se costean.
+- [x] Imágenes de respaldo por categoría y validación que exige imagen, miniatura y texto alternativo.
+- [x] Opcionales, alternativas y valores estimados visibles en la ficha; notas de la casa.
+- [x] Prerenderizado de `/recetas/:slug` (indexable) y `/recetas/:slug/cocinar` (con `noindex`), con imagen para compartir propia.
+- [ ] **Precios reales con fecha** en `src/data/ingredientes.json` (hoy en `null`; la ficha dice «Sin precio» y el costo «Pendiente»). **La versión 0.3.0 no sale sin ellos.** Confirmar también los empaques supuestos: manojo de cebolla larga de 8 tallos, paquete de 10 calados, sobre de 3 astillas de canela y frasco de 50 g de canela en polvo.
+- [ ] README, CHANGELOG, versión 0.3.0, push y tag.
+- [ ] Opcional: reemplazar las ilustraciones por fotos de Gemini con el prompt de `docs/prompt-imagenes.md`.
+
+## Deuda técnica
+- [ ] La prueba de Escape del modo cocina falló 1 de cada 14 corridas bajo carga (la ficha se carga bajo demanda). Se ampliaron las esperas; si vuelve a fallar en CI, revisar la carga diferida en las pruebas en vez de seguir subiendo tiempos.
 
 ## Fase 4: exportar y lista de compras
 - [ ] Agregar recetas a la lista desde la ficha, con sus porciones (`sumarLista` ya escala, convierte y suma la merma).
