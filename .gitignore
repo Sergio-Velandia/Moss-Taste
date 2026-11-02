@@ -7,3 +7,6 @@ dist
 *.log
 .DS_Store
 coverage
+
+# Imágenes originales de las recetas: se optimizan con `npm run imagenes` y no se suben
+src/data/recetas/*/original.*
