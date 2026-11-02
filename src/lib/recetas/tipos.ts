@@ -62,6 +62,8 @@ export interface Receta {
   ingredientes: IngredienteReceta[]
   miseEnPlace: string[]
   pasos: Paso[]
+  /** Consejos de la casa: por qué se hace así, cómo corregir si algo sale distinto. */
+  notas?: string[]
   /** Receta ficticia de la Fase 1: se marca visiblemente como ejemplo. */
   ejemplo?: boolean
 }

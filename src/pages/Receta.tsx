@@ -112,6 +112,20 @@ function FichaReceta({ receta }: { receta: TipoReceta }) {
             </h2>
             <Pasos pasos={receta.pasos} />
           </section>
+          {receta.notas && receta.notas.length > 0 && (
+            <section aria-labelledby="titulo-notas" className="grid gap-4 border-l-2 border-accent pl-5">
+              <h2 id="titulo-notas" className="text-2xl">
+                Notas de la casa
+              </h2>
+              <ul className="grid gap-3 text-lg">
+                {receta.notas.map((nota) => (
+                  <li key={nota} className="max-w-prose">
+                    {nota}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           <div className="print:hidden">{enlaceCocinar}</div>
         </div>
       </div>

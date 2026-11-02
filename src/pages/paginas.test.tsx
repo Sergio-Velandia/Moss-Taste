@@ -33,6 +33,12 @@ describe('modo lectura', () => {
     await waitFor(() => expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex'))
   })
 
+  it('muestra las notas de la casa', async () => {
+    await visitar('/recetas/arroz-con-leche')
+    expect(screen.getByRole('heading', { name: 'Notas de la casa' })).toBeTruthy()
+    expect(screen.getByText('Si queda muy espeso, se corrige con un chorro de leche tibia.')).toBeTruthy()
+  })
+
   it('exportar avisa que llega después', async () => {
     await visitar('/recetas/arroz-con-leche')
     fireEvent.click(screen.getByRole('button', { name: 'Exportar' }))

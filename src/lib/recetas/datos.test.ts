@@ -76,6 +76,11 @@ describe('validarReceta', () => {
     expect(errores.join('\n')).toMatch(/unidad: debe ser/)
   })
 
+  it('las notas son textos', () => {
+    expect(validar({ notas: ['Con agua caliente, nunca fría.'] })).toEqual([])
+    expect(validar({ notas: [''] }).join()).toMatch(/notas: lista de textos/)
+  })
+
   it('exige que el id coincida con la carpeta', () => {
     expect(validar({}, 'otra-sopa').join('\n')).toMatch(/id: debe coincidir/)
   })

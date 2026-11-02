@@ -112,6 +112,8 @@ export function validarReceta(
 
   if (!Array.isArray(d.miseEnPlace) || d.miseEnPlace.some((m) => !esTexto(m, 300))) e('miseEnPlace', 'lista de textos de 1 a 300 caracteres')
 
+  if (d.notas !== undefined && (!Array.isArray(d.notas) || d.notas.some((n) => !esTexto(n, 400)))) e('notas', 'lista de textos de 1 a 400 caracteres')
+
   if (!Array.isArray(d.pasos) || d.pasos.length === 0) e('pasos', 'lista con al menos un paso')
   else
     d.pasos.forEach((paso: unknown, i) => {
