@@ -14,7 +14,8 @@ import { RANGO_COSTO } from '@/lib/calculo/costo'
 import { sumarLista } from '@/lib/recetas/lista'
 
 // Lista de ejemplo con dos recetas en sus porciones base. Agregar recetas desde la ficha llega en la Fase 4.
-const EJEMPLO = ['arepas-de-queso', 'arroz-con-leche']
+// Toma las dos últimas recetas publicadas, para no depender de cuáles son.
+const EJEMPLO = RECETAS.slice(-2).map((r) => r.id)
 
 export function Lista() {
   const [ids, setIds] = useState(EJEMPLO)

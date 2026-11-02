@@ -7,18 +7,17 @@ import { TarjetaReceta } from '@/components/receta/TarjetaReceta'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
 import { EstadoVacio } from '@/components/ui/Estados'
 import { formatoFecha } from '@/lib/formato'
-import { recetaPorSlug } from '@/lib/recetas/catalogo'
+import { RECETAS, recetaPorSlug } from '@/lib/recetas/catalogo'
 
 // Vista de ejemplo: así se verá Mi cocina cuando existan las cuentas (Fase 6). Ningún dato es real.
-const FAVORITAS = ['ajiaco-santafereno', 'arroz-con-leche']
-const PROBADAS = [
-  { id: 'arepas-de-queso', fecha: '2026-10-12' },
-  { id: 'ajiaco-santafereno', fecha: '2026-10-05' },
-]
-const NOTAS = [
-  { id: 'ajiaco-santafereno', texto: 'Con la mitad de la sal queda mejor para los niños.' },
-  { id: 'arepas-de-queso', texto: 'Si la masa se agrieta, un chorrito más de leche tibia.' },
-]
+// Toma las recetas que haya publicadas, para no depender de cuáles son.
+const ids = RECETAS.map((r) => r.id)
+const FAVORITAS = ids.slice(0, 2)
+const PROBADAS = ids.slice(-2).map((id, i) => ({ id, fecha: ['2026-10-12', '2026-10-05'][i] ?? '2026-10-01' }))
+const NOTAS = ids.slice(0, 2).map((id, i) => ({
+  id,
+  texto: ['Con la mitad de la sal queda mejor para los niños.', 'La próxima vez, hacer el doble: no alcanzó para todos.'][i] ?? '',
+}))
 
 function Seccion({ id, titulo, Icono, children }: { id: string; titulo: string; Icono: typeof BookHeart; children: ReactNode }) {
   return (
