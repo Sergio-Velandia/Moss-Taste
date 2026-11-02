@@ -4,6 +4,12 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.3.1] - 2026-11-02
+
+### Añadido
+
+- Precios de todos los ingredientes del catálogo, cotizados el 2 de noviembre de 2026. Las tres recetas ya muestran su costo estimado: el ajiaco sale entre $ 8.030 y $ 9.815 por porción; la changua, entre $ 2.642 y $ 3.229; y el arroz con leche, entre $ 2.036 y $ 2.488.
+
 ## [0.3.0] - 2026-11-02
 
 Las primeras recetas de la casa, con el catálogo real.
@@ -81,7 +87,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.1.0...v0.2.0
