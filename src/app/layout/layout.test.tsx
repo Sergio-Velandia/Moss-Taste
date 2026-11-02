@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
+// Datos fijos de prueba: estas pruebas no dependen de las recetas publicadas.
+vi.mock('@/lib/recetas/catalogo', () => import('@/test/catalogoPrueba'))
 import { rutasApp } from '../rutasApp'
 import { ProveedorTema } from '../tema/ProveedorTema'
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { INGREDIENTES, RECETAS } from './catalogo'
+import { INGREDIENTES, RECETAS } from '@/test/catalogoPrueba'
 import { escribirFiltros, filtrarRecetas, hayFiltros, leerFiltros, type Filtros } from './filtrar'
 
 const sinFiltros: Filtros = { q: '', categorias: [], ingrediente: null, maxPorcion: null }

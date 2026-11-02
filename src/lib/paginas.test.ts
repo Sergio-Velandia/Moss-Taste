@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { INGREDIENTES, recetaPorSlug, RECETAS } from './recetas/catalogo'
+import { INGREDIENTES, recetaPorSlug, RECETAS } from '@/test/catalogoPrueba'
 import { sugerirRecetas } from './recetas/hoy'
 import { sumarLista } from './recetas/lista'
 import type { Receta } from './recetas/tipos'
