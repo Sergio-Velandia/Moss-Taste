@@ -86,6 +86,9 @@ describe('tope de envíos', () => {
     limite.registrar(10 * HORA)
     expect(JSON.parse(storage.getItem(CLAVE_ENVIOS) ?? '[]')).toEqual([5, 10 * HORA])
     expect(limite.bloqueo(10 * HORA + 1000)?.motivo).toBe('espera')
+    // Borrar los datos del sitio reinicia el tope.
+    storage.clear()
+    expect(limite.bloqueo(10 * HORA + 1000)).toBeNull()
   })
 
   it('sin almacenamiento, o si falla al guardar, el tope sigue en memoria', () => {

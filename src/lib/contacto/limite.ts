@@ -32,11 +32,14 @@ export interface LimiteEnvios {
 
 export function crearLimite(obtenerStorage: () => Storage | undefined): LimiteEnvios {
   let memoria: number[] = []
+  let guardado = false
 
   function leer(ahora: number): number[] {
     try {
       const crudo = obtenerStorage()?.getItem(CLAVE_ENVIOS)
+      // Si ya se había guardado y no está, se borraron los datos del sitio: el tope vuelve a cero.
       if (crudo != null) memoria = recientes(JSON.parse(crudo), ahora)
+      else if (guardado) memoria = []
     } catch {
       // Sin almacenamiento o con datos dañados: se sigue con lo que hay en memoria.
     }
@@ -48,7 +51,9 @@ export function crearLimite(obtenerStorage: () => Storage | undefined): LimiteEn
     registrar(ahora = Date.now()) {
       memoria = [...leer(ahora), ahora].slice(-MAX_POR_DIA)
       try {
-        obtenerStorage()?.setItem(CLAVE_ENVIOS, JSON.stringify(memoria))
+        const storage = obtenerStorage()
+        storage?.setItem(CLAVE_ENVIOS, JSON.stringify(memoria))
+        guardado = storage !== undefined
       } catch {
         // Modo privado o cuota llena: el tope queda en memoria hasta cerrar la pestaña.
       }
