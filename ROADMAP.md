@@ -34,7 +34,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Opcional: reemplazar las ilustraciones por fotos de Gemini con el prompt de `docs/prompt-imagenes.md`.
 
 ## Deuda técnica
-- [ ] La prueba de Escape del modo cocina falló 1 de cada 14 corridas bajo carga (la ficha se carga bajo demanda). Se ampliaron las esperas; si vuelve a fallar en CI, revisar la carga diferida en las pruebas en vez de seguir subiendo tiempos.
+- [x] La prueba de Escape del modo cocina fallaba de vez en cuando bajo carga: la tecla llegaba antes de que el modo cocina escuchara el teclado. Ahora la prueba repite la tecla hasta que responde (0.5.0).
 
 ## Fase 4: exportar y lista de compras (`0.4.0`)
 - [x] Agregar recetas a la lista desde la ficha, con sus porciones; la lista se guarda en el navegador con topes y funciona en memoria si no se puede guardar.

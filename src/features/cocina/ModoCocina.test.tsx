@@ -21,6 +21,14 @@ async function cocinar(busqueda = '') {
   return router
 }
 
+// Bajo carga, el h1 puede aparecer antes de que el modo cocina escuche el teclado y la tecla se pierde.
+// Se repite la tecla hasta que la escucha responde, en vez de alargar las esperas.
+function pulsarHasta(tecla: string, comprobar: () => void) {
+  return waitFor(() => {
+    fireEvent.keyDown(window, { key: tecla })
+    comprobar()
+  })
+}
 
 describe('modo cocina', () => {
   it('usa las porciones de la ficha y las conserva al avanzar y al salir', async () => {
@@ -29,8 +37,7 @@ describe('modo cocina', () => {
     expect(screen.getByText('3 l')).toBeTruthy()
     fireEvent.click(screen.getByRole('button', { name: /Empezar/ }))
     await waitFor(() => expect(router.state.location.search).toBe('?porciones=12&paso=1'))
-    fireEvent.keyDown(window, { key: 'Escape' })
-    await waitFor(() => expect(router.state.location.pathname + router.state.location.search).toBe('/recetas/arroz-con-leche?porciones=12'))
+    await pulsarHasta('Escape', () => expect(router.state.location.pathname + router.state.location.search).toBe('/recetas/arroz-con-leche?porciones=12'))
   })
 
   it('empieza en «Antes de empezar» con la mise en place y los ingredientes', async () => {
@@ -74,8 +81,7 @@ describe('modo cocina', () => {
 
   it('Escape sale a la vista de lectura de la misma receta', async () => {
     const router = await cocinar('?paso=2')
-    fireEvent.keyDown(window, { key: 'Escape' })
-    await waitFor(() => expect(router.state.location.pathname).toBe('/recetas/arroz-con-leche'))
+    await pulsarHasta('Escape', () => expect(router.state.location.pathname).toBe('/recetas/arroz-con-leche'))
   })
 
   it('sin Wake Lock, el botón dice que no está disponible en este navegador', async () => {
