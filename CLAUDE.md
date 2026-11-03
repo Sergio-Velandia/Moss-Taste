@@ -47,8 +47,11 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-02 | Imágenes: ilustraciones SVG generadas por Claude (IA) en estilo común; se pueden reemplazar por fotos de Gemini sin tocar código | El SVG fuente queda en el repo y la imagen se regenera exacta; siempre se etiquetan como IA |
 | 2026-11-02 | Un precio puede quedar en null mientras se cotiza: la ficha dice «Sin precio» y el costo «Pendiente», y el filtro de presupuesto no la deja pasar | Nunca asumir cero |
 | 2026-11-02 | Precio del catálogo = punto medio del rango cotizado | El sitio ya muestra ±10 %, que cubre la mayor parte del rango |
+| 2026-11-02 | Excel con `write-excel-file` (MIT, una sola dependencia, ~20 KB gzip cargados solo al exportar). Se usa **solo para el .xlsx**; CSV y JSON se generan a mano | Mantenida (4.1.1, junio de 2026) y liviana; lo simple no necesita librería |
+| 2026-11-02 | CSV para Excel en español: UTF-8 con BOM, separador `;`, coma decimal y CRLF; el texto que empieza con `= + - @` se antepone con `'` | Que abra bien con doble clic y sin fórmulas inyectadas |
+| 2026-11-02 | La lista muestra dos totales, nunca mezclados: «Lo que cuestan estas recetas» (proporcional a lo usado) y «Lo que pagas hoy en caja» (empaques completos, campo `empaque` del catálogo) | El costo de la receta sigue siendo proporcional; la caja es lo que sale del bolsillo ese día |
+| 2026-11-02 | La lista se guarda en `localStorage` (`moss-taste:lista`) hasta la Fase 6, con topes (20 recetas, 200 marcas, 16 KB) y en memoria si el navegador no deja guardar | No exige cuenta; el sitio sigue funcionando en modo privado |
 | — | Licencia | Se decide en la Fase Legal |
-| — | Librería de Excel | Se decide en la Fase 4, verificando mantenimiento y licencia (no `xlsx` sin comprobarlo) |
 
 ## Identidad visual: Berenjena
 
@@ -129,9 +132,10 @@ src/
 │  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, GrupoChips, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
 ├─ components/receta/   TarjetaReceta, ImagenReceta (imagen + aviso de IA + respaldo), IlustracionCategoria, MetaReceta,
 │                       SelectorPorciones, ListaIngredientes, ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo
+├─ components/exportar/ MenuExportar: botón con Excel, CSV y JSON; cada página le pasa su función generar
 ├─ data/
 │  ├─ recetas/<slug>/      receta.json + ilustracion.svg (o original.png sin subir) → imagen.webp y miniatura.webp
-│  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma, densidad y gramosPorUnidad
+│  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma, densidad, gramosPorUnidad y empaque
 │  └─ categorias.json
 ├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador y BotonPantalla (visuales),
 │                       usePantallaEncendida (gancho pendiente de la fase funcional)
@@ -141,7 +145,11 @@ src/
 │  │                    catalogo (datos reales con import.meta.glob),
 │  │                    filtrar (filtros de la galería ⇄ URL), hoy (sugerencias), lista (suma de compras),
 │  │                    porciones (?porciones= en la URL)
-│  ├─ calculo/          CEREBRO DE CÁLCULO, puro y sin React: unidades, escalar, merma, costo, redondeo
+│  ├─ calculo/          CEREBRO DE CÁLCULO, puro y sin React: unidades, escalar, merma, costo, redondeo,
+│  │                    empaques (cómo se compra en la tienda y lo que se paga en caja)
+│  ├─ exportar/         tabla (hojas propias), hojas (receta y lista), csv y json (a mano), excel (write-excel-file,
+│  │                    carga bajo demanda), descargar (Blob + enlace)
+│  ├─ lista/            almacen (localStorage validado, topes y respaldo en memoria), useListaCompras
 │  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
 │  ├─ validarFormularios.ts  contacto y acceso
 │  └─ clases.ts, useMetadatos.ts
@@ -157,9 +165,9 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
-- Lo que todavía no funciona (exportar, cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
+- Lo que todavía no funciona (cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
 - **Cálculo:** todo pasa por `calcularReceta(receta, porciones, catalogo)` en `src/lib/calculo/costo.ts`. Si una línea no se puede calcular, trae `motivo` (`sin-ingrediente`, `sin-precio`, `sin-conversion`) y no suma al total. Para mostrar cantidades se usa `formatoCantidad`, que aplica el redondeo de cocina.
-- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`. Una prueba falla si alguna medida no se puede convertir. La imagen: `ilustracion.svg` u `original.png` en la carpeta y `npm run imagenes` (ver `docs/prompt-imagenes.md`), más `imagenAlt` en el `receta.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
+- **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`; si se vende en frasco, bolsa o caja, `empaque` con su nombre en singular y plural (sin él, la lista lo trata como suelto). Una prueba falla si alguna medida no se puede convertir. La imagen: `ilustracion.svg` u `original.png` en la carpeta y `npm run imagenes` (ver `docs/prompt-imagenes.md`), más `imagenAlt` en el `receta.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.
 - Pruebas de interfaz: comentario `// @vitest-environment jsdom` al inicio del archivo. Las demás corren en Node.
 - `tsconfig.test.json` cubre los `*.test.ts(x)` de `src/` con tipos de Node; `tsconfig.app.json` los excluye; `tsconfig.node.json` cubre `vite.config.ts` y `scripts/`.
