@@ -36,21 +36,27 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 ## Deuda técnica
 - [ ] La prueba de Escape del modo cocina falló 1 de cada 14 corridas bajo carga (la ficha se carga bajo demanda). Se ampliaron las esperas; si vuelve a fallar en CI, revisar la carga diferida en las pruebas en vez de seguir subiendo tiempos.
 
-## Fase 4: exportar y lista de compras
-- [ ] Agregar recetas a la lista desde la ficha, con sus porciones (`sumarLista` ya escala, convierte y suma la merma).
-- [ ] Mínimo de compra por ingrediente: no se venden 37 g de alcaparras, sino el frasco. Decidir si la lista redondea a la presentación que se vende.
-- [ ] Activar «Exportar» en la ficha y en la lista (Excel, CSV y JSON).
+## Fase 4: exportar y lista de compras (`0.4.0`)
+- [x] Agregar recetas a la lista desde la ficha, con sus porciones; la lista se guarda en el navegador con topes y funciona en memoria si no se puede guardar.
+- [x] Mínimo de compra: la lista dice cómo viene en la tienda («1 frasco de 100 g») y muestra dos totales separados, lo que cuestan las recetas (proporcional) y lo que se paga hoy en caja (empaques completos).
+- [x] «Exportar» en la ficha y en la lista: Excel (`write-excel-file`, cargado al pedirlo), CSV y JSON generados a mano.
+- [x] README, CHANGELOG y versión 0.4.0.
 
 ## Fase 5: formulario de contacto
 - [ ] Conectar el formulario de `/contacto` a EmailJS, con tope de envíos. Hoy solo valida.
 - [ ] Agregar `sergio-velandia.dev` a los dominios permitidos de EmailJS.
 
 ## Fase 6: login y datos personales
+- [ ] Migrar la lista de compras de `localStorage` a la cuenta (Firestore) al iniciar sesión, sin perder lo que había en el navegador.
 - [ ] Conectar `/acceso`, `/mi-cocina` y `/mi-cocina/nueva` a Firebase. Hoy son pantallas con datos de ejemplo.
 - [ ] Agregar `sergio-velandia.dev` a los dominios autorizados de Firebase Authentication.
 
 ## Fase 7: ¿Qué cocino hoy?
 - [ ] Revisar `src/lib/recetas/hoy.ts` con las recetas reales (hoy cuenta ingredientes principales y ordena por lo que falta).
+
+## Fase Legal
+- [ ] Declarar en la política de privacidad que la lista de compras y el tema se guardan solo en el navegador (`localStorage`), sin enviarse a ningún servidor.
+- [ ] Decidir la licencia.
 
 ## Fase funcional del modo cocina
 - [ ] Lógica de «Mantener pantalla encendida» en `src/features/cocina/usePantallaEncendida.ts` (Screen Wake Lock API). El botón y su estado «No disponible en este navegador» ya existen.

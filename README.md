@@ -14,8 +14,9 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 1.5 · Pulido del repo | Imagen para compartir, íconos, convenciones y plantilla de issues | `0.2.1` |
 | 3 · Recetas de la casa | Ajiaco santafereño, changua y arroz con leche, con ilustraciones y el catálogo real | `0.3.0` |
 | 3 · Precios | Precios cotizados del catálogo | `0.3.1` |
+| 4 · Exportar y lista de compras | Exportar a Excel, CSV y JSON; lista de compras con empaques y lo que se paga en caja | `0.4.0` |
 
-Lo que todavía no funciona (exportar, agregar recetas a la lista, cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
+Lo que todavía no funciona (cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
@@ -25,6 +26,8 @@ Lo que todavía no funciona (exportar, agregar recetas a la lista, cuentas, env�
 - Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.
 - Leer una receta completa: ingredientes (con los opcionales y las alternativas marcados), lo que se deja listo antes de empezar, los pasos y las notas de la casa.
 - Cocinarla en el **modo cocina**: un paso a la vez, con letra grande, los ingredientes de ese paso y botones grandes. Funciona con el teclado (flechas y Escape).
+- Juntar varias recetas en la **lista de compras**: suma los ingredientes, dice cómo vienen en la tienda («1 frasco de 100 g») y muestra por separado lo que cuestan las recetas y lo que se paga hoy en caja. Se guarda en el navegador, sin cuenta.
+- Exportar una receta o la lista a Excel, CSV (listo para Excel en español) o JSON, con las porciones elegidas.
 - Ver qué se puede cocinar con los ingredientes que hay en casa.
 - Tema claro (por defecto), oscuro o el del sistema.
 
@@ -60,7 +63,7 @@ No hace falta tocar ningún componente. Una receta inválida se omite del sitio 
 
 ## Stack
 
-React 19, Vite, TypeScript estricto, Tailwind CSS 4, React Router, Motion (solo en el modo cocina), Lucide, Vitest con Testing Library y oxlint. Fuentes autoalojadas: Young Serif y Atkinson Hyperlegible Next (licencia OFL). Más detalle, decisiones y mapa del código en [CLAUDE.md](CLAUDE.md).
+React 19, Vite, TypeScript estricto, Tailwind CSS 4, React Router, Motion (solo en el modo cocina), Lucide, Vitest con Testing Library y oxlint. `write-excel-file` solo para el .xlsx, cargado al exportar. Fuentes autoalojadas: Young Serif y Atkinson Hyperlegible Next (licencia OFL). Más detalle, decisiones y mapa del código en [CLAUDE.md](CLAUDE.md).
 
 ## Licencia
 

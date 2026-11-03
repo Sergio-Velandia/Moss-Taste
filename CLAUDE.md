@@ -84,7 +84,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha y publicada |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` y `0.3.1` (precios) | hecha y publicada |
-| 4 | Exportar y lista de compras | `0.4.0` | en curso |
+| 4 | Exportar y lista de compras | `0.4.0` | hecha |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |
 | 6 | Login, favoritos, notas y recetas personales | `0.6.0` | pendiente |
 | 7 | «¿Qué cocino hoy?» | `0.7.0` | pendiente |

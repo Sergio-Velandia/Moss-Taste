@@ -4,6 +4,17 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.4.0] - 2026-11-02
+
+Exportar y la lista de compras.
+
+### Añadido
+
+- Exportar una receta con las porciones elegidas: Excel (receta, ingredientes, costo y compras en hojas separadas), CSV que abre bien en Excel en español y JSON con los datos completos.
+- «Agregar a la lista» en cada receta. La lista suma los ingredientes de varias recetas, deja marcar lo comprado y cambiar las porciones, y se exporta en los mismos tres formatos.
+- La lista dice cómo viene cada ingrediente en la tienda («1 frasco de 100 g», «Suelto, por peso») y muestra dos totales separados: lo que cuestan las recetas (proporcional a lo que se usa) y lo que se paga hoy en caja (empaques completos).
+- La lista se guarda en el navegador, sin cuenta. Si el navegador no deja guardar (por ejemplo, en una ventana privada), funciona igual y lo avisa.
+
 ## [0.3.1] - 2026-11-02
 
 ### Añadido
@@ -87,7 +98,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.0...v0.2.1
