@@ -5,17 +5,20 @@ import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { Boton } from '@/components/ui/Boton'
 import { Campo, CampoArea } from '@/components/ui/Campo'
 import { cx } from '@/lib/clases'
+import { armarCorreo, emailjsListo, enviarCorreo, ErrorEnvio, type FalloEnvio } from '@/lib/contacto/enviar'
+import { limiteEnvios, MAX_POR_DIA } from '@/lib/contacto/limite'
 import { validarContacto, type CampoContacto, type DatosContacto, type Errores } from '@/lib/validarFormularios'
 
 const VACIO: DatosContacto = { motivo: 'receta', nombre: '', correo: '', receta: '', mensaje: '' }
 const ORDEN: CampoContacto[] = ['nombre', 'correo', 'receta', 'mensaje']
 
-// Formulario sin backend. El envío por EmailJS llega en la Fase 5; hoy solo valida.
+// Formulario sin backend: valida aquí y envía por EmailJS. Si falla, lo escrito se conserva para reintentar.
 export function Contacto() {
   const [datos, setDatos] = useState(VACIO)
   const [errores, setErrores] = useState<Errores<CampoContacto>>({})
   const [tocados, setTocados] = useState<ReadonlySet<CampoContacto>>(new Set())
   const [estado, setEstado] = useState('')
+  const [enviando, setEnviando] = useState(false)
   const trampa = useRef<HTMLInputElement>(null)
   const formulario = useRef<HTMLFormElement>(null)
   const proponiendo = datos.motivo === 'receta'
@@ -32,8 +35,9 @@ export function Contacto() {
     setErrores(filtrar(validarContacto(datos), nuevos))
   }
 
-  function enviar(evento: FormEvent) {
+  async function enviar(evento: FormEvent) {
     evento.preventDefault()
+    if (enviando) return
     // Campo trampa: una persona no lo ve ni lo llena; un robot sí. Se descarta sin decirle nada.
     if (trampa.current?.value) return
     const todos = validarContacto(datos)
@@ -45,7 +49,36 @@ export function Contacto() {
       setEstado('Revisa los campos marcados.')
       return
     }
-    setEstado('El envío del formulario se activa en una próxima versión. Tu mensaje no se envió todavía.')
+    if (!emailjsListo()) {
+      setEstado('El envío no está disponible en este momento. Lo que escribiste sigue aquí.')
+      return
+    }
+    const freno = limiteEnvios.bloqueo()
+    if (freno) {
+      setEstado(
+        freno.motivo === 'dia'
+          ? `Ya enviaste ${MAX_POR_DIA} mensajes hoy desde este navegador. Intenta de nuevo mañana.`
+          : `Acabas de enviar un mensaje. Espera ${freno.segundos} segundos para enviar otro.`,
+      )
+      return
+    }
+
+    setEnviando(true)
+    setEstado('Enviando…')
+    try {
+      await enviarCorreo(armarCorreo(datos))
+      limiteEnvios.registrar()
+      const nombre = datos.nombre.trim()
+      setEstado(`Gracias, ${nombre}. Recibí tu ${proponiendo ? 'receta' : 'mensaje'} y te respondo a ${datos.correo.trim()}.`)
+      // Se conserva el motivo elegido; lo demás vuelve a empezar.
+      setDatos({ ...VACIO, motivo: datos.motivo })
+      setTocados(new Set())
+      setErrores({})
+    } catch (error) {
+      setEstado(FALLOS[error instanceof ErrorEnvio ? error.motivo : 'error'])
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -115,14 +148,24 @@ export function Contacto() {
         </div>
 
         <div className="grid justify-items-start gap-3">
-          <Boton type="submit" tamano="lg" icono={<Send aria-hidden="true" className="size-5" />}>
+          <Boton type="submit" tamano="lg" cargando={enviando} icono={<Send aria-hidden="true" className="size-5" />}>
             {proponiendo ? 'Enviar receta' : 'Enviar mensaje'}
           </Boton>
           <AvisoEnVivo mensaje={estado} />
+          <p className="max-w-prose text-sm text-ink-soft">
+            Tu nombre y tu correo se usan solo para responderte. El envío pasa por EmailJS, un servicio que convierte el formulario en
+            un correo.
+          </p>
         </div>
       </form>
     </div>
   )
+}
+
+const FALLOS: Record<FalloEnvio, string> = {
+  'sin-conexion': 'No se pudo enviar: parece que no hay conexión. Lo que escribiste sigue aquí; intenta de nuevo.',
+  'limite-servicio': 'Llegaron muchos mensajes en poco tiempo. Lo que escribiste sigue aquí; intenta en unos minutos.',
+  error: 'No se pudo enviar el mensaje. Lo que escribiste sigue aquí; intenta de nuevo en un rato.',
 }
 
 function filtrar(errores: Errores<CampoContacto>, tocados: ReadonlySet<CampoContacto>): Errores<CampoContacto> {

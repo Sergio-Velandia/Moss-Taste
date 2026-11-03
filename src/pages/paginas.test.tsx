@@ -134,16 +134,6 @@ describe('formularios', () => {
     expect(screen.getByText('Revisa los campos marcados.')).toBeTruthy()
   })
 
-  it('contacto: completo, avisa que el envío llega después', async () => {
-    await visitar('/contacto')
-    fireEvent.click(screen.getByRole('radio', { name: 'Escribir un mensaje' }))
-    fireEvent.change(screen.getByLabelText('Nombre'), { target: { value: 'Ana' } })
-    fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'ana@correo.co' } })
-    fireEvent.change(screen.getByLabelText('Mensaje'), { target: { value: 'Hola, una pregunta sobre el ajiaco.' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Enviar mensaje' }))
-    expect(screen.getByText(/El envío del formulario se activa en una próxima versión/)).toBeTruthy()
-  })
-
   it('acceso: crear cuenta exige contraseña de 8 caracteres', async () => {
     await visitar('/acceso')
     fireEvent.click(screen.getByRole('radio', { name: 'Crear cuenta' }))
