@@ -6,7 +6,7 @@ import type { Ingrediente, Receta, Unidad } from './tipos'
  * Lista de compras: suma lo que hay que COMPRAR (con merma) de varias recetas, convertido a la unidad
  * del catálogo para poder juntar «2½ tazas» y «1,5 l» de leche. Lo que no se puede convertir queda
  * en su propia línea, en la unidad de la receta y sin precio.
- * Agregar recetas desde la ficha con sus porciones llega en la Fase 4.
+ * Cada línea dice además cómo viene en la tienda (empaques completos) y cuánto se paga en caja.
  */
 
 export interface EntradaLista {

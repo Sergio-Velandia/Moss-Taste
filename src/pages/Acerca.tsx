@@ -56,8 +56,8 @@ export function Acerca() {
 
       <Bloque id="acerca-estado" titulo="En qué va">
         <p>
-          Ya están las primeras recetas de la casa, con ilustraciones generadas con IA. En las próximas versiones llegan más recetas,
-          la lista de compras completa, exportar a Excel y las cuentas.
+          Ya están las primeras recetas de la casa, con ilustraciones generadas con IA, la lista de compras y la opción de exportar a
+          Excel, CSV o JSON. En las próximas versiones llegan más recetas, el formulario de contacto y las cuentas.
         </p>
       </Bloque>
     </div>
