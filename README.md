@@ -15,8 +15,9 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 3 · Recetas de la casa | Ajiaco santafereño, changua y arroz con leche, con ilustraciones y el catálogo real | `0.3.0` |
 | 3 · Precios | Precios cotizados del catálogo | `0.3.1` |
 | 4 · Exportar y lista de compras | Exportar a Excel, CSV y JSON; lista de compras con empaques y lo que se paga en caja | `0.4.0` |
+| 5 · Formulario de contacto | Proponer recetas y escribir mensajes, enviados por EmailJS con tope de envíos | `0.5.0` |
 
-Lo que todavía no funciona (cuentas, envío del formulario, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
+Lo que todavía no funciona (cuentas, temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
@@ -28,6 +29,7 @@ Lo que todavía no funciona (cuentas, envío del formulario, temporizadores y ma
 - Cocinarla en el **modo cocina**: un paso a la vez, con letra grande, los ingredientes de ese paso y botones grandes. Funciona con el teclado (flechas y Escape).
 - Juntar varias recetas en la **lista de compras**: suma los ingredientes, dice cómo vienen en la tienda («1 frasco de 100 g») y muestra por separado lo que cuestan las recetas y lo que se paga hoy en caja. Se guarda en el navegador, sin cuenta.
 - Exportar una receta o la lista a Excel, CSV (listo para Excel en español) o JSON, con las porciones elegidas.
+- Proponer una receta o escribir un mensaje desde el formulario de contacto.
 - Ver qué se puede cocinar con los ingredientes que hay en casa.
 - Tema claro (por defecto), oscuro o el del sistema.
 
@@ -57,7 +59,7 @@ No hace falta tocar ningún componente. Una receta inválida se omite del sitio 
 
 ## Cómo participar
 
-- **Proponer una receta:** desde el [formulario del sitio](https://sergio-velandia.dev/Moss-Taste/contacto/), con sus ingredientes y pasos (el envío se activa en una próxima versión).
+- **Proponer una receta:** desde el [formulario del sitio](https://sergio-velandia.dev/Moss-Taste/contacto/), con sus ingredientes y pasos.
 - **Reportar un problema:** abre un [issue](https://github.com/Sergio-Velandia/Moss-Taste/issues/new/choose).
 - **Convenciones del repo** (ramas, commits, versiones, contenido y diseño): [CONTRIBUTING.md](CONTRIBUTING.md).
 

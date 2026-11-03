@@ -42,9 +42,11 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] «Exportar» en la ficha y en la lista: Excel (`write-excel-file`, cargado al pedirlo), CSV y JSON generados a mano.
 - [x] README, CHANGELOG y versión 0.4.0.
 
-## Fase 5: formulario de contacto
-- [ ] Conectar el formulario de `/contacto` a EmailJS, con tope de envíos. Hoy solo valida.
-- [ ] Agregar `sergio-velandia.dev` a los dominios permitidos de EmailJS.
+## Fase 5: formulario de contacto (`0.5.0`)
+- [x] Conectar el formulario de `/contacto` a EmailJS (API REST, sin SDK), con estados de envío, error y sin conexión.
+- [x] Tope de envíos por navegador (uno por minuto, cinco por día) y aviso de privacidad bajo el botón.
+- [x] README, CHANGELOG y versión 0.5.0.
+- [ ] Lo hace el dueño: confirmar en el panel de EmailJS que `sergio-velandia.dev` está en los dominios permitidos y que hay límite de envíos por IP; probar un envío real en el sitio publicado.
 
 ## Fase 6: login y datos personales
 - [ ] Migrar la lista de compras de `localStorage` a la cuenta (Firestore) al iniciar sesión, sin perder lo que había en el navegador.
@@ -55,6 +57,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Revisar `src/lib/recetas/hoy.ts` con las recetas reales (hoy cuenta ingredientes principales y ordena por lo que falta).
 
 ## Fase Legal
+- [ ] Política de privacidad que nombre a EmailJS como el tercero que recibe nombre, correo y mensaje, y una casilla de autorización en el formulario, como en Moss Nexus.
 - [ ] Declarar en la política de privacidad que la lista de compras y el tema se guardan solo en el navegador (`localStorage`), sin enviarse a ningún servidor.
 - [ ] Decidir la licencia.
 

@@ -51,6 +51,8 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-02 | CSV para Excel en español: UTF-8 con BOM, separador `;`, coma decimal y CRLF; el texto que empieza con `= + - @` se antepone con `'` | Que abra bien con doble clic y sin fórmulas inyectadas |
 | 2026-11-02 | La lista muestra dos totales, nunca mezclados: «Lo que cuestan estas recetas» (proporcional a lo usado) y «Lo que pagas hoy en caja» (empaques completos, campo `empaque` del catálogo) | El costo de la receta sigue siendo proporcional; la caja es lo que sale del bolsillo ese día |
 | 2026-11-02 | La lista se guarda en `localStorage` (`moss-taste:lista`) hasta la Fase 6, con topes (20 recetas, 200 marcas, 16 KB) y en memoria si el navegador no deja guardar | No exige cuenta; el sitio sigue funcionando en modo privado |
+| 2026-11-02 | Contacto con la API REST de EmailJS, sin SDK. Servicio y plantilla compartidos con Moss y Moss Nexus (`tipo`, `nombre`, `correo`, `asunto`, `mensaje`); los tres identificadores en `src/sitio.ts`, como en los otros proyectos | Son públicos por diseño y así no se suma dependencia |
+| 2026-11-02 | Tope de envíos por navegador: uno por minuto y cinco por día (`moss-taste:envios`), más el campo trampa. El límite real es el de EmailJS por IP | Frena el doble clic y el abuso casual; el del navegador se puede saltar |
 | — | Licencia | Se decide en la Fase Legal |
 
 ## Identidad visual: Berenjena
@@ -84,8 +86,8 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 1.5 | Pulido del repo (salió después de la Fase 2) | `0.2.1` | hecha y publicada |
 | 2 | Cerebro de cálculo con pruebas | `0.2.0` | hecha y publicada |
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` y `0.3.1` (precios) | hecha y publicada |
-| 4 | Exportar y lista de compras | `0.4.0` | hecha |
-| 5 | Formulario de contacto con EmailJS | `0.5.0` | pendiente |
+| 4 | Exportar y lista de compras | `0.4.0` | hecha y publicada |
+| 5 | Formulario de contacto con EmailJS | `0.5.0` | hecha |
 | 6 | Login, favoritos, notas y recetas personales | `0.6.0` | pendiente |
 | 7 | «¿Qué cocino hoy?» | `0.7.0` | pendiente |
 | 8 | Crecer de a poco, una receta por commit | `0.N.0` | pendiente |
@@ -151,6 +153,7 @@ src/
 │  │                    carga bajo demanda), descargar (Blob + enlace)
 │  ├─ lista/            almacen (localStorage validado, topes y respaldo en memoria), useListaCompras
 │  ├─ formato.ts        COP, cantidades, tiempo, fecha y normalizar (búsqueda sin tildes)
+│  ├─ contacto/         enviar (armar el correo y API de EmailJS, con el motivo del fallo), limite (tope por navegador)
 │  ├─ validarFormularios.ts  contacto y acceso
 │  └─ clases.ts, useMetadatos.ts
 ├─ test/
@@ -165,7 +168,7 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
-- Lo que todavía no funciona (cuentas, envío del formulario, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
+- Lo que todavía no funciona (cuentas, temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
 - **Cálculo:** todo pasa por `calcularReceta(receta, porciones, catalogo)` en `src/lib/calculo/costo.ts`. Si una línea no se puede calcular, trae `motivo` (`sin-ingrediente`, `sin-precio`, `sin-conversion`) y no suma al total. Para mostrar cantidades se usa `formatoCantidad`, que aplica el redondeo de cocina.
 - **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`; si se vende en frasco, bolsa o caja, `empaque` con su nombre en singular y plural (sin él, la lista lo trata como suelto). Una prueba falla si alguna medida no se puede convertir. La imagen: `ilustracion.svg` u `original.png` en la carpeta y `npm run imagenes` (ver `docs/prompt-imagenes.md`), más `imagenAlt` en el `receta.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Agregar una ruta fija:** se registra en `src/rutas.ts` y en `src/app/rutasApp.tsx`. La prueba de humo (`rutas.test.tsx`) falla si una ruta fija no abre con un solo h1 y su título.

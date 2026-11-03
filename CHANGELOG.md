@@ -4,6 +4,17 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.5.0] - 2026-11-02
+
+El formulario de contacto ya envía.
+
+### Añadido
+
+- Proponer una receta o escribir un mensaje desde `/contacto`: llega por correo a través de EmailJS. Mientras se envía el botón queda ocupado; al terminar, el formulario agradece y se limpia.
+- Si el envío falla, el formulario dice si fue por falta de conexión o por otra razón, y conserva lo escrito para intentar de nuevo.
+- Tope de envíos desde cada navegador: uno por minuto y cinco por día.
+- Aviso bajo el botón de enviar: el nombre y el correo se usan solo para responder, y el envío pasa por EmailJS.
+
 ## [0.4.0] - 2026-11-02
 
 Exportar y la lista de compras.
@@ -98,7 +109,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.4.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.2.1...v0.3.0
