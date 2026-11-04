@@ -24,7 +24,7 @@ Cuentas, datos personales y la parte legal.
 
 ### Seguridad
 
-- Reglas de Firestore: cada persona solo lee y escribe lo suyo, con validación por campo y topes. Reglas pegadas en la consola: **pendiente de fecha**.
+- Reglas de Firestore: cada persona solo lee y escribe lo suyo, con validación por campo y topes. Reglas pegadas en la consola el 2026-11-04 a las 17:45 (hora de Colombia), desde `firestore.rules` de esta versión.
 
 ## [0.5.0] - 2026-11-02
 

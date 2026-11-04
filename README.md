@@ -85,6 +85,10 @@ También corren en CI, en cada push.
 
 No hace falta tocar ningún componente. Una receta inválida se omite del sitio sin romperlo. Las recetas se escriben con palabras propias.
 
+## Probar el correo de contacto
+
+`contacto@sergio-velandia.dev` pasa por Cloudflare Email Routing, que lo reenvía a Gmail. Para probarlo, **escribe desde una cuenta distinta a la de destino**: lo que un Gmail se manda a sí mismo no aparece en la bandeja de entrada, porque Gmail lo deduplica. No ver el mensaje en ese caso no significa que el canal esté roto.
+
 ## Cómo participar
 
 - **Proponer una receta:** desde el [formulario del sitio](https://sergio-velandia.dev/Moss-Taste/contacto/), con sus ingredientes y pasos.
@@ -94,6 +98,10 @@ No hace falta tocar ningún componente. Una receta inválida se omite del sitio 
 ## Stack
 
 React 19, Vite, TypeScript estricto, Tailwind CSS 4, React Router, Motion (solo en el modo cocina), Lucide, Vitest con Testing Library y oxlint. Firebase (Authentication y Firestore lite), cargado solo si hace falta una cuenta. `write-excel-file` solo para el .xlsx, cargado al exportar. Fuentes autoalojadas: Young Serif y Atkinson Hyperlegible Next (licencia OFL). Más detalle, decisiones y mapa del código en [CLAUDE.md](CLAUDE.md).
+
+## Seguridad
+
+Antes de correr `npm audit fix`, lee [SECURITY.md](SECURITY.md): hoy reporta 4 vulnerabilidades altas que no llegan al navegador, y `--force` rompería el proyecto.
 
 ## Licencia
 

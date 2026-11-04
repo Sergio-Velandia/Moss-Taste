@@ -34,6 +34,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Opcional: reemplazar las ilustraciones por fotos de Gemini con el prompt de `docs/prompt-imagenes.md`.
 
 ## Deuda técnica
+- [ ] Revisar en cada actualización de `firebase` si ya no arrastra `@grpc/grpc-js` vulnerable, y borrar la nota de `SECURITY.md` (ver ese archivo).
 - [x] La prueba de Escape del modo cocina fallaba de vez en cuando bajo carga: la tecla llegaba antes de que el modo cocina escuchara el teclado. Ahora la prueba repite la tecla hasta que responde (0.5.0).
 
 ## Fase 4: exportar y lista de compras (`0.4.0`)
@@ -47,6 +48,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Tope de envíos por navegador (uno por minuto, cinco por día) y aviso de privacidad bajo el botón.
 - [x] README, CHANGELOG y versión 0.5.0.
 - [x] Envío real probado por el dueño en el sitio publicado: el mensaje llega.
+- [x] Correo directo probado por el dueño desde otra cuenta: llega. Ver README, «Probar el correo de contacto».
 - [ ] Lo hace el dueño: confirmar en el panel de EmailJS que hay límite de envíos por IP.
 
 ## Fase 6: cuentas, favoritos, notas y recetas personales (`0.6.0`)
