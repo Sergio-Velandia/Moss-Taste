@@ -4,6 +4,28 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.6.0] - 2026-11-04
+
+Cuentas, datos personales y la parte legal.
+
+### Añadido
+
+- Cuentas con correo y contraseña o con Google, con recuperar contraseña y mensajes de error en español. Las recetas se siguen viendo sin cuenta.
+- Autorización del tratamiento de datos, sin marcar por defecto, para crear una cuenta y para enviar el formulario de contacto. Una cuenta sin autorización no puede usar nada.
+- Favoritas, notas y «ya la probé» en cada receta.
+- Mi cocina y recetas personales privadas: crear, editar y borrar, con el mismo cálculo, la ficha, el modo cocina, la lista y las exportaciones de las públicas. Un ingrediente que no está en el catálogo queda «Sin precio».
+- Al entrar, la lista de compras del navegador pasa a la cuenta y se combina con la que hubiera.
+- Exportar mis datos en JSON y borrar mi cuenta y mis datos desde la app.
+- Política de privacidad y licencia. Código bajo MIT, textos bajo CC BY 4.0.
+
+### Cambiado
+
+- Si falta el precio de una línea, el costo se dice parcial en la ficha, la tarjeta, la lista y las exportaciones. El precio que falta queda vacío, nunca en cero.
+
+### Seguridad
+
+- Reglas de Firestore: cada persona solo lee y escribe lo suyo, con validación por campo y topes. Reglas pegadas en la consola: **pendiente de fecha**.
+
 ## [0.5.0] - 2026-11-02
 
 El formulario de contacto ya envía.
@@ -109,7 +131,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.5.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.0...v0.3.1

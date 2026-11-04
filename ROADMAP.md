@@ -49,18 +49,23 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Envío real probado por el dueño en el sitio publicado: el mensaje llega.
 - [ ] Lo hace el dueño: confirmar en el panel de EmailJS que hay límite de envíos por IP.
 
-## Fase 6: login y datos personales
-- [ ] Migrar la lista de compras de `localStorage` a la cuenta (Firestore) al iniciar sesión, sin perder lo que había en el navegador.
-- [ ] Conectar `/acceso`, `/mi-cocina` y `/mi-cocina/nueva` a Firebase. Hoy son pantallas con datos de ejemplo.
-- [ ] Agregar `sergio-velandia.dev` a los dominios autorizados de Firebase Authentication.
+## Fase 6: cuentas, favoritos, notas y recetas personales (`0.6.0`)
+- [x] Cuentas con correo y Google, autorización de datos, recuperar contraseña y rutas protegidas.
+- [x] Favoritos, notas y «ya la probé», con estado optimista y reversión.
+- [x] Recetas personales con ingredientes fuera del catálogo: «Sin precio» y costo parcial avisado.
+- [x] Migrar la lista de compras a la cuenta, sin perder lo que había en el navegador.
+- [x] Reglas de Firestore con topes y contadores, con pruebas contra el emulador.
+- [x] Exportar mis datos y borrar mi cuenta.
+- [x] Parte legal: auditoría, `/privacidad`, `/licencia` y casilla de autorización, también en el formulario de contacto.
+- [ ] Precio propio por ingrediente en las recetas personales.
+- [ ] Si la app llega a mandar correos a los usuarios, revisar: hoy no se exige correo verificado, así que nada importante puede depender de que el correo sea de quien dice ser.
 
 ## Fase 7: ¿Qué cocino hoy?
 - [ ] Revisar `src/lib/recetas/hoy.ts` con las recetas reales (hoy cuenta ingredientes principales y ordena por lo que falta).
 
 ## Fase Legal
-- [ ] Política de privacidad que nombre a EmailJS como el tercero que recibe nombre, correo y mensaje, y una casilla de autorización en el formulario, como en Moss Nexus.
-- [ ] Declarar en la política de privacidad que la lista de compras y el tema se guardan solo en el navegador (`localStorage`), sin enviarse a ningún servidor.
-- [ ] Decidir la licencia.
+- [x] Se hizo dentro de la Fase 6: la política se escribió auditando el código real.
+- [ ] Revisar la política en la Fase R y cada vez que cambie lo que se guarda o a quién se le envía. Si el proyecto deja de ser familiar, revisarla con un profesional: no es asesoría jurídica.
 
 ## Fase funcional del modo cocina
 - [ ] Lógica de «Mantener pantalla encendida» en `src/features/cocina/usePantallaEncendida.ts` (Screen Wake Lock API). El botón y su estado «No disponible en este navegador» ya existen.
