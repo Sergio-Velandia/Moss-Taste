@@ -64,8 +64,11 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Decidir en el Repaso si hace falta App Check: la restricción de la clave no frena a un script, que puede crear cuentas sin pasar por la casilla. Esas cuentas no pueden usar nada (las reglas exigen el perfil), pero ocupan lugar en Authentication.
 - [ ] Si la app llega a mandar correos a los usuarios, revisar: hoy no se exige correo verificado, así que nada importante puede depender de que el correo sea de quien dice ser.
 
-## Fase 7: ¿Qué cocino hoy?
-- [ ] Revisar `src/lib/recetas/hoy.ts` con las recetas reales (hoy cuenta ingredientes principales y ordena por lo que falta).
+## Fase 7: ¿Qué cocino hoy? (`0.7.0`)
+- [x] Revisar `src/lib/recetas/hoy.ts` con las recetas reales: el agua, los opcionales y las alternativas.
+- [x] El presupuesto usa el extremo alto del estimado, también en la galería. Lo parcial sale aparte.
+- [x] Recetas personales marcadas como «Tuya», con sus nombres libres aparte del catálogo.
+- [ ] Mostrar la alternativa también en la lista de compras: ya está en el catálogo, falta decidir si se quiere.
 
 ## Fase Legal
 - [x] Se hizo dentro de la Fase 6: la política se escribió auditando el código real.

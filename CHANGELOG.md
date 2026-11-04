@@ -4,6 +4,28 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.7.0] - 2026-11-04
+
+«¿Qué cocino hoy?» revisado con las recetas reales.
+
+### Añadido
+
+- Con cuenta, tus recetas personales aparecen en «¿Qué cocino hoy?», marcadas como «Tuya». Los ingredientes que escribiste tú salen aparte de los del catálogo.
+- Elegir solo un presupuesto ya lista las recetas que caben, sin marcar ingredientes.
+- Las alternativas viven en el catálogo de ingredientes. Lo que falta dice, por ejemplo, «Calado (o pan tostado)».
+- Las tarjetas dicen hasta dónde llega el estimado: «Alrededor de $ 2.936 por porción, estimado hasta $ 3.229».
+
+### Cambiado
+
+- El filtro de presupuesto, en «¿Qué cocino hoy?» y en la galería, compara el extremo alto del estimado (+10 %): salen menos recetas, pero ninguna se pasa de lo que elegiste.
+- Una receta con costo parcial no pasa el filtro de presupuesto. Sale aparte, al final, diciendo qué precio le falta.
+
+### Corregido
+
+- El agua ya no aparece como ingrediente que falta, ni entre las opciones para marcar.
+- Los ingredientes que solo son opcionales ya no salen entre las opciones: marcarlos no encontraba nada.
+- «Quitar el presupuesto» solo aparece si elegiste uno, y un ingrediente inventado en la dirección se ignora.
+
 ## [0.6.0] - 2026-11-04
 
 Cuentas, datos personales y la parte legal.
@@ -135,7 +157,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.6.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.3.1...v0.4.0

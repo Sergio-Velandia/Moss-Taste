@@ -17,6 +17,7 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 4 · Exportar y lista de compras | Exportar a Excel, CSV y JSON; lista de compras con empaques y lo que se paga en caja | `0.4.0` |
 | 5 · Formulario de contacto | Proponer recetas y escribir mensajes, enviados por EmailJS con tope de envíos | `0.5.0` |
 | 6 · Cuentas | Cuentas con correo y Google, favoritos, notas, recetas personales, mis datos, política de privacidad y licencia | `0.6.0` |
+| 7 · ¿Qué cocino hoy? | Sugerencias revisadas con las recetas reales, recetas personales incluidas y presupuesto que nunca se queda corto | `0.7.0` |
 
 Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
@@ -33,7 +34,7 @@ Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya
 - Proponer una receta o escribir un mensaje desde el formulario de contacto.
 - Crear una cuenta, con correo o con Google, para guardar favoritas, notas, las recetas que ya probaste y tus recetas personales. Tu lista de compras pasa a la cuenta sin perder lo que había.
 - Exportar tus datos o borrar tu cuenta desde Mi cocina.
-- Ver qué se puede cocinar con los ingredientes que hay en casa.
+- Ver qué se puede cocinar con los ingredientes que hay en casa, con tus recetas personales incluidas si tienes cuenta, o con lo que cabe en un presupuesto. El enlace con lo marcado se puede compartir.
 - Tema claro (por defecto), oscuro o el del sistema.
 
 ## Desarrollo
@@ -51,6 +52,16 @@ npm run preview    # sirve el build en http://localhost:4173/Moss-Taste/
 ```
 
 Cada push a `main` corre pruebas, lint y build, y publica en GitHub Pages ([workflow](.github/workflows/desplegar.yml)).
+
+## Cómo funciona el filtro de presupuesto
+
+Decisión del dueño, para no tener que reconstruirla mirando el código. Vale para `/hoy` y para la galería:
+
+- **Se compara el extremo ALTO del estimado.** Una receta de $ 4.800 con ±10 % va de $ 4.320 a $ 5.280, así que **no pasa** «Hasta $ 5.000». Salen menos recetas, y es lo correcto: quien sale con $ 5.000 confiando en el filtro no puede encontrarse con una cuenta de $ 5.280. Mejor mostrar de menos que dejarlo tirado en la tienda.
+- **Por eso las tarjetas dicen de dónde sale:** «Alrededor de $ 4.800 por porción, estimado hasta $ 5.280».
+- **Una receta con costo parcial no pasa**, porque le falta el precio de algún ingrediente y no se sabe cuánto cuesta. Pero no desaparece en silencio: sale aparte, al final, bajo «No se puede saber si caben», diciendo qué le falta.
+
+El código está en `topePorPorcion` (`src/lib/calculo/costo.ts`).
 
 ## Cuentas con Firebase
 
@@ -79,7 +90,7 @@ También corren en CI, en cada push.
 ## Cómo agregar una receta
 
 1. Crea la carpeta `src/data/recetas/<slug>/` con un `receta.json`. El `id` debe ser igual al nombre de la carpeta.
-2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio. Si la receta los pide en tazas o cucharadas y se venden por peso, agrega su `densidad`; si los pide por unidad y se venden por peso, `gramosPorUnidad`.
+2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio. Si se pueden reemplazar, su `alternativa` va ahí mismo («pan tostado»); en el `receta.json` solo si depende de la cantidad de esa receta («o 150 g de azúcar»). Si la receta los pide en tazas o cucharadas y se venden por peso, agrega su `densidad`; si los pide por unidad y se venden por peso, `gramosPorUnidad`.
 3. Agrega la imagen: `ilustracion.svg` u `original.png` en la carpeta, `npm run imagenes` y una descripción en `imagenAlt`. Ver [docs/prompt-imagenes.md](docs/prompt-imagenes.md).
 4. Corre `npm test`: si algo está mal, dice el archivo, el campo y qué corregir.
 

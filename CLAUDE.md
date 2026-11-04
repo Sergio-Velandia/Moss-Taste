@@ -66,6 +66,10 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | El cambio de versión va siempre en su propio commit | Lo pidió el dueño tras la Fase 6, donde quedó mezclado |
 | 2026-11-04 | No correr `npm audit fix --force`: ver `SECURITY.md` | Las alertas son de una dependencia solo de Node y el arreglo forzado baja Firebase a la versión 9 |
 | 2026-11-04 | Cambiar la URL dentro de la misma página (porciones, filtros) usa `preventScrollReset` | No es ir a otra página: no debe volver arriba |
+| 2026-11-04 | El filtro de presupuesto compara el **extremo alto** del estimado (`topePorPorcion`), en `/hoy` y en la galería. Las tarjetas dicen «estimado hasta». Lo escribe también el README | Quien sale con $ 5.000 confiando en el filtro no puede encontrarse con $ 5.280: mejor mostrar de menos |
+| 2026-11-04 | Con presupuesto, una receta con costo parcial no pasa, pero sale aparte, al final, diciendo qué le falta | Un costo parcial no es un costo, y desaparecer en silencio parecería un error |
+| 2026-11-04 | La `alternativa` vive en `ingredientes.json`. Una receta solo la escribe si depende de su cantidad («o 150 g de azúcar»), y entonces manda la suya (`alternativaDe`) | Un solo lugar para reutilizarla; la cantidad no puede ir en el catálogo |
+| 2026-11-04 | En `/hoy` se dan por hechos lo «al gusto», lo opcional y lo que no se costea. Los nombres libres de las recetas personales van en un grupo aparte, sin mezclarse | El catálogo tiene precio y fecha; los nombres libres, no |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
@@ -103,7 +107,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 4 | Exportar y lista de compras | `0.4.0` | hecha y publicada |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | hecha y publicada |
 | 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | hecha y publicada |
-| 7 | «¿Qué cocino hoy?» | `0.7.0` | pendiente |
+| 7 | «¿Qué cocino hoy?» | `0.7.0` | hecha |
 | 8 | Crecer de a poco, una receta por commit | `0.N.0` | pendiente |
 | L | Fase Legal | `0.6.0` | hecha dentro de la Fase 6 |
 | R | Repaso | `0.N.x` | pendiente |
@@ -151,7 +155,7 @@ src/
 │  └─ ui/               Boton, BotonEnlace, Campo, CampoArea, CampoSelect, Chip, GrupoChips, EstadoVacio, EstadoError, Cargando, AvisoEnVivo
 ├─ components/receta/   TarjetaReceta, ImagenReceta (imagen + aviso de IA + respaldo), IlustracionCategoria, MetaReceta,
 │                       SelectorPorciones, ListaIngredientes, ResumenCosto (la «tirilla»), MiseEnPlace, Pasos, AvisoEjemplo,
-│                       FichaReceta (el modo lectura, común a las públicas y a las personales)
+│                       FichaReceta (el modo lectura, común a las públicas y a las personales), RecetasSinSaber (lo parcial, con presupuesto)
 ├─ components/exportar/ MenuExportar: botón con Excel, CSV y JSON; cada página le pasa su función generar
 ├─ components/cuenta/   CasillaAutorizacion, ConfirmarIdentidad, PanelReceta (favorita, probada y nota), MisDatos
 ├─ data/
@@ -164,7 +168,7 @@ src/
 ├─ lib/
 │  ├─ recetas/          tipos, validar (propia, sin dependencias), crearCatalogo (validación + imágenes, reutilizable),
 │  │                    catalogo (datos reales con import.meta.glob),
-│  │                    filtrar (filtros de la galería ⇄ URL), hoy (sugerencias), lista (suma de compras),
+│  │                    filtrar (filtros de la galería ⇄ URL), hoy (sugerencias y opciones), lista (suma de compras), alternativa, rutaReceta,
 │  │                    porciones (?porciones= en la URL)
 │  ├─ calculo/          CEREBRO DE CÁLCULO, puro y sin React: unidades, escalar, merma, costo, redondeo,
 │  │                    empaques (cómo se compra en la tienda y lo que se paga en caja)
