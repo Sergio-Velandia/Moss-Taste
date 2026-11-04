@@ -154,7 +154,7 @@ export function hojaDeLista(items: readonly ItemLista[], fecha: string): Hoja {
           i.ingrediente?.nombre ?? i.idIngrediente,
           cant,
           unidad,
-          i.tienda?.descripcion ?? (noSeCostea ? 'No se costea' : i.ingrediente ? 'Suelto, por peso' : ''),
+          i.tienda?.descripcion ?? (noSeCostea ? 'No se costea' : i.ingrediente?.precio != null ? 'Suelto, por peso' : ''),
           cop(i.subtotal),
           cop(i.tienda?.costoCaja ?? null),
           i.recetas.join(', '),

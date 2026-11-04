@@ -139,7 +139,7 @@ export function Lista() {
               {items.map((item) => {
                 const comprado = comprados.has(item.clave)
                 const noSeCostea = item.ingrediente?.noSeCostea
-                const enTienda = item.tienda?.descripcion ?? (noSeCostea ? 'De la casa' : item.ingrediente ? 'Suelto, por peso' : 'Sin datos de la tienda')
+                const enTienda = item.tienda?.descripcion ?? (noSeCostea ? 'De la casa' : item.ingrediente?.precio != null ? 'Suelto, por peso' : 'Sin datos de la tienda')
                 return (
                   <li key={item.clave} className="border-b border-line last:border-b-0">
                     <label className="grid min-h-14 cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)_auto] items-center gap-x-3 py-3">
