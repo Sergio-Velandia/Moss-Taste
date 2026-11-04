@@ -10,7 +10,7 @@ import { MetaReceta } from './MetaReceta'
 
 // Toda la tarjeta es clicable por el enlace del título (se estira con ::after), así hay un solo
 // elemento enfocable y el lector de pantalla anuncia el nombre de la receta.
-export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta; nivel?: 'h2' | 'h3' }) {
+export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta; nivel?: 'h2' | 'h3' | 'h4' }) {
   const costo = calcularReceta(receta, receta.porcionesBase, INGREDIENTES)
   return (
     <article className="relative grid grid-rows-[auto_1fr] overflow-hidden rounded-lg border border-line bg-surface hover:border-accent has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent">
@@ -27,7 +27,7 @@ export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta
         {costo.total > 0 && (
           <p className="text-sm text-ink-soft tabular-nums">
             {costo.sinPrecio.length ? 'Costo parcial:' : 'Alrededor de'} <strong className="font-bold text-ink">{formatoCOP(costo.porPorcion)}</strong> por porción
-            {costo.sinPrecio.length > 0 && ', faltan precios'}
+            {costo.sinPrecio.length > 0 ? ', faltan precios' : `, estimado hasta ${formatoCOP(costo.porPorcionMaximo)}`}
           </p>
         )}
       </div>

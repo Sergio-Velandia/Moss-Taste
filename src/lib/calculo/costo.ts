@@ -46,11 +46,12 @@ export interface CalculoReceta {
 }
 
 /**
- * Costo por porción si se conoce: null cuando ningún ingrediente tiene precio. Así un filtro de
- * presupuesto no deja pasar una receta sin precios como si costara cero.
+ * El número que usa el filtro de presupuesto: el extremo ALTO del estimado (+10 %). Quien sale con $ 5.000 confiando
+ * en el filtro no puede encontrarse con $ 5.280: mejor mostrar de menos que dejarlo tirado en la tienda.
+ * null si no se puede saber: sin precios, o si falta el de alguna línea (un costo parcial no es un costo).
  */
-export function costoPorPorcionConocido(c: CalculoReceta): number | null {
-  return c.fechaPrecio === null ? null : c.porPorcion
+export function topePorPorcion(c: CalculoReceta): number | null {
+  return c.fechaPrecio === null || c.sinPrecio.length > 0 ? null : c.porPorcionMaximo
 }
 
 /** Costo en COP entero de una cantidad en la unidad base del catálogo. */

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { EncabezadoPagina } from '@/components/EncabezadoPagina'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
+import { RecetasSinSaber } from '@/components/receta/RecetasSinSaber'
 import { TarjetaReceta } from '@/components/receta/TarjetaReceta'
 import { Boton } from '@/components/ui/Boton'
 import { Campo, CampoSelect } from '@/components/ui/Campo'
@@ -12,7 +13,7 @@ import { GrupoChips } from '@/components/ui/GrupoChips'
 import { cx } from '@/lib/clases'
 import { formatoCOP } from '@/lib/formato'
 import { CATEGORIAS, INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
-import { escribirFiltros, filtrarRecetas, hayFiltros, leerFiltros, PRESUPUESTOS, type Filtros } from '@/lib/recetas/filtrar'
+import { escribirFiltros, filtrarRecetas, sinSaberSiCaben, hayFiltros, leerFiltros, AYUDA_PRESUPUESTO, PRESUPUESTOS, type Filtros } from '@/lib/recetas/filtrar'
 
 // Solo se ofrecen los ingredientes que aparecen en alguna receta.
 const INGREDIENTES_USADOS = [...new Set(RECETAS.flatMap((r) => r.ingredientes.map((i) => i.ingrediente)))]
@@ -24,6 +25,7 @@ export function Recetas() {
   const [params, setParams] = useSearchParams()
   const filtros = leerFiltros(params)
   const resultados = filtrarRecetas(RECETAS, filtros, INGREDIENTES)
+  const sinSaber = sinSaberSiCaben(RECETAS, filtros, INGREDIENTES)
 
   // replace: escribir en el buscador no llena el historial de entradas.
   const cambiar = (cambios: Partial<Filtros>) => setParams(escribirFiltros({ ...filtros, ...cambios }), { replace: true, preventScrollReset: true })
@@ -76,7 +78,7 @@ export function Recetas() {
               </Chip>
             ))}
           </GrupoChips>
-          <GrupoChips titulo="Presupuesto por porción">
+          <GrupoChips titulo="Presupuesto por porción" ayuda={AYUDA_PRESUPUESTO}>
             {PRESUPUESTOS.map((p) => (
               <Chip key={p} activo={filtros.maxPorcion === p} onChange={(activo) => cambiar({ maxPorcion: activo ? p : null })}>
                 Hasta {formatoCOP(p)}
@@ -111,7 +113,7 @@ export function Recetas() {
               </li>
             ))}
           </ul>
-        ) : (
+        ) : !sinSaber.length ? (
           <EstadoVacio
             titulo="Ninguna receta coincide"
             icono={SearchX}
@@ -124,7 +126,8 @@ export function Recetas() {
           >
             <p>Prueba con menos filtros o con otra palabra. La búsqueda mira el nombre, el resumen y los ingredientes.</p>
           </EstadoVacio>
-        )}
+        ) : null}
+        <RecetasSinSaber recetas={sinSaber} />
       </section>
     </div>
   )
