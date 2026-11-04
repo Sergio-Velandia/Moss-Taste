@@ -1,0 +1,162 @@
+rules_version = '2';
+
+// Reglas de Firestore de Moss Taste. Este archivo es la única fuente de verdad: se pega en la consola
+// y el CHANGELOG registra la fecha. Las pruebas están en reglas/firestore.test.ts (npm run test:reglas).
+//
+// - Cada persona solo lee y escribe lo suyo. Lo que no se permite aquí queda negado.
+// - Sin documento de perfil no hay nada: el perfil guarda la autorización de datos, así que una cuenta de
+//   Authentication que no aceptó no puede leer ni escribir nada más.
+// - Las reglas no pueden contar documentos: los topes usan contadores del perfil. Un contador solo cambia
+//   en ±1, en la misma escritura que crea o borra el documento que cuenta, y ese documento se nombra en el
+//   perfil (ultimaReceta, ultimaInteraccion). Así nadie puede bajarlo sin borrar ni crear dos por uno.
+// - Las reglas no tienen ciclos: las listas de la receta son de textos y se limita su número y su tamaño total.
+
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function esDueno(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function rutaPerfil(uid) {
+      return /databases/$(db)/documents/usuarios/$(uid);
+    }
+
+    function registrado(uid) {
+      return exists(rutaPerfil(uid));
+    }
+
+    function textoHasta(valor, maximo) {
+      return valor is string && valor.size() <= maximo;
+    }
+
+    function textoEntre(valor, minimo, maximo) {
+      return valor is string && valor.size() >= minimo && valor.size() <= maximo;
+    }
+
+    function enteroEntre(valor, minimo, maximo) {
+      return valor is int && valor >= minimo && valor <= maximo;
+    }
+
+    function listaDeTextos(valor, minimo, maximo, totalCaracteres) {
+      return valor is list && valor.size() >= minimo && valor.size() <= maximo && valor.join('').size() <= totalCaracteres;
+    }
+
+    function perfilValido(d) {
+      return d.keys().hasOnly(['autorizacion', 'conteoRecetas', 'conteoInteracciones', 'ultimaReceta', 'ultimaInteraccion', 'lista'])
+        && d.keys().hasAll(['autorizacion', 'conteoRecetas', 'conteoInteracciones', 'ultimaReceta', 'ultimaInteraccion', 'lista'])
+        && enteroEntre(d.conteoRecetas, 0, 100)
+        && enteroEntre(d.conteoInteracciones, 0, 300)
+        && textoHasta(d.ultimaReceta, 40)
+        && textoHasta(d.ultimaInteraccion, 80)
+        && textoHasta(d.lista, 16000);
+    }
+
+    function autorizacionValida(a) {
+      return a is map
+        && a.keys().hasOnly(['acepta', 'version', 'fecha'])
+        && a.keys().hasAll(['acepta', 'version', 'fecha'])
+        && a.acepta == true
+        && textoEntre(a.version, 1, 20)
+        && a.fecha == request.time;
+    }
+
+    // Un contador sigue igual (y su «último» también), o sube 1 con un documento nuevo, o baja 1 con uno borrado.
+    function cambioDeContadorValido(uid, antes, despues, conteoAntes, conteoDespues, coleccion) {
+      let ruta = /databases/$(db)/documents/usuarios/$(uid)/$(coleccion)/$(despues);
+      return (conteoDespues == conteoAntes && despues == antes)
+        || (conteoDespues == conteoAntes + 1 && !exists(ruta) && existsAfter(ruta))
+        || (conteoDespues == conteoAntes - 1 && exists(ruta) && !existsAfter(ruta));
+    }
+
+    match /usuarios/{uid} {
+      allow get: if esDueno(uid);
+
+      // Crear el perfil es aceptar la autorización: sale en cero y con la hora del servidor.
+      allow create: if esDueno(uid)
+        && perfilValido(request.resource.data)
+        && autorizacionValida(request.resource.data.autorizacion)
+        && request.resource.data.conteoRecetas == 0
+        && request.resource.data.conteoInteracciones == 0
+        && request.resource.data.ultimaReceta == ''
+        && request.resource.data.ultimaInteraccion == '';
+
+      allow update: if esDueno(uid)
+        && perfilValido(request.resource.data)
+        && request.resource.data.autorizacion == resource.data.autorizacion
+        && cambioDeContadorValido(uid, resource.data.ultimaReceta, request.resource.data.ultimaReceta, resource.data.conteoRecetas, request.resource.data.conteoRecetas, 'recetas')
+        && cambioDeContadorValido(uid, resource.data.ultimaInteraccion, request.resource.data.ultimaInteraccion, resource.data.conteoInteracciones, request.resource.data.conteoInteracciones, 'interacciones');
+
+      // Solo cuando ya se borró lo demás: si no, un perfil nuevo reiniciaría los contadores con los datos vivos.
+      allow delete: if esDueno(uid) && resource.data.conteoRecetas == 0 && resource.data.conteoInteracciones == 0;
+
+      function subeContador(campoConteo, campoUltimo, id) {
+        return getAfter(rutaPerfil(uid)).data[campoConteo] == get(rutaPerfil(uid)).data[campoConteo] + 1
+          && getAfter(rutaPerfil(uid)).data[campoUltimo] == id;
+      }
+
+      function bajaContador(campoConteo, campoUltimo, id) {
+        return getAfter(rutaPerfil(uid)).data[campoConteo] == get(rutaPerfil(uid)).data[campoConteo] - 1
+          && getAfter(rutaPerfil(uid)).data[campoUltimo] == id;
+      }
+
+      // Favorita, ya la probé y nota de una receta pública. Sin favorita, sin probar y sin nota, el documento se borra.
+      match /interacciones/{slug} {
+        function interaccionValida(d) {
+          return d.keys().hasOnly(['favorita', 'probada', 'nota', 'actualizada'])
+            && d.keys().hasAll(['favorita', 'probada', 'nota', 'actualizada'])
+            && d.favorita is bool
+            && d.probada is string
+            && (d.probada == '' || d.probada.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$'))
+            && textoHasta(d.nota, 2000)
+            && d.actualizada == request.time;
+        }
+
+        allow get, list: if esDueno(uid) && registrado(uid);
+
+        allow create: if esDueno(uid)
+          && registrado(uid)
+          && slug.size() <= 80
+          && slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$')
+          && interaccionValida(request.resource.data)
+          && subeContador('conteoInteracciones', 'ultimaInteraccion', slug);
+
+        allow update: if esDueno(uid) && registrado(uid) && interaccionValida(request.resource.data);
+
+        allow delete: if esDueno(uid) && registrado(uid) && bajaContador('conteoInteracciones', 'ultimaInteraccion', slug);
+      }
+
+      // Recetas personales, privadas de esta cuenta. No hay forma de publicarlas desde aquí.
+      match /recetas/{id} {
+        function recetaValida(d) {
+          return d.keys().hasOnly(['titulo', 'resumen', 'categoria', 'porcionesBase', 'tiempoMin', 'ingredientes', 'miseEnPlace', 'pasos', 'creada', 'actualizada'])
+            && d.keys().hasAll(['titulo', 'resumen', 'categoria', 'porcionesBase', 'tiempoMin', 'ingredientes', 'miseEnPlace', 'pasos', 'creada', 'actualizada'])
+            && textoEntre(d.titulo, 1, 80)
+            && textoHasta(d.resumen, 200)
+            && textoEntre(d.categoria, 1, 40)
+            && enteroEntre(d.porcionesBase, 1, 50)
+            && enteroEntre(d.tiempoMin, 1, 1440)
+            && listaDeTextos(d.ingredientes, 1, 40, 12000)
+            && listaDeTextos(d.miseEnPlace, 0, 30, 9300)
+            && listaDeTextos(d.pasos, 1, 40, 26000)
+            && d.actualizada == request.time;
+        }
+
+        allow get, list: if esDueno(uid) && registrado(uid);
+
+        allow create: if esDueno(uid)
+          && registrado(uid)
+          && id.matches('^mia-[a-z0-9]{8,32}$')
+          && recetaValida(request.resource.data)
+          && request.resource.data.creada == request.time
+          && subeContador('conteoRecetas', 'ultimaReceta', id);
+
+        allow update: if esDueno(uid)
+          && registrado(uid)
+          && recetaValida(request.resource.data)
+          && request.resource.data.creada == resource.data.creada;
+
+        allow delete: if esDueno(uid) && registrado(uid) && bajaContador('conteoRecetas', 'ultimaReceta', id);
+      }
+    }
+  }
+}

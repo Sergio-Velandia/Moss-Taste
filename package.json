@@ -31,10 +31,12 @@
     "preview": "vite preview",
     "lint": "oxlint --deny-warnings",
     "test": "vitest run",
+    "test:reglas": "npx --yes firebase-tools@15.35.0 emulators:exec --only firestore --project demo-moss-taste \"vitest run --config vitest.reglas.config.ts\"",
     "typecheck": "tsc -b",
     "imagenes": "node scripts/imagenes.ts"
   },
   "dependencies": {
+    "firebase": "^13.2.0",
     "lucide-react": "^1.61.0",
     "motion": "^14.6.0",
     "react": "^19.3.1",
@@ -43,6 +45,7 @@
     "write-excel-file": "^4.1.1"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",

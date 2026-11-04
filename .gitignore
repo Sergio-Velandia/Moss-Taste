@@ -10,3 +10,8 @@ coverage
 
 # Imágenes originales de las recetas: se optimizan con `npm run imagenes` y no se suben
 src/data/recetas/*/original.*
+
+# Emulador de Firebase
+firestore-debug.log
+ui-debug.log
+firebase-debug.log
