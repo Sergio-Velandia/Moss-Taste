@@ -20,5 +20,8 @@ export default defineConfig({
     // Más que la espera de Testing Library (10 s): con muchas pruebas en paralelo, una carga diferida puede
     // tardar, y si los dos límites son iguales la prueba falla sin margen.
     testTimeout: 20_000,
+    // El caché en disco de Vitest guarda el resultado de import.meta.glob: una carpeta de receta nueva no se veía
+    // en `npm test` hasta borrarlo, justo cuando esa prueba tiene que decir qué falla.
+    fsModuleCache: false,
   },
 })
