@@ -18,12 +18,13 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 5 · Formulario de contacto | Proponer recetas y escribir mensajes, enviados por EmailJS con tope de envíos | `0.5.0` |
 | 6 · Cuentas | Cuentas con correo y Google, favoritos, notas, recetas personales, mis datos, política de privacidad y licencia | `0.6.0` |
 | 7 · ¿Qué cocino hoy? | Sugerencias revisadas con las recetas reales, recetas personales incluidas y presupuesto que nunca se queda corto | `0.7.0` |
+| 8 · Platos fuertes | Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, **con precios e imágenes pendientes** | `0.8.0` |
 
 Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
-- Cocinar las primeras recetas de la casa: ajiaco santafereño, changua y arroz con leche, con su costo estimado al 2 de noviembre de 2026.
+- Cocinar las recetas de la casa: ajiaco santafereño, changua y arroz con leche, con su costo estimado al 2 de noviembre de 2026; y lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, cuyo costo es parcial mientras se cotizan sus ingredientes.
 
 - Buscar recetas por nombre o ingrediente y filtrarlas por categoría y presupuesto por porción. Los filtros quedan en la URL.
 - Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.
@@ -102,6 +103,11 @@ También corren en CI, en cada push.
 2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio. Si se pueden reemplazar, su `alternativa` va ahí mismo («pan tostado»); en el `receta.json` solo si depende de la cantidad de esa receta («o 150 g de azúcar»). Si la receta los pide en tazas o cucharadas y se venden por peso, agrega su `densidad`; si los pide por unidad y se venden por peso, `gramosPorUnidad`.
 3. Agrega la imagen: `ilustracion.svg` u `original.png` en la carpeta, `npm run imagenes` y una descripción en `imagenAlt`. Ver [docs/prompt-imagenes.md](docs/prompt-imagenes.md).
 4. Corre `npm test`: si algo está mal, dice el archivo, el campo y qué corregir.
+
+Dos reglas al escribirla:
+
+- **Las cantidades son lo que va a la olla**, ya limpio y pelado. La merma del catálogo calcula cuánto comprar. Solo cuenta lo que se quita antes de cocinar (cáscara, recorte), nunca lo que se pierde cocinando.
+- **El tiempo total incluye la preparación**, no solo los temporizadores.
 
 No hace falta tocar ningún componente. Una receta inválida se omite del sitio sin romperlo. Las recetas se escriben con palabras propias.
 

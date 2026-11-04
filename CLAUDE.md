@@ -70,6 +70,10 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | Con presupuesto, una receta con costo parcial no pasa, pero sale aparte, al final, diciendo qué le falta | Un costo parcial no es un costo, y desaparecer en silencio parecería un error |
 | 2026-11-04 | La `alternativa` vive en `ingredientes.json`. Una receta solo la escribe si depende de su cantidad («o 150 g de azúcar»), y entonces manda la suya (`alternativaDe`) | Un solo lugar para reutilizarla; la cantidad no puede ir en el catálogo |
 | 2026-11-04 | En `/hoy` se dan por hechos lo «al gusto», lo opcional y lo que no se costea. Los nombres libres de las recetas personales van en un grupo aparte, sin mezclarse | El catálogo tiene precio y fecha; los nombres libres, no |
+| 2026-11-04 | La merma solo cuenta lo que se quita antes de cocinar (cáscara, recorte), nunca lo que se pierde cocinando. Sobrebarriga 10 % estimado, hasta pesarlo | Lo que suelta en la olla no cambia lo que se compra |
+| 2026-11-04 | El tiempo total de una receta incluye la preparación, no solo los temporizadores | Lo decidió el dueño al revisar el sudado y la sobrebarriga |
+| 2026-11-04 | Las recetas se pueden publicar sin precio ni imagen: precio en null, costo parcial e ilustración de categoría. Las recetas sin imagen van en una lista explícita (`IMAGEN_PENDIENTE`, en `datos.test.ts`), y la prueba falla si una ya tiene imagen y sigue ahí | Nunca inventar un precio; y la lista evita que la excepción se vuelva permanente |
+| 2026-11-04 | `fsModuleCache: false` en Vitest | Ese caché guarda el resultado de `import.meta.glob` y ocultaba las carpetas de recetas nuevas |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
@@ -107,8 +111,8 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 4 | Exportar y lista de compras | `0.4.0` | hecha y publicada |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | hecha y publicada |
 | 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | hecha y publicada |
-| 7 | «¿Qué cocino hoy?» | `0.7.0` | hecha |
-| 8 | Crecer de a poco, una receta por commit | `0.N.0` | pendiente |
+| 7 | «¿Qué cocino hoy?» | `0.7.0` | hecha y publicada |
+| 8 | Crecer de a poco, una receta por commit | `0.8.0` | en curso: faltan precios e imágenes |
 | L | Fase Legal | `0.6.0` | hecha dentro de la Fase 6 |
 | R | Repaso | `0.N.x` | pendiente |
 | 🚀 | Documentarlo en Moss y mencionarlo en el portafolio | `1.0.0` | pendiente |

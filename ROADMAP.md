@@ -75,6 +75,15 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Se hizo dentro de la Fase 6: la política se escribió auditando el código real.
 - [ ] Revisar la política en la Fase R y cada vez que cambie lo que se guarda o a quién se le envía. Si el proyecto deja de ser familiar, revisarla con un profesional: no es asesoría jurídica.
 
+## Fase 8: crecer el recetario
+- [x] Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, con la categoría Platos fuertes (`0.8.0`).
+- [ ] **Cotizar los 16 ingredientes nuevos:** precio, tamaño del empaque (`porCantidad` y `empaque`) y fecha. Hoy van en `precio: null`. Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`.
+- [ ] Pesar lo que se recorta de la sobrebarriga al comprarla y corregir su merma (hoy 10 % estimado).
+- [ ] **Las tres imágenes de Gemini:** al agregarlas, sacar la receta de `IMAGEN_PENDIENTE` en `datos.test.ts` y escribir su `imagenAlt`.
+- [ ] Con los precios, llenar la tabla de estimados altos y revisar si los tres filtros de presupuesto siguen separando bien.
+- [ ] Categorías Acompañamientos y Bebidas: entran cuando haya recetas que las llenen. Una categoría sin recetas es una galería vacía y no tiene imagen de respaldo.
+- [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.
+
 ## Fase funcional del modo cocina
 - [ ] Lógica de «Mantener pantalla encendida» en `src/features/cocina/usePantallaEncendida.ts` (Screen Wake Lock API). El botón y su estado «No disponible en este navegador» ya existen.
 - [ ] Lógica de los temporizadores en `src/features/cocina/Temporizador.tsx` (hoy solo muestra el tiempo).

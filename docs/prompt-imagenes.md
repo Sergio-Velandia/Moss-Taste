@@ -24,6 +24,9 @@ Deja aire alrededor del plato: la imagen se recorta a 4:3 en el sitio.
 | Ajiaco santafereño | un ajiaco santafereño con crema, alcaparras y aguacate al lado |
 | Changua | una changua con huevo entero, cilantro fresco y calado al lado |
 | Arroz con leche | un arroz con leche espolvoreado con canela |
+| Lentejas con chorizo | unas lentejas con chorizo en plato hondo, con cilantro fresco encima |
+| Sudado de pollo | un sudado de pollo con papa y yuca en su caldo espeso, con arroz blanco al lado |
+| Sobrebarriga en salsa criolla | unas tajadas de sobrebarriga bañadas en salsa criolla de tomate y cebolla |
 
 ## De la imagen generada al sitio
 
