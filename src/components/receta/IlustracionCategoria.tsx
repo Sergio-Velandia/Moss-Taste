@@ -1,13 +1,14 @@
-import { CakeSlice, ChefHat, EggFried, Soup, type LucideIcon } from 'lucide-react'
+import { CakeSlice, ChefHat, EggFried, Soup, UtensilsCrossed, type LucideIcon } from 'lucide-react'
 import { cx } from '@/lib/clases'
 
 const ICONOS: Record<string, LucideIcon> = {
   sopas: Soup,
+  'platos-fuertes': UtensilsCrossed,
   desayunos: EggFried,
   postres: CakeSlice,
 }
 
-// Marcador de posición por categoría mientras llegan las imágenes (Fase 3). Es decorativo.
+// Marcador de posición por categoría mientras llegan las imágenes de una receta. Es decorativo.
 export function IlustracionCategoria({ categoria, className }: { categoria: string; className?: string }) {
   const Icono = ICONOS[categoria] ?? ChefHat
   return (

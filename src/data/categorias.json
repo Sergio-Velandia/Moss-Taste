@@ -1,5 +1,6 @@
 [
   { "id": "sopas", "nombre": "Sopas", "descripcion": "Sopas y caldos para el almuerzo.", "imagenRespaldo": "ajiaco-santafereno" },
+  { "id": "platos-fuertes", "nombre": "Platos fuertes", "descripcion": "Carne, pollo o lentejas, con su salsa y su acompañamiento.", "imagenRespaldo": "sudado-de-pollo" },
   { "id": "desayunos", "nombre": "Desayunos", "descripcion": "Changua, huevos y lo que se come temprano.", "imagenRespaldo": "changua" },
   { "id": "postres", "nombre": "Postres", "descripcion": "Dulces para después de comer o para el algo.", "imagenRespaldo": "arroz-con-leche" }
 ]

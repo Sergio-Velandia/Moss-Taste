@@ -1,0 +1,80 @@
+{
+  "id": "sudado-de-pollo",
+  "titulo": "Sudado de pollo",
+  "resumen": "Presas de pollo doradas y cocinadas en salsa de tomate, con yuca y papa en un caldo espeso.",
+  "categoria": "platos-fuertes",
+  "porcionesBase": 6,
+  "tiempoMin": 95,
+  "ingredientes": [
+    { "ingrediente": "pollo-presas", "cantidad": 1200, "unidad": "g", "nota": "con hueso" },
+    { "ingrediente": "papa-pastusa", "cantidad": 800, "unidad": "g", "nota": "pelada" },
+    { "ingrediente": "yuca", "cantidad": 500, "unidad": "g", "nota": "pelada y sin el hilo del centro" },
+    { "ingrediente": "tomate", "cantidad": 4, "unidad": "unidad" },
+    { "ingrediente": "cebolla-cabezona", "cantidad": 1, "unidad": "unidad" },
+    { "ingrediente": "cebolla-larga", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "pimenton", "cantidad": 1, "unidad": "unidad" },
+    { "ingrediente": "ajo", "cantidad": 3, "unidad": "unidad" },
+    { "ingrediente": "aceite", "cantidad": 2, "unidad": "cucharada" },
+    { "ingrediente": "color", "cantidad": 0.5, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "comino", "cantidad": 0.5, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "agua", "cantidad": 1.5, "unidad": "l" },
+    { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "un manojo pequeño" }
+  ],
+  "miseEnPlace": [
+    "Seca las presas de pollo con papel de cocina: mojadas no doran, se hierven.",
+    "Sazónalas con sal, comino y color y déjalas reposar mientras picas lo demás.",
+    "Pica fino el tomate, la cebolla cabezona, la cebolla larga, el pimentón y el ajo.",
+    "Pela la papa y córtala en trozos grandes. Pela la yuca, quítale el hilo del centro y córtala en trozos.",
+    "Pica el cilantro y resérvalo: va al final."
+  ],
+  "pasos": [
+    {
+      "texto": "Calienta el aceite en una olla ancha y dora las presas de pollo 8 minutos, volteándolas a la mitad. No las amontones: si no caben, hazlo en dos tandas.",
+      "ingredientes": ["aceite", "pollo-presas", "sal", "comino", "color"],
+      "temporizadorMin": 8
+    },
+    {
+      "texto": "Saca el pollo y resérvalo. En esa misma olla sofríe la cebolla cabezona, la cebolla larga, el pimentón y el ajo 5 minutos.",
+      "ingredientes": ["cebolla-cabezona", "cebolla-larga", "pimenton", "ajo"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Agrega el tomate y cocina 10 minutos a fuego medio, hasta que se deshaga y quede una salsa.",
+      "ingredientes": ["tomate"],
+      "temporizadorMin": 10
+    },
+    {
+      "texto": "Devuelve el pollo a la olla, revuélvelo con la salsa y agrega el agua. Lleva a hervor y baja el fuego.",
+      "ingredientes": ["pollo-presas", "agua"]
+    },
+    {
+      "texto": "Cocina tapado 25 minutos.",
+      "temporizadorMin": 25
+    },
+    {
+      "texto": "Agrega la yuca y cocina 10 minutos.",
+      "ingredientes": ["yuca"],
+      "temporizadorMin": 10
+    },
+    {
+      "texto": "Agrega la papa y cocina 15 minutos más, hasta que la yuca se abra al pincharla y la papa esté blanda.",
+      "ingredientes": ["papa-pastusa"],
+      "temporizadorMin": 15
+    },
+    {
+      "texto": "Destapa y deja al fuego 5 minutos para que el caldo espese un poco. Prueba y ajusta la sal.",
+      "ingredientes": ["sal"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Sirve con el cilantro por encima, con arroz blanco aparte.",
+      "ingredientes": ["cilantro"]
+    }
+  ],
+  "notas": [
+    "La yuca entra antes que la papa porque tarda más. Si entran juntas, o la yuca queda dura o la papa se deshace.",
+    "Si la yuca es congelada, agrégala en el paso 6 directo, sin descongelar, y súmale 5 minutos.",
+    "El caldo debe quedar espeso, no aguado: es un sudado, no una sopa."
+  ]
+}

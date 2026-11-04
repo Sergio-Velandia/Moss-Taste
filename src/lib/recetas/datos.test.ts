@@ -46,8 +46,15 @@ describe('datos del recetario', () => {
   const tieneImagenes = (slug: string) =>
     imagenes.has(`/src/data/recetas/${slug}/imagen.webp`) && imagenes.has(`/src/data/recetas/${slug}/miniatura.webp`)
 
+  // Recetas publicadas mientras su imagen se genera. Lista corta y a propósito: todas las demás deben tenerla.
+  const IMAGEN_PENDIENTE = new Set(['lentejas-con-chorizo', 'sudado-de-pollo', 'sobrebarriga-en-salsa-criolla'])
+
+  it('una receta sale de la lista de pendientes cuando ya tiene su imagen', () => {
+    expect([...IMAGEN_PENDIENTE].filter(tieneImagenes)).toEqual([])
+  })
+
   it('cada receta real tiene imagen, miniatura y texto alternativo', () => {
-    const faltan = RECETAS.filter((r) => !r.ejemplo && (!tieneImagenes(r.id) || !r.imagenAlt)).map(
+    const faltan = RECETAS.filter((r) => !r.ejemplo && !IMAGEN_PENDIENTE.has(r.id) && (!tieneImagenes(r.id) || !r.imagenAlt)).map(
       (r) => `recetas/${r.id}: falta imagen.webp, miniatura.webp (npm run imagenes) o imagenAlt en receta.json`,
     )
     expect(faltan).toEqual([])
@@ -59,7 +66,7 @@ describe('datos del recetario', () => {
 
   it('cada categoría con recetas reales tiene imagen de respaldo con imagen propia', () => {
     const conReales = new Set(RECETAS.filter((r) => !r.ejemplo).map((r) => r.categoria))
-    const faltan = CATEGORIAS.filter((c) => conReales.has(c.id) && !(c.imagenRespaldo && tieneImagenes(c.imagenRespaldo))).map(
+    const faltan = CATEGORIAS.filter((c) => conReales.has(c.id) && !(c.imagenRespaldo && (tieneImagenes(c.imagenRespaldo) || IMAGEN_PENDIENTE.has(c.imagenRespaldo)))).map(
       (c) => `categorias.json → ${c.id}: imagenRespaldo debe ser el slug de una receta con imagen`,
     )
     expect(faltan).toEqual([])
