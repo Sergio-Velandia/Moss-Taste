@@ -43,6 +43,8 @@ export function recetaAJSON(receta: Receta, porciones: number, catalogo: Readonl
         sinPrecio: l.motivo ?? null,
       })),
       costo: {
+        // false: falta el precio de alguna línea y los números son parciales.
+        completo: c.sinPrecio.length === 0,
         total: c.total,
         minimo: c.minimo,
         maximo: c.maximo,
@@ -76,6 +78,8 @@ export function listaAJSON(entradas: readonly EntradaLista[], items: readonly It
         para: i.recetas,
       })),
       totales: {
+        // false: falta el precio de alguna línea y los números son parciales.
+        completos: totales.sinPrecio.length === 0,
         // Dos números distintos, que no se suman: lo que cuestan las recetas y lo que se paga en caja.
         loQueCuestanLasRecetas: totales.proporcional,
         loQueSePagaEnCaja: totales.caja,

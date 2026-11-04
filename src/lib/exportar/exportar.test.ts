@@ -105,7 +105,7 @@ describe('JSON', () => {
     const entradas = [{ receta: arroz, porciones: 6 }]
     const items = sumarLista(entradas, INGREDIENTES)
     const datos = JSON.parse(listaAJSON(entradas, items, FECHA))
-    expect(Object.keys(datos.totales)).toEqual(['loQueCuestanLasRecetas', 'loQueSePagaEnCaja', 'sinPrecio'])
+    expect(Object.keys(datos.totales)).toEqual(['completos', 'loQueCuestanLasRecetas', 'loQueSePagaEnCaja', 'sinPrecio'])
     expect(datos.recetas).toEqual([{ id: 'arroz-con-leche', titulo: 'Arroz con leche', porciones: 6 }])
   })
 })

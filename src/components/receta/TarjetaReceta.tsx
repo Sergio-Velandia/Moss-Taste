@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { formatoCOP } from '@/lib/formato'
 import { INGREDIENTES } from '@/lib/recetas/catalogo'
 import { calcularReceta } from '@/lib/calculo/costo'
+import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
 import type { Receta } from '@/lib/recetas/tipos'
 import { AvisoEjemplo } from './AvisoEjemplo'
 import { ImagenReceta } from './ImagenReceta'
@@ -17,7 +18,7 @@ export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta
       <div className="grid content-start gap-3 p-5">
         {receta.ejemplo && <AvisoEjemplo />}
         <Titulo className="text-2xl">
-          <Link to={`/recetas/${receta.id}`} className="outline-none after:absolute after:inset-0 hover:underline hover:decoration-accent hover:underline-offset-4">
+          <Link to={rutaDeReceta(receta.id)} className="outline-none after:absolute after:inset-0 hover:underline hover:decoration-accent hover:underline-offset-4">
             {receta.titulo}
           </Link>
         </Titulo>
@@ -25,7 +26,8 @@ export function TarjetaReceta({ receta, nivel: Titulo = 'h2' }: { receta: Receta
         <MetaReceta receta={receta} conCategoria={false} />
         {costo.total > 0 && (
           <p className="text-sm text-ink-soft tabular-nums">
-            Alrededor de <strong className="font-bold text-ink">{formatoCOP(costo.porPorcion)}</strong> por porción
+            {costo.sinPrecio.length ? 'Costo parcial:' : 'Alrededor de'} <strong className="font-bold text-ink">{formatoCOP(costo.porPorcion)}</strong> por porción
+            {costo.sinPrecio.length > 0 && ', faltan precios'}
           </p>
         )}
       </div>

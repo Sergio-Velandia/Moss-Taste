@@ -5,7 +5,7 @@ import { formatoCantidad, formatoCOP, formatoPorcentaje } from '@/lib/formato'
 const SIN_PRECIO: Record<MotivoSinPrecio, string> = {
   'sin-precio': 'Sin precio',
   'sin-conversion': 'Sin equivalencia',
-  'sin-ingrediente': 'No está en el catálogo',
+  'sin-ingrediente': 'Sin precio',
   'no-se-costea': 'No se costea',
 }
 

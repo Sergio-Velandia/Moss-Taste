@@ -30,7 +30,7 @@ function cantidadYUnidad(valor: number, unidad: Unidad, ingrediente?: Ingredient
   return [cantidad(r.valor), r.valor > 1 ? plural : singular]
 }
 
-const MOTIVOS = { 'sin-precio': 'Sin precio', 'sin-conversion': 'Sin equivalencia', 'sin-ingrediente': 'No está en el catálogo', 'no-se-costea': 'No se costea' }
+const MOTIVOS = { 'sin-precio': 'Sin precio', 'sin-conversion': 'Sin equivalencia', 'sin-ingrediente': 'Sin precio', 'no-se-costea': 'No se costea' }
 
 function marcas(l: LineaCalculada): string {
   return [
@@ -49,6 +49,8 @@ const pie = (fecha: string): Celda[][] => [[], ['Exportado de Moss Taste', fecha
 
 export function hojasDeReceta(receta: Receta, porciones: number, catalogo: ReadonlyMap<string, Ingrediente>, categoria: string, fecha: string): Hoja[] {
   const c = calcularReceta(receta, porciones, catalogo)
+  // Nunca parece completo si falta una línea: lo dice la etiqueta del total.
+  const parcial = c.sinPrecio.length > 0
 
   const hojaReceta: Hoja = {
     nombre: 'Receta',
@@ -118,11 +120,11 @@ export function hojasDeReceta(receta: Receta, porciones: number, catalogo: Reado
       ['Porciones', porciones],
       [],
       ['Total mínimo (−10 %)', cop(c.minimo)],
-      [titulo('Total estimado'), { valor: c.total, formato: 'cop', negrita: true }],
+      [titulo(parcial ? 'Total parcial: faltan precios' : 'Total estimado'), { valor: c.total, formato: 'cop', negrita: true }],
       ['Total máximo (+10 %)', cop(c.maximo)],
       [],
       ['Por porción, mínimo', cop(c.porPorcionMinimo)],
-      [titulo('Por porción, estimado'), { valor: c.porPorcion, formato: 'cop', negrita: true }],
+      [titulo(parcial ? 'Por porción, parcial: faltan precios' : 'Por porción, estimado'), { valor: c.porPorcion, formato: 'cop', negrita: true }],
       ['Por porción, máximo', cop(c.porPorcionMaximo)],
       [],
       ['Incluye opcionales', cop(c.opcionales.total), c.opcionales.nombres.join(', ')],
@@ -138,6 +140,7 @@ export function hojasDeReceta(receta: Receta, porciones: number, catalogo: Reado
 /** La lista de compras: qué comprar, cómo se compra en la tienda y los dos totales, sin mezclarlos. */
 export function hojaDeLista(items: readonly ItemLista[], fecha: string): Hoja {
   const totales = totalesLista(items)
+  const parcial = totales.sinPrecio.length > 0 ? ' (parcial: faltan precios)' : ''
   return {
     nombre: 'Lista de compras',
     anchos: [28, 12, 12, 26, 18, 18, 40],
@@ -150,15 +153,15 @@ export function hojaDeLista(items: readonly ItemLista[], fecha: string): Hoja {
           i.ingrediente?.nombre ?? i.idIngrediente,
           cant,
           unidad,
-          i.tienda?.descripcion ?? (noSeCostea ? 'No se costea' : 'Suelto, por peso'),
+          i.tienda?.descripcion ?? (noSeCostea ? 'No se costea' : i.ingrediente ? 'Suelto, por peso' : ''),
           cop(i.subtotal),
           cop(i.tienda?.costoCaja ?? null),
           i.recetas.join(', '),
         ]
       }),
       [],
-      [titulo('Lo que cuestan las recetas'), '', '', 'Proporcional a lo que se usa', { valor: totales.proporcional, formato: 'cop', negrita: true }],
-      [titulo('Lo que se paga hoy en caja'), '', '', 'Empaques completos', '', { valor: totales.caja, formato: 'cop', negrita: true }],
+      [titulo(`Lo que cuestan las recetas${parcial}`), '', '', 'Proporcional a lo que se usa', { valor: totales.proporcional, formato: 'cop', negrita: true }],
+      [titulo(`Lo que se paga hoy en caja${parcial}`), '', '', 'Empaques completos', '', { valor: totales.caja, formato: 'cop', negrita: true }],
       ...(totales.sinPrecio.length ? [['Sin precio (no suman)', '', '', totales.sinPrecio.join(', ')]] : []),
       ...pie(fecha),
     ],
@@ -169,10 +172,13 @@ export function hojaDeLista(items: readonly ItemLista[], fecha: string): Hoja {
 export function hojaDeRecetasDeLista(entradas: readonly EntradaLista[], catalogo: ReadonlyMap<string, Ingrediente>): Hoja {
   return {
     nombre: 'Recetas',
-    anchos: [32, 12, 20],
+    anchos: [32, 12, 20, 24],
     filas: [
-      ['Receta', 'Porciones', 'Costo por porción'].map(titulo),
-      ...entradas.map(({ receta, porciones }): Celda[] => [receta.titulo, porciones, cop(calcularReceta(receta, porciones, catalogo).porPorcion)]),
+      ['Receta', 'Porciones', 'Costo por porción', 'Nota'].map(titulo),
+      ...entradas.map(({ receta, porciones }): Celda[] => {
+        const c = calcularReceta(receta, porciones, catalogo)
+        return [receta.titulo, porciones, cop(c.porPorcion), c.sinPrecio.length ? 'Parcial: faltan precios' : '']
+      }),
     ],
   }
 }
