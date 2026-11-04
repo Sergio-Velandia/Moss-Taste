@@ -63,6 +63,15 @@ Decisión del dueño, para no tener que reconstruirla mirando el código. Vale p
 
 El código está en `topePorPorcion` (`src/lib/calculo/costo.ts`).
 
+## Cómo funcionan las alternativas
+
+Lo que puede reemplazar a un ingrediente, sin sumarse al costo, se escribe en dos niveles:
+
+- **En el catálogo** (`alternativa` en `ingredientes.json`): «pan tostado» para el calado. Vale para todas las recetas que lo usen.
+- **En la receta** (`alternativa` en `receta.json`), solo si depende de su cantidad: «o 150 g de azúcar».
+
+**La de la receta manda sobre la del catálogo.** El código está en `alternativaDe` (`src/lib/recetas/alternativa.ts`). Por ahora es solo texto: tener la alternativa no cuenta como tener el ingrediente (ver [ROADMAP.md](ROADMAP.md)).
+
 ## Cuentas con Firebase
 
 Authentication y Firestore, en plan gratuito (Spark). Sin configuración el sitio funciona, pero sin cuentas.

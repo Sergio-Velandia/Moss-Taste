@@ -20,6 +20,14 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 - El filtro de presupuesto, en «¿Qué cocino hoy?» y en la galería, compara el extremo alto del estimado (+10 %): salen menos recetas, pero ninguna se pasa de lo que elegiste.
 - Una receta con costo parcial no pasa el filtro de presupuesto. Sale aparte, al final, diciendo qué precio le falta.
 
+Estimados altos por porción con los precios de esta versión (cotizados el 2026-11-02), para comparar cuando cambien:
+
+| Receta | Estimado alto por porción | Primer filtro que pasa |
+|---|---|---|
+| Arroz con leche | $ 2.488 | Hasta $ 5.000 |
+| Changua | $ 3.229 | Hasta $ 5.000 |
+| Ajiaco santafereño | $ 9.815 | Hasta $ 10.000 |
+
 ### Corregido
 
 - El agua ya no aparece como ingrediente que falta, ni entre las opciones para marcar.

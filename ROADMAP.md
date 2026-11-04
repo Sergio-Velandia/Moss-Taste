@@ -69,6 +69,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] El presupuesto usa el extremo alto del estimado, también en la galería. Lo parcial sale aparte.
 - [x] Recetas personales marcadas como «Tuya», con sus nombres libres aparte del catálogo.
 - [ ] Mostrar la alternativa también en la lista de compras: ya está en el catálogo, falta decidir si se quiere.
+- [ ] Que tener la alternativa cuente como tener el ingrediente. Hoy es solo texto: si tienes pan tostado sigue diciendo «Calado (o pan tostado)» y la receta no sube en el orden. Con tres recetas da igual; con unas veinte, una receta que sí se puede cocinar queda debajo de una que no. Ese es el momento de arreglarlo.
 
 ## Fase Legal
 - [x] Se hizo dentro de la Fase 6: la política se escribió auditando el código real.
