@@ -102,9 +102,27 @@ export function Privacidad() {
           <a href="https://www.emailjs.com/legal/privacy-policy/" className={ENLACE}>
             EmailJS
           </a>
-          , un encargado que los convierte en un correo y lo entrega en el buzón {CORREO}. EmailJS trata esos datos y los técnicos de la conexión, como la dirección IP, según su política, y puede hacerlo fuera de Colombia. Antes de enviar, nada sale de tu navegador.
+          , que los convierte en un correo dirigido a {CORREO}. Antes de enviar, nada sale de tu navegador. Ese correo, igual que el que escribas directamente a esa dirección, pasa por dos servicios más:
         </p>
-        <p>Se usan solo para responderte y, si propones una receta, para revisarla. Si entra al recetario, se escribe con otras palabras y sin tus datos. Los mensajes se conservan en el buzón mientras hagan falta para responderte; puedes pedir que se borren.</p>
+        <ul className="grid list-disc gap-2 pl-5">
+          <li>
+            <strong className="font-bold">EmailJS</strong> envía el formulario. Trata esos datos y los técnicos de la conexión, como la dirección IP.
+          </li>
+          <li>
+            <a href="https://www.cloudflare.com/privacypolicy/" className={ENLACE}>
+              Cloudflare
+            </a>{' '}
+            (Email Routing) recibe el correo del dominio y lo reenvía. No guarda el buzón, pero el mensaje pasa por sus servidores.
+          </li>
+          <li>
+            <a href="https://policies.google.com/privacy" className={ENLACE}>
+              Google
+            </a>{' '}
+            (Gmail) es donde queda guardado, en una cuenta de correo personal del responsable. Esa dirección no se publica.
+          </li>
+        </ul>
+        <p>Los tres actúan como encargados y pueden tratar los datos fuera de Colombia: al enviar el formulario autorizas esa transferencia.</p>
+        <p>Se usan solo para responderte y, si propones una receta, para revisarla. Si entra al recetario, se escribe con otras palabras y sin tus datos. Los mensajes se conservan en ese buzón mientras hagan falta para responderte; puedes pedir que se borren.</p>
       </Bloque>
 
       <Bloque id="p-hosting" titulo="Alojamiento">

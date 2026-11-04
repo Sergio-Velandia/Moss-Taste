@@ -64,7 +64,7 @@ export function MisDatos({ usuario }: { usuario: UsuarioSesion }) {
       <div className="grid gap-3 border-t border-line pt-5">
         <h3 className="text-xl">Borrar mi cuenta</h3>
         <p className="max-w-prose">
-          Se borran tu cuenta, favoritos, notas, recetas personales y lista de compras. No se puede deshacer. Si escribiste por el formulario de contacto, esos mensajes están en un buzón de correo: para borrarlos, escribe a{' '}
+          Se borran tu cuenta, favoritos, notas, recetas personales y lista de compras. No se puede deshacer. Si escribiste por el formulario de contacto, esos mensajes están aparte, en el correo del recetario: para borrarlos, escribe a{' '}
           <a href="mailto:contacto@sergio-velandia.dev" className="font-bold text-accent underline underline-offset-4">
             contacto@sergio-velandia.dev
           </a>

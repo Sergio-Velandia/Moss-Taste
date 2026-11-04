@@ -38,7 +38,7 @@ describe('rutas', () => {
     const pie = screen.getByRole('navigation', { name: 'Pie de página' })
     expect(within(pie).getByRole('link', { name: 'Privacidad' }).getAttribute('href')).toBe('/privacidad')
     expect(within(pie).getByRole('link', { name: 'Licencia' }).getAttribute('href')).toBe('/licencia')
-    for (const texto of [/Última actualización/, /Bogotá, Colombia/, /encargado del tratamiento/, /correo y el nombre de tu perfil/, /consultar, actualizar y rectificar/, /mayor de edad/, /EmailJS/, /contacto@sergio-velandia\.dev/])
+    for (const texto of [/Última actualización/, /Bogotá, Colombia/, /encargado del tratamiento/, /correo y el nombre de tu perfil/, /consultar, actualizar y rectificar/, /mayor de edad/, /EmailJS/, /Cloudflare/, /Gmail/, /Esa dirección no se publica/, /contacto@sergio-velandia\.dev/])
       expect(document.body.textContent).toMatch(texto)
   })
 
