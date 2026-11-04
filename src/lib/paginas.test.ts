@@ -6,28 +6,28 @@ import type { Receta } from './recetas/tipos'
 import { validarAcceso, validarContacto, validarCorreo, type DatosContacto } from './validarFormularios'
 
 describe('sugerirRecetas', () => {
-  const ids = (tengo: string[], max: number | null = null) => sugerirRecetas(RECETAS, tengo, max, INGREDIENTES).map((s) => s.receta.id)
+  const ids = (tengo: string[], max: number | null = null) => sugerirRecetas(RECETAS, tengo, max, INGREDIENTES).sugerencias.map((s) => s.receta.id)
 
   it('sin ingredientes marcados no sugiere nada', () => {
     expect(ids([])).toEqual([])
   })
 
   it('ordena por lo que menos falta y dice qué falta', () => {
-    const [primera] = sugerirRecetas(RECETAS, ['leche', 'arroz', 'azucar', 'canela', 'mantequilla'], null, INGREDIENTES)
+    const [primera] = sugerirRecetas(RECETAS, ['leche', 'arroz', 'azucar', 'canela', 'mantequilla'], null, INGREDIENTES).sugerencias
     expect(primera?.receta.id).toBe('arroz-con-leche')
     expect(primera?.faltan).toEqual([])
     expect(ids(['leche'])).toEqual(expect.arrayContaining(['arroz-con-leche', 'arepas-de-queso']))
   })
 
   it('los ingredientes al gusto no cuentan como faltantes', () => {
-    const arepas = sugerirRecetas(RECETAS, ['harina-maiz', 'leche', 'queso-campesino', 'mantequilla'], null, INGREDIENTES).find(
+    const arepas = sugerirRecetas(RECETAS, ['harina-maiz', 'leche', 'queso-campesino', 'mantequilla'], null, INGREDIENTES).sugerencias.find(
       (s) => s.receta.id === 'arepas-de-queso',
     )
     expect(arepas?.faltan).toEqual([])
   })
 
   it('los opcionales no cuentan como faltantes', () => {
-    const [arroz] = sugerirRecetas(RECETAS, ['arroz', 'leche', 'canela', 'mantequilla'], null, INGREDIENTES)
+    const [arroz] = sugerirRecetas(RECETAS, ['arroz', 'leche', 'canela', 'mantequilla'], null, INGREDIENTES).sugerencias
     expect(arroz?.receta.id).toBe('arroz-con-leche')
     expect(arroz?.faltan).toEqual([])
   })

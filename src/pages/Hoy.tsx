@@ -2,28 +2,31 @@ import { Refrigerator, X } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 import { EncabezadoPagina } from '@/components/EncabezadoPagina'
 import { AvisoEjemplo } from '@/components/receta/AvisoEjemplo'
+import { RecetasSinSaber } from '@/components/receta/RecetasSinSaber'
 import { TarjetaReceta } from '@/components/receta/TarjetaReceta'
 import { Boton } from '@/components/ui/Boton'
 import { Chip } from '@/components/ui/Chip'
 import { EstadoVacio } from '@/components/ui/Estados'
 import { GrupoChips } from '@/components/ui/GrupoChips'
+import { useDatosCuenta } from '@/lib/cuentas/datos'
 import { formatoCOP } from '@/lib/formato'
 import { INGREDIENTES, RECETAS } from '@/lib/recetas/catalogo'
-import { PRESUPUESTOS } from '@/lib/recetas/filtrar'
-import { sugerirRecetas } from '@/lib/recetas/hoy'
-
-// Solo los ingredientes principales: la sal y las especias se dan por hechas.
-const OPCIONES = [...new Set(RECETAS.flatMap((r) => r.ingredientes.filter((i) => !i.ajustarAlGusto).map((i) => i.ingrediente)))]
-  .map((id) => INGREDIENTES.get(id))
-  .filter((i) => i !== undefined)
-  .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))
+import { AYUDA_PRESUPUESTO, PRESUPUESTOS } from '@/lib/recetas/filtrar'
+import { opcionesDeHoy, sugerirRecetas } from '@/lib/recetas/hoy'
+import { esRecetaPersonal } from '@/lib/recetas/rutaReceta'
 
 export function Hoy() {
   // Estado en la URL: ?tengo=leche&tengo=arroz&max=10000
   const [params, setParams] = useSearchParams()
-  const tengo = params.getAll('tengo')
+  // Con sesión, también entran las recetas personales. Sin ella, esta lista está vacía y no se descarga nada.
+  const { recetas: mias } = useDatosCuenta()
+  const todas = [...RECETAS, ...mias]
+  const opciones = opcionesDeHoy(todas, INGREDIENTES)
+  // Un ?tengo= que no corresponde a ninguna opción se ignora.
+  const validas = new Set([...opciones.catalogo.map((i) => i.id), ...opciones.libres])
+  const tengo = [...new Set(params.getAll('tengo'))].filter((id) => validas.has(id))
   const max = Number(params.get('max')) || null
-  const sugerencias = sugerirRecetas(RECETAS, tengo, max, INGREDIENTES)
+  const { sugerencias, sinSaber } = sugerirRecetas(todas, tengo, max, INGREDIENTES)
 
   const actualizar = (nuevoTengo: string[], nuevoMax: number | null) => {
     const p = new URLSearchParams()
@@ -40,14 +43,23 @@ export function Hoy() {
       </EncabezadoPagina>
 
       <div className="grid gap-6 rounded-xl border border-line bg-surface p-5 sm:p-6">
-        <GrupoChips titulo="Lo que tengo" ayuda="La sal y las especias se dan por hechas.">
-          {OPCIONES.map((i) => (
+        <GrupoChips titulo="Lo que tengo" ayuda="La sal, las especias y el agua se dan por hechas.">
+          {opciones.catalogo.map((i) => (
             <Chip key={i.id} activo={tengo.includes(i.id)} onChange={() => alternar(i.id)}>
               {i.nombre}
             </Chip>
           ))}
         </GrupoChips>
-        <GrupoChips titulo="Presupuesto por porción">
+        {opciones.libres.length > 0 && (
+          <GrupoChips titulo="De tus recetas" ayuda="Los escribiste tú: no están en el catálogo y no tienen precio.">
+            {opciones.libres.map((nombre) => (
+              <Chip key={nombre} activo={tengo.includes(nombre)} onChange={() => alternar(nombre)}>
+                {nombre}
+              </Chip>
+            ))}
+          </GrupoChips>
+        )}
+        <GrupoChips titulo="Presupuesto por porción" ayuda={AYUDA_PRESUPUESTO}>
           {PRESUPUESTOS.map((p) => (
             <Chip key={p} activo={max === p} onChange={(activo) => actualizar(tengo, activo ? p : null)}>
               Hasta {formatoCOP(p)}
@@ -66,15 +78,15 @@ export function Hoy() {
           <h2 id="titulo-sugerencias" className="text-3xl">
             Puedes cocinar
           </h2>
-          {RECETAS.some((r) => r.ejemplo) && <AvisoEjemplo texto="Recetas y precios de ejemplo" />}
+          {todas.some((r) => r.ejemplo) && <AvisoEjemplo texto="Recetas y precios de ejemplo" />}
         </div>
         <output aria-live="polite" className="sr-only">
-          {tengo.length ? `${sugerencias.length} ${sugerencias.length === 1 ? 'receta sugerida' : 'recetas sugeridas'}` : ''}
+          {tengo.length || max ? `${sugerencias.length} ${sugerencias.length === 1 ? 'receta sugerida' : 'recetas sugeridas'}${sinSaber.length ? `, y ${sinSaber.length} sin saber si cabe${sinSaber.length === 1 ? '' : 'n'}` : ''}` : ''}
         </output>
 
-        {tengo.length === 0 ? (
+        {tengo.length === 0 && !max ? (
           <EstadoVacio titulo="Marca lo que tienes" icono={Refrigerator} nivel="h3">
-            <p>Elige al menos un ingrediente de la lista y aquí aparecen las recetas que puedes preparar con él.</p>
+            <p>Elige al menos un ingrediente, o un presupuesto, y aquí aparecen las recetas que puedes preparar.</p>
           </EstadoVacio>
         ) : sugerencias.length === 0 ? (
           <EstadoVacio
@@ -82,25 +94,31 @@ export function Hoy() {
             icono={Refrigerator}
             nivel="h3"
             accion={
-              <Boton variante="secundario" onClick={() => actualizar(tengo, null)}>
-                Quitar el presupuesto
-              </Boton>
+              max ? (
+                <Boton variante="secundario" onClick={() => actualizar(tengo, null)}>
+                  Quitar el presupuesto
+                </Boton>
+              ) : undefined
             }
           >
-            <p>Marca más ingredientes o sube el presupuesto por porción.</p>
+            <p>{max ? 'Marca más ingredientes o sube el presupuesto por porción.' : 'Marca más ingredientes.'}</p>
           </EstadoVacio>
         ) : (
           <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-6">
             {sugerencias.map(({ receta, tienes, total, faltan }) => (
               <li key={receta.id} className="grid content-start gap-3">
-                <p className="font-bold">
-                  {faltan.length === 0 ? 'Tienes todo lo principal' : `Tienes ${tienes} de ${total}. Falta: ${faltan.join(', ')}.`}
-                </p>
+                {(tengo.length > 0 || esRecetaPersonal(receta.id)) && (
+                  <p className="font-bold">
+                    {esRecetaPersonal(receta.id) && <span className="mr-2 rounded-full bg-accent-soft px-2.5 py-0.5 text-sm text-ink">Tuya</span>}
+                    {tengo.length > 0 && (faltan.length === 0 ? 'Tienes todo lo principal' : `Tienes ${tienes} de ${total}. Falta: ${faltan.join(', ')}.`)}
+                  </p>
+                )}
                 <TarjetaReceta receta={receta} nivel="h3" />
               </li>
             ))}
           </ul>
         )}
+        <RecetasSinSaber recetas={sinSaber} />
       </section>
     </div>
   )

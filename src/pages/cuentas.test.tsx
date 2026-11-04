@@ -495,6 +495,53 @@ describe('recetas personales', () => {
   })
 })
 
+describe('recetas personales en ¿Qué cocino hoy?', () => {
+  const MIA = { titulo: 'Sancocho mío', resumen: '', categoria: 'postres', porcionesBase: 2, tiempoMin: 5, ingredientes: ['{"ingrediente":"leche","cantidad":500,"unidad":"ml"}', '{"ingrediente":"Ñame de la finca","cantidad":100,"unidad":"g"}'], miseEnPlace: [], pasos: ['{"texto":"Hazlo"}'] }
+
+  it('sin sesión no aparecen: ni la receta ni sus ingredientes', async () => {
+    await visitar('/hoy?tengo=leche')
+    expect(screen.queryByText('Tuya')).toBeNull()
+    expect(screen.queryByRole('group', { name: 'De tus recetas' })).toBeNull()
+    expect(banco.llamadas).not.toContain('leerRecetas')
+  })
+
+  it('con sesión salen marcadas como «Tuya», y sus nombres libres van aparte del catálogo', async () => {
+    sembrarCuenta(CORREO, CLAVE).recetas['mia-abcd1234'] = MIA
+    await entrarComo(CORREO)
+    await visitar('/hoy?tengo=leche')
+    const libres = screen.getByRole('group', { name: 'De tus recetas' })
+    expect(within(libres).getByRole('button', { name: 'Ñame de la finca' })).toBeTruthy()
+    const catalogo = screen.getByRole('group', { name: 'Lo que tengo' })
+    expect(within(catalogo).queryByRole('button', { name: 'Ñame de la finca' })).toBeNull()
+    expect(within(libres).queryByRole('button', { name: 'Leche entera' })).toBeNull()
+    expect(screen.getByText('Tuya')).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Sancocho mío' }).getAttribute('href')).toBe('/mi-cocina/receta/mia-abcd1234')
+  })
+
+  it('marcar el nombre libre la completa', async () => {
+    sembrarCuenta(CORREO, CLAVE).recetas['mia-abcd1234'] = MIA
+    await entrarComo(CORREO)
+    await visitar('/hoy?tengo=leche')
+    expect(screen.getByText(/Tienes 1 de 2\. Falta: Ñame de la finca\./)).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Ñame de la finca' }))
+    await screen.findByText('Tienes todo lo principal')
+  })
+
+  it('con presupuesto y costo parcial no desaparece en silencio: sale aparte y dice qué le falta', async () => {
+    sembrarCuenta(CORREO, CLAVE).recetas['mia-abcd1234'] = MIA
+    await entrarComo(CORREO)
+    await visitar('/hoy?max=20000')
+    const aparte = screen.getByRole('heading', { name: 'No se puede saber si caben' }).closest('section') as HTMLElement
+    expect(within(aparte).getByRole('link', { name: 'Sancocho mío' })).toBeTruthy()
+    expect(within(aparte).getByText(/Falta el precio de: Ñame de la finca\./)).toBeTruthy()
+    expect(within(aparte).getByText('Tuya')).toBeTruthy()
+    // Está al final, después de las que sí caben.
+    const caben = screen.getByRole('link', { name: 'Arroz con leche' })
+    expect(aparte.contains(caben)).toBe(false)
+    expect(caben.compareDocumentPosition(aparte) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  })
+})
+
 describe('la lista del navegador pasa a la cuenta', () => {
   const guardarLocal = (estado: object) => {
     localStorage.setItem(CLAVE_LISTA, JSON.stringify(estado))

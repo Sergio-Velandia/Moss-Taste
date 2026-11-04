@@ -115,6 +115,30 @@ describe('galería', () => {
 })
 
 describe('¿Qué cocino hoy?', () => {
+  it('el presupuesto solo ya lista recetas, y explica de dónde sale el número', async () => {
+    await visitar('/hoy?max=20000')
+    expect(screen.queryByRole('heading', { name: 'Marca lo que tienes' })).toBeNull()
+    expect(screen.getByRole('link', { name: 'Arroz con leche' })).toBeTruthy()
+    expect(screen.getByText(/costo más alto del estimado/)).toBeTruthy()
+    expect(screen.getAllByText(/estimado hasta \$/).length).toBeGreaterThan(0)
+  })
+
+  it('un ?tengo= inventado se ignora', async () => {
+    await visitar('/hoy?tengo=inventado')
+    expect(screen.getByRole('heading', { name: 'Marca lo que tienes' })).toBeTruthy()
+  })
+
+  it('el enlace con lo marcado se puede compartir', async () => {
+    await visitar('/hoy?tengo=arroz')
+    expect(screen.getByText(/^Tienes 1 de /)).toBeTruthy()
+    expect((screen.getByRole('button', { name: 'Arroz blanco' })).getAttribute('aria-pressed')).toBe('true')
+  })
+
+  it('si nada cabe en el presupuesto, ofrece quitarlo', async () => {
+    await visitar('/hoy?tengo=arroz&max=100')
+    expect(screen.getByRole('button', { name: 'Quitar el presupuesto' })).toBeTruthy()
+  })
+
   it('marca ingredientes en la URL y sugiere recetas con lo que falta', async () => {
     const router = await visitar('/hoy')
     expect(screen.getByRole('heading', { name: 'Marca lo que tienes' })).toBeTruthy()
