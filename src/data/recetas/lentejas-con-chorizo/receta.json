@@ -1,0 +1,79 @@
+{
+  "id": "lentejas-con-chorizo",
+  "titulo": "Lentejas con chorizo",
+  "resumen": "Lentejas espesas con hogao, papa y zanahoria, con chorizo dorado y cilantro fresco al final.",
+  "categoria": "platos-fuertes",
+  "porcionesBase": 6,
+  "tiempoMin": 60,
+  "ingredientes": [
+    { "ingrediente": "lentejas", "cantidad": 500, "unidad": "g" },
+    { "ingrediente": "chorizo", "cantidad": 4, "unidad": "unidad", "nota": "unos 300 g" },
+    { "ingrediente": "tocineta", "cantidad": 100, "unidad": "g", "opcional": true },
+    { "ingrediente": "papa-pastusa", "cantidad": 300, "unidad": "g", "nota": "pelada" },
+    { "ingrediente": "zanahoria", "cantidad": 1, "unidad": "unidad", "nota": "pelada" },
+    { "ingrediente": "tomate", "cantidad": 3, "unidad": "unidad" },
+    { "ingrediente": "cebolla-cabezona", "cantidad": 1, "unidad": "unidad" },
+    { "ingrediente": "cebolla-larga", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "ajo", "cantidad": 3, "unidad": "unidad" },
+    { "ingrediente": "aceite", "cantidad": 2, "unidad": "cucharada" },
+    { "ingrediente": "comino", "cantidad": 0.5, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "color", "cantidad": 0.5, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "agua", "cantidad": 2, "unidad": "l" },
+    { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "un manojo pequeño" }
+  ],
+  "miseEnPlace": [
+    "Revisa las lentejas y descarta piedritas. Enjuágalas y escúrrelas.",
+    "Pica fino el tomate, la cebolla cabezona, la cebolla larga y el ajo: ese es el hogao.",
+    "Pela la papa y la zanahoria y pícalas en cubos de un centímetro.",
+    "Corta el chorizo en rodajas gruesas y la tocineta en tiras.",
+    "Pica el cilantro y guárdalo aparte: va al final, crudo."
+  ],
+  "pasos": [
+    {
+      "texto": "Pon las lentejas en una olla con los 2 litros de agua y lleva a hervor sin sal: la sal al principio las endurece.",
+      "ingredientes": ["lentejas", "agua"]
+    },
+    {
+      "texto": "Baja el fuego y cocina 30 minutos, hasta que estén blandas pero sin deshacerse.",
+      "temporizadorMin": 30
+    },
+    {
+      "texto": "Mientras tanto, calienta el aceite en una sartén y dora la tocineta y el chorizo 8 minutos, hasta que suelten su grasa. Sácalos y resérvalos.",
+      "ingredientes": ["aceite", "tocineta", "chorizo"],
+      "temporizadorMin": 8
+    },
+    {
+      "texto": "En esa misma grasa, sofríe la cebolla cabezona, la cebolla larga y el ajo 5 minutos, hasta que la cebolla se vea transparente.",
+      "ingredientes": ["cebolla-cabezona", "cebolla-larga", "ajo"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Agrega el tomate, el comino y el color. Cocina a fuego medio 10 minutos, aplastando el tomate con la cuchara hasta que quede una salsa espesa.",
+      "ingredientes": ["tomate", "comino", "color"],
+      "temporizadorMin": 10
+    },
+    {
+      "texto": "Pasa el hogao a la olla de las lentejas. Agrega la papa, la zanahoria y ahora sí la sal.",
+      "ingredientes": ["papa-pastusa", "zanahoria", "sal"]
+    },
+    {
+      "texto": "Cocina 15 minutos más, hasta que la papa esté blanda y el caldo haya espesado. Revuelve raspando el fondo de vez en cuando.",
+      "temporizadorMin": 15
+    },
+    {
+      "texto": "Devuelve el chorizo y la tocineta, revuelve y deja al fuego 3 minutos para que se integren los sabores.",
+      "ingredientes": ["chorizo", "tocineta"],
+      "temporizadorMin": 3
+    },
+    {
+      "texto": "Prueba y ajusta la sal. Sirve con el cilantro picado por encima.",
+      "ingredientes": ["sal", "cilantro"]
+    }
+  ],
+  "notas": [
+    "Si remojas las lentejas media hora antes, el paso 2 baja a unos 20 minutos. No es obligatorio.",
+    "Quedan mejor al día siguiente: espesan y el chorizo termina de soltar su sabor.",
+    "Si el caldo queda muy espeso, se corrige con agua caliente. Fría corta la cocción."
+  ]
+}
