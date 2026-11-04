@@ -29,7 +29,7 @@ export function Hoy() {
     const p = new URLSearchParams()
     for (const id of nuevoTengo) p.append('tengo', id)
     if (nuevoMax) p.set('max', String(nuevoMax))
-    setParams(p, { replace: true })
+    setParams(p, { replace: true, preventScrollReset: true })
   }
   const alternar = (id: string) => actualizar(tengo.includes(id) ? tengo.filter((t) => t !== id) : [...tengo, id], max)
 

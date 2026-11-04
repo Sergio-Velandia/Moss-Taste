@@ -26,10 +26,10 @@ export function Recetas() {
   const resultados = filtrarRecetas(RECETAS, filtros, INGREDIENTES)
 
   // replace: escribir en el buscador no llena el historial de entradas.
-  const cambiar = (cambios: Partial<Filtros>) => setParams(escribirFiltros({ ...filtros, ...cambios }), { replace: true })
+  const cambiar = (cambios: Partial<Filtros>) => setParams(escribirFiltros({ ...filtros, ...cambios }), { replace: true, preventScrollReset: true })
   const alternarCategoria = (id: string) =>
     cambiar({ categorias: filtros.categorias.includes(id) ? filtros.categorias.filter((c) => c !== id) : [...filtros.categorias, id] })
-  const quitarFiltros = () => setParams(new URLSearchParams(), { replace: true })
+  const quitarFiltros = () => setParams(new URLSearchParams(), { replace: true, preventScrollReset: true })
   // En móvil, los filtros se pliegan para que los resultados se vean sin bajar; abren solos si hay alguno activo.
   const activos = filtros.categorias.length + (filtros.ingrediente ? 1 : 0) + (filtros.maxPorcion ? 1 : 0)
   const [abierto, setAbierto] = useState(activos > 0)

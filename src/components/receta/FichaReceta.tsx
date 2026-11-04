@@ -47,7 +47,7 @@ export function FichaReceta({ receta, volver, extra }: Props) {
   const consulta = consultaPorciones(porciones, receta.porcionesBase)
 
   // replace: cambiar porciones no llena el historial.
-  const cambiarPorciones = (n: number) => setParams(n === receta.porcionesBase ? {} : { porciones: String(n) }, { replace: true })
+  const cambiarPorciones = (n: number) => setParams(n === receta.porcionesBase ? {} : { porciones: String(n) }, { replace: true, preventScrollReset: true })
 
   function agregarALista() {
     const resultado = lista.agregar(receta.id, porciones)

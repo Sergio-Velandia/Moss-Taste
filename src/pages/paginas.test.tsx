@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Datos fijos de prueba: estas pruebas no dependen de las recetas publicadas.
 vi.mock('@/lib/recetas/catalogo', () => import('@/test/catalogoPrueba'))
@@ -141,6 +141,64 @@ describe('formularios', () => {
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: 'corta' } })
     fireEvent.click(screen.getByRole('button', { name: 'Crear cuenta' }))
     expect(screen.getByText('Usa al menos 8 caracteres.')).toBeTruthy()
+  })
+})
+
+// Cambiar porciones o filtros actualiza la URL, pero no es ir a otra página: no debe volver arriba.
+describe('cambiar la URL de la misma página conserva la posición', () => {
+  const scrollTo = vi.fn()
+  beforeEach(() => {
+    vi.stubGlobal('scrollTo', scrollTo)
+  })
+  afterEach(() => {
+    scrollTo.mockClear()
+    vi.unstubAllGlobals()
+  })
+  const volvioArriba = () => scrollTo.mock.calls.some(([x, y]) => x === 0 && y === 0)
+
+  it('al cambiar porciones en la ficha', async () => {
+    const router = await visitar('/recetas/arroz-con-leche')
+    await act(async () => {})
+    scrollTo.mockClear()
+    fireEvent.click(screen.getByRole('button', { name: 'Agregar una porción' }))
+    await waitFor(() => expect(router.state.location.search).toBe('?porciones=7'))
+    await act(async () => {})
+    expect(volvioArriba()).toBe(false)
+    fireEvent.click(screen.getByRole('button', { name: 'Volver a 6 porciones' }))
+    await waitFor(() => expect(router.state.location.search).toBe(''))
+    await act(async () => {})
+    expect(volvioArriba()).toBe(false)
+  })
+
+  it('al filtrar la galería', async () => {
+    const router = await visitar('/recetas')
+    await act(async () => {})
+    scrollTo.mockClear()
+    fireEvent.click(screen.getByRole('button', { name: 'Desayunos' }))
+    await waitFor(() => expect(router.state.location.search).toBe('?categoria=desayunos'))
+    await act(async () => {})
+    expect(volvioArriba()).toBe(false)
+  })
+
+  it('al marcar ingredientes en ¿Qué cocino hoy?', async () => {
+    const router = await visitar('/hoy')
+    await act(async () => {})
+    scrollTo.mockClear()
+    fireEvent.click(screen.getByRole('button', { name: 'Arroz blanco' }))
+    await waitFor(() => expect(router.state.location.search).toBe('?tengo=arroz'))
+    await act(async () => {})
+    expect(volvioArriba()).toBe(false)
+  })
+
+  it('ir a otra página sí vuelve arriba', async () => {
+    const router = await visitar('/recetas/arroz-con-leche')
+    await act(async () => {})
+    scrollTo.mockClear()
+    await act(async () => {
+      await router.navigate('/acerca')
+    })
+    await screen.findByRole('heading', { level: 1, name: /Acerca/ })
+    expect(volvioArriba()).toBe(true)
   })
 })
 
