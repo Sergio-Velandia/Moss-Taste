@@ -11,6 +11,7 @@ import { TOPES } from '@/lib/cuentas/config'
 import { guardarRecetaPersonal, quedanRecetas, useDatosCuenta } from '@/lib/cuentas/datos'
 import { mensajeDeError } from '@/lib/cuentas/errores'
 import { filaIngredienteVacia, filaPasoVacia, FORM_VACIO, hayErrores, LIMITES, nuevoIdReceta, recetaAForm, resolverIngrediente, validarFormReceta, type ErroresReceta, type FilaIngrediente, type FilaPaso, type FormReceta } from '@/lib/cuentas/recetaPersonal'
+import { formatoFecha } from '@/lib/formato'
 import { CATEGORIAS, INGREDIENTES } from '@/lib/recetas/catalogo'
 import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
 import { UNIDADES, type Unidad } from '@/lib/recetas/tipos'
@@ -118,7 +119,7 @@ function Formulario({ id, inicial = FORM_VACIO }: { id?: string; inicial?: FormR
             {ingredientes.map((fila, i) => {
               const error = errores.ingredientes[i]
               const nombre = fila.nombre.trim()
-              const enCatalogo = nombre !== '' && INGREDIENTES.has(resolverIngrediente(nombre, OPCIONES_INGREDIENTE))
+              const delCatalogo = nombre ? INGREDIENTES.get(resolverIngrediente(nombre, OPCIONES_INGREDIENTE)) : undefined
               return (
                 <li key={fila.clave} className="grid gap-3 rounded-lg border border-line bg-surface p-4 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-start">
                   <Campo
@@ -128,7 +129,7 @@ function Formulario({ id, inicial = FORM_VACIO }: { id?: string; inicial?: FormR
                     maxLength={LIMITES.ingrediente}
                     value={fila.nombre}
                     error={error?.nombre}
-                    ayuda={nombre && !enCatalogo ? 'No está en el catálogo: quedará «Sin precio».' : undefined}
+                    ayuda={!nombre ? undefined : !delCatalogo ? 'No está en el catálogo: quedará «Sin precio».' : delCatalogo.fechaPrecio ? `Está en el catálogo: usa su precio, al ${formatoFecha(delCatalogo.fechaPrecio)}.` : 'Está en el catálogo, pero todavía sin precio.'}
                     onChange={(e) => cambiarIngrediente(fila.clave, { nombre: e.target.value })}
                   />
                   <Campo etiqueta="Cantidad" inputMode="decimal" value={fila.cantidad} error={error?.cantidad} onChange={(e) => cambiarIngrediente(fila.clave, { cantidad: e.target.value })} />

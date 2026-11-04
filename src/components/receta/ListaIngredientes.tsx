@@ -1,6 +1,6 @@
 import type { LineaCalculada, MotivoSinPrecio } from '@/lib/calculo/costo'
 import { esConversionEstimada } from '@/lib/calculo/unidades'
-import { formatoCantidad, formatoCOP, formatoPorcentaje } from '@/lib/formato'
+import { formatoCantidad, formatoCOP, formatoFecha, formatoPorcentaje } from '@/lib/formato'
 
 const SIN_PRECIO: Record<MotivoSinPrecio, string> = {
   'sin-precio': 'Sin precio',
@@ -13,7 +13,9 @@ const CHIP = 'rounded-full bg-accent-soft px-2 py-0.5 font-bold text-ink'
 
 // Ingredientes como una carta: nombre, puntos guía, cantidad y precio alineados a la derecha.
 // Lo estimado se dice en la fila: el peso de una medida (≈ 15 g) y la merma con que se calcula la compra.
-export function ListaIngredientes({ lineas }: { lineas: LineaCalculada[] }) {
+// En las recetas personales, cada precio dice que viene del catálogo y de cuándo: quien escribió «papa criolla»
+// a mano no puso ese número y tiene que saber de dónde salió.
+export function ListaIngredientes({ lineas, origenDelPrecio = false }: { lineas: LineaCalculada[]; origenDelPrecio?: boolean }) {
   return (
     <ul className="grid">
       {lineas.map(({ item, ingrediente, cantidad, uso, compra, subtotal, motivo }) => (
@@ -37,6 +39,7 @@ export function ListaIngredientes({ lineas }: { lineas: LineaCalculada[] }) {
               </span>
             )}
             {item.nota && <span>{item.nota}</span>}
+            {origenDelPrecio && subtotal !== null && ingrediente?.fechaPrecio && <span>Precio del catálogo, al {formatoFecha(ingrediente.fechaPrecio)}</span>}
           </div>
           <span className="text-right text-sm text-ink-soft tabular-nums">
             {subtotal === null ? SIN_PRECIO[motivo ?? 'sin-precio'] : formatoCOP(subtotal)}

@@ -367,6 +367,7 @@ describe('recetas personales', () => {
     fireEvent.change(screen.getByLabelText('Categoría'), { target: { value: 'postres' } })
     fireEvent.change(screen.getByLabelText(/Tiempo total/), { target: { value: '60' } })
     fireEvent.change(screen.getByLabelText('Ingrediente 1'), { target: { value: 'leche entera' } })
+    expect(screen.getByText(/^Está en el catálogo: usa su precio, al /)).toBeTruthy()
     fireEvent.change(screen.getByLabelText('Cantidad'), { target: { value: '500' } })
     fireEvent.change(screen.getByLabelText('Unidad'), { target: { value: 'ml' } })
     fireEvent.click(screen.getByRole('button', { name: 'Agregar ingrediente' }))
@@ -396,6 +397,8 @@ describe('recetas personales', () => {
     expect(screen.getByText('Sin precio')).toBeTruthy()
     expect(screen.getByText('Costo parcial: falta el precio de Ñame de la finca.')).toBeTruthy()
     expect(screen.getByText('Esta receta es privada: otras cuentas no la ven.')).toBeTruthy()
+    // El ingrediente escrito a mano que coincide con el catálogo dice de dónde salió su precio.
+    expect(screen.getByText(/^Precio del catálogo, al \d+ de \w+ de \d{4}$/)).toBeTruthy()
     // Usa la imagen de respaldo de su categoría.
     expect(screen.getByText('Imagen de postres, ilustrativa y generada con IA.')).toBeTruthy()
     await waitFor(() => expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex'))

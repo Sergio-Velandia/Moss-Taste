@@ -14,7 +14,7 @@ import { formatoPorciones } from '@/lib/formato'
 import { useListaCompras } from '@/lib/lista/useListaCompras'
 import { categoria, INGREDIENTES } from '@/lib/recetas/catalogo'
 import { consultaPorciones, leerPorciones, MAX_PORCIONES, MIN_PORCIONES } from '@/lib/recetas/porciones'
-import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
+import { esRecetaPersonal, rutaDeReceta } from '@/lib/recetas/rutaReceta'
 import type { Receta } from '@/lib/recetas/tipos'
 import { useMetadatos } from '@/lib/useMetadatos'
 import { AvisoEjemplo } from './AvisoEjemplo'
@@ -129,7 +129,7 @@ export function FichaReceta({ receta, volver, extra }: Props) {
               </p>
             )}
           </div>
-          <ListaIngredientes lineas={calculo.lineas} />
+          <ListaIngredientes lineas={calculo.lineas} origenDelPrecio={esRecetaPersonal(receta.id)} />
           <ResumenCosto costo={calculo} porciones={porciones} ejemplo={receta.ejemplo} />
         </section>
 
