@@ -46,7 +46,8 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Conectar el formulario de `/contacto` a EmailJS (API REST, sin SDK), con estados de envío, error y sin conexión.
 - [x] Tope de envíos por navegador (uno por minuto, cinco por día) y aviso de privacidad bajo el botón.
 - [x] README, CHANGELOG y versión 0.5.0.
-- [ ] Lo hace el dueño: confirmar en el panel de EmailJS que `sergio-velandia.dev` está en los dominios permitidos y que hay límite de envíos por IP; probar un envío real en el sitio publicado.
+- [x] Envío real probado por el dueño en el sitio publicado: el mensaje llega.
+- [ ] Lo hace el dueño: confirmar en el panel de EmailJS que hay límite de envíos por IP.
 
 ## Fase 6: login y datos personales
 - [ ] Migrar la lista de compras de `localStorage` a la cuenta (Firestore) al iniciar sesión, sin perder lo que había en el navegador.
