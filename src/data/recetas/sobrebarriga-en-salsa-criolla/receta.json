@@ -1,0 +1,76 @@
+{
+  "id": "sobrebarriga-en-salsa-criolla",
+  "titulo": "Sobrebarriga en salsa criolla",
+  "resumen": "Sobrebarriga cocinada despacio hasta quedar blanda, en tajadas bañadas con una salsa de tomate y cebolla.",
+  "categoria": "platos-fuertes",
+  "porcionesBase": 6,
+  "tiempoMin": 200,
+  "ingredientes": [
+    { "ingrediente": "sobrebarriga", "cantidad": 1500, "unidad": "g", "nota": "ya recortada" },
+    { "ingrediente": "tomate", "cantidad": 5, "unidad": "unidad" },
+    { "ingrediente": "cebolla-larga", "cantidad": 3, "unidad": "unidad" },
+    { "ingrediente": "cebolla-cabezona", "cantidad": 1, "unidad": "unidad" },
+    { "ingrediente": "ajo", "cantidad": 4, "unidad": "unidad" },
+    { "ingrediente": "laurel", "cantidad": 2, "unidad": "unidad" },
+    { "ingrediente": "cerveza", "cantidad": 330, "unidad": "ml", "opcional": true },
+    { "ingrediente": "aceite", "cantidad": 2, "unidad": "cucharada" },
+    { "ingrediente": "comino", "cantidad": 0.5, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "pimienta", "cantidad": 0.25, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "sal", "cantidad": 1, "unidad": "cucharadita", "ajustarAlGusto": true },
+    { "ingrediente": "agua", "cantidad": 2.5, "unidad": "l" },
+    { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "un manojo pequeño" }
+  ],
+  "miseEnPlace": [
+    "Quítale a la sobrebarriga el exceso de grasa de la superficie, pero no toda: es la que la mantiene jugosa.",
+    "Pica fino el tomate, dos tallos de cebolla larga, la cebolla cabezona y dos dientes de ajo. Deja aparte el otro tallo y los otros dos dientes.",
+    "Ten el laurel y la cerveza a mano.",
+    "Pica el cilantro y resérvalo para el final."
+  ],
+  "pasos": [
+    {
+      "texto": "Pon la sobrebarriga en una olla grande con el agua, el laurel, un tallo de cebolla larga, dos dientes de ajo y una cucharadita de sal. Lleva a hervor.",
+      "ingredientes": ["sobrebarriga", "agua", "laurel", "sal"]
+    },
+    {
+      "texto": "Baja el fuego y cocina tapada 2 horas y media, retirando la espuma del principio. Está lista cuando un tenedor entra sin esfuerzo.",
+      "temporizadorMin": 150
+    },
+    {
+      "texto": "Saca la carne y déjala entibiar sobre una tabla. Cuela el caldo y guarda dos tazas: la salsa se hace con él.",
+      "ingredientes": ["sobrebarriga"]
+    },
+    {
+      "texto": "Calienta el aceite en una sartén ancha y sofríe la cebolla cabezona, la cebolla larga restante y el ajo restante 5 minutos.",
+      "ingredientes": ["aceite", "cebolla-cabezona", "cebolla-larga", "ajo"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Agrega el tomate, el comino y la pimienta. Cocina 12 minutos a fuego medio, aplastando el tomate hasta que quede una salsa espesa.",
+      "ingredientes": ["tomate", "comino", "pimienta"],
+      "temporizadorMin": 12
+    },
+    {
+      "texto": "Si vas a usar cerveza, agrégala ahora y deja que se evapore el alcohol 5 minutos. Luego añade las dos tazas de caldo reservado.",
+      "ingredientes": ["cerveza"],
+      "temporizadorMin": 5
+    },
+    {
+      "texto": "Corta la sobrebarriga en tajadas de un centímetro, contra la fibra: si la cortas a favor, queda correosa.",
+      "ingredientes": ["sobrebarriga"]
+    },
+    {
+      "texto": "Acomoda las tajadas en la salsa, baja el fuego y cocina 15 minutos para que la carne se impregne. Prueba y ajusta la sal.",
+      "ingredientes": ["sal"],
+      "temporizadorMin": 15
+    },
+    {
+      "texto": "Sirve con el cilantro por encima. Va bien con papa salada y arroz blanco.",
+      "ingredientes": ["cilantro"]
+    }
+  ],
+  "notas": [
+    "En olla a presión el paso 2 baja a unos 50 minutos desde que empieza a pitar. El resto va igual.",
+    "El caldo que sobra es oro: sirve para la sopa del día siguiente. No lo botes.",
+    "Cortar contra la fibra es la diferencia entre que se deshaga en la boca y que haya que masticarla un rato."
+  ]
+}
