@@ -49,7 +49,7 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] README, CHANGELOG y versión 0.5.0.
 - [x] Envío real probado por el dueño en el sitio publicado: el mensaje llega.
 - [x] Correo directo probado por el dueño desde otra cuenta: llega. Ver README, «Probar el correo de contacto».
-- [ ] Lo hace el dueño: confirmar en el panel de EmailJS que hay límite de envíos por IP.
+- [x] Límite de envíos por IP confirmado por el dueño en el panel de EmailJS.
 
 ## Fase 6: cuentas, favoritos, notas y recetas personales (`0.6.0`)
 - [x] Cuentas con correo y Google, autorización de datos, recuperar contraseña y rutas protegidas.
