@@ -79,8 +79,10 @@ async function migrarLista(servicio: ServicioCuentas, uid: string, perfil: Perfi
   }
 }
 
-export async function activarDatos(servicio: ServicioCuentas, usuario: UsuarioSesion, perfil: PerfilGuardado): Promise<void> {
+/** Devuelve false si la carga dejó de valer (`vigente`) y no se conectó nada. */
+export async function activarDatos(servicio: ServicioCuentas, usuario: UsuarioSesion, perfil: PerfilGuardado, vigente: () => boolean): Promise<boolean> {
   const [interacciones, crudas] = await Promise.all([servicio.leerInteracciones(usuario.uid), servicio.leerRecetas(usuario.uid)])
+  if (!vigente()) return false
   const recetas: Receta[] = []
   ilegibles = {}
   for (const [id, crudo] of Object.entries(crudas)) {
@@ -94,6 +96,10 @@ export async function activarDatos(servicio: ServicioCuentas, usuario: UsuarioSe
   datos = { interacciones, recetas, avisoLista: '' }
 
   const { lista, aviso } = await migrarLista(servicio, usuario.uid, perfil)
+  if (!vigente()) {
+    datos = VACIOS
+    return false
+  }
   conexion = { servicio, usuario, perfil, lista }
   usarAlmacenDeCuenta(lista)
   fijar({ avisoLista: aviso })
@@ -113,6 +119,7 @@ export async function activarDatos(servicio: ServicioCuentas, usuario: UsuarioSe
   }
   window.addEventListener('focus', alEnfocar)
   quitarFoco = () => window.removeEventListener('focus', alEnfocar)
+  return true
 }
 
 export function desactivarDatos(): void {

@@ -13,6 +13,7 @@ import { factorPorciones } from '@/lib/calculo/escalar'
 import { formatoCantidad, formatoPorciones } from '@/lib/formato'
 import { ingrediente } from '@/lib/recetas/catalogo'
 import { consultaPorciones, leerPorciones } from '@/lib/recetas/porciones'
+import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
 import type { IngredienteReceta, Receta } from '@/lib/recetas/tipos'
 import { BotonPantalla } from './BotonPantalla'
 import { Temporizador } from './Temporizador'
@@ -60,7 +61,7 @@ export function ModoCocina({ receta }: { receta: Receta }) {
     },
     [actual, ultima, params, setParams],
   )
-  const volver = `/recetas/${receta.id}${consultaPorciones(porciones, receta.porcionesBase)}`
+  const volver = `${rutaDeReceta(receta.id)}${consultaPorciones(porciones, receta.porcionesBase)}`
 
   // Teclado: flechas y Av Pág / Re Pág avanzan o retroceden; Escape vuelve a la receta.
   useEffect(() => {

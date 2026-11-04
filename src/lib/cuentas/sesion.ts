@@ -35,14 +35,14 @@ export const obtenerServicio = (): Promise<ServicioCuentas> => import('./firebas
 let arranque: Promise<void> | null = null
 let usuarioActual: UsuarioSesion | null = null
 let turno = 0
-let datosActivos = false
+/** El módulo de datos, cuando hay una cuenta conectada. Apagarlo es inmediato: no puede pisar una sesión nueva. */
+let datosActivos: typeof import('./datos') | null = null
 /** Aceptó la casilla justo antes de crear la cuenta en esta misma pestaña. */
 let autorizacionPrevia = false
 
-async function apagarDatos() {
-  if (!datosActivos) return
-  datosActivos = false
-  ;(await import('./datos')).desactivarDatos()
+function apagarDatos() {
+  datosActivos?.desactivarDatos()
+  datosActivos = null
 }
 
 async function alCambiarUsuario(servicio: ServicioCuentas, usuario: UsuarioSesion | null) {
@@ -50,11 +50,12 @@ async function alCambiarUsuario(servicio: ServicioCuentas, usuario: UsuarioSesio
   usuarioActual = usuario
   if (!usuario) {
     fijarPista(false)
-    await apagarDatos()
-    if (este === turno) fijar({ fase: 'anonima' })
+    apagarDatos()
+    fijar({ fase: 'anonima' })
     return
   }
   fijarPista(true)
+  apagarDatos()
   fijar({ fase: 'cargando' })
   try {
     let perfil = await servicio.leerPerfil(usuario.uid)
@@ -67,10 +68,12 @@ async function alCambiarUsuario(servicio: ServicioCuentas, usuario: UsuarioSesio
       fijar({ fase: 'pendiente', usuario })
       return
     }
-    const { activarDatos } = await import('./datos')
-    await activarDatos(servicio, usuario, perfil)
-    datosActivos = true
-    if (este === turno) fijar({ fase: 'activa', usuario })
+    const modulo = await import('./datos')
+    // Si mientras tanto cerró sesión o entró otra cuenta, esta carga ya no vale y no se conecta.
+    const conectada = await modulo.activarDatos(servicio, usuario, perfil, () => este === turno)
+    if (!conectada) return
+    datosActivos = modulo
+    fijar({ fase: 'activa', usuario })
   } catch (error) {
     // Sin leer el perfil no se sabe si aceptó: nunca se le da paso.
     if (este === turno) fijar({ fase: 'error', mensaje: mensajeDeError(error) })
@@ -155,7 +158,7 @@ export async function confirmarIdentidad(contrasena?: string): Promise<void> {
 
 export async function cerrarSesion(): Promise<void> {
   const servicio = await obtenerServicio()
-  if (datosActivos) await (await import('./datos')).guardarPendientes()
+  await datosActivos?.guardarPendientes()
   await servicio.salir()
 }
 

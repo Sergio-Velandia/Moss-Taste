@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import {
   browserLocalPersistence,
   browserPopupRedirectResolver,
+  connectAuthEmulator,
   createUserWithEmailAndPassword,
   deleteUser,
   EmailAuthProvider,
@@ -17,7 +18,7 @@ import {
   signOut,
   type User,
 } from 'firebase/auth'
-import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, increment, serverTimestamp, setDoc, updateDoc, writeBatch } from 'firebase/firestore/lite'
+import { collection, connectFirestoreEmulator, deleteDoc, doc, getDoc, getDocs, getFirestore, increment, serverTimestamp, setDoc, updateDoc, writeBatch } from 'firebase/firestore/lite'
 import { configFirebase } from './config'
 import type { Interaccion, ServicioCuentas, UsuarioSesion } from './tipos'
 
@@ -32,6 +33,11 @@ const auth = initializeAuth(app, {
 })
 auth.languageCode = 'es'
 const db = getFirestore(app)
+// Solo para probar la app completa contra los emuladores. En el sitio publicado esta variable no existe.
+if (import.meta.env.VITE_FIREBASE_EMULADOR === '1') {
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true })
+  connectFirestoreEmulator(db, '127.0.0.1', 8080)
+}
 
 function proveedorGoogle() {
   // Deja elegir cuenta en vez de entrar con la última que usó el navegador (importa en un computador compartido).

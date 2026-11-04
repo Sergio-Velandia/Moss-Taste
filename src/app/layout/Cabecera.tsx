@@ -1,8 +1,10 @@
-import { LogIn, Menu, X } from 'lucide-react'
+import { LogIn, LogOut, Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Boton } from '@/components/ui/Boton'
 import { BotonEnlace } from '@/components/ui/BotonEnlace'
 import { cx } from '@/lib/clases'
+import { cerrarSesion, useSesionSiHayPista } from '@/lib/cuentas/sesion'
 import { SelectorTema } from '../tema/SelectorTema'
 import { Marca } from './Marca'
 import { NAV_PRINCIPAL } from './navegacion'
@@ -12,6 +14,31 @@ function claseEnlace({ isActive }: { isActive: boolean }) {
   return cx(
     'inline-flex min-h-11 items-center rounded-sm px-3 font-bold underline-offset-[0.4em] decoration-2',
     isActive ? 'text-ink underline decoration-accent' : 'text-ink-soft hover:text-ink hover:underline hover:decoration-line-strong',
+  )
+}
+
+// Quien solo mira recetas no descarga Firebase: se pregunta por la sesión solo si este navegador tenía una.
+function BotonSesion({ alPulsar }: { alPulsar?: () => void }) {
+  const sesion = useSesionSiHayPista()
+  const navigate = useNavigate()
+  if (sesion.fase === 'cargando') return null
+  if (sesion.fase !== 'activa')
+    return (
+      <BotonEnlace to="/acceso" onClick={alPulsar} variante="secundario" icono={<LogIn aria-hidden="true" className="size-5" />}>
+        Entrar
+      </BotonEnlace>
+    )
+  return (
+    <Boton
+      variante="secundario"
+      icono={<LogOut aria-hidden="true" className="size-5" />}
+      onClick={() => {
+        alPulsar?.()
+        void cerrarSesion().then(() => navigate('/'))
+      }}
+    >
+      Salir
+    </Boton>
   )
 }
 
@@ -51,9 +78,7 @@ export function Cabecera() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <SelectorTema />
-          <BotonEnlace to="/acceso" variante="secundario" icono={<LogIn aria-hidden="true" className="size-5" />}>
-            Entrar
-          </BotonEnlace>
+          <BotonSesion />
         </div>
 
         <button
@@ -90,9 +115,7 @@ export function Cabecera() {
           </ul>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <SelectorTema />
-            <BotonEnlace to="/acceso" onClick={cerrar} variante="secundario" icono={<LogIn aria-hidden="true" className="size-5" />}>
-              Entrar
-            </BotonEnlace>
+            <BotonSesion alPulsar={cerrar} />
           </div>
         </nav>
       </div>

@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { rutasApp } from '@/app/rutasApp'
@@ -33,6 +33,8 @@ async function visitar(ruta: string) {
     </ProveedorTema>,
   )
   await screen.findByRole('heading', { level: 1 })
+  // Bajo carga, el h1 aparece antes de que React se suscriba a la lista: se vacían los efectos antes de tocar la pantalla.
+  await act(async () => {})
   return router
 }
 
@@ -81,6 +83,7 @@ describe('lista de compras', () => {
 
     await router.navigate('/lista')
     await screen.findByRole('heading', { name: 'Recetas en la lista' })
+    await act(async () => {})
     // 1,5 l de leche para 6 porciones → 3 l para 12.
     const leche = screen.getByRole('checkbox', { name: /Leche entera.*Necesitas 3 l/ })
     expect(screen.getByRole('heading', { name: 'Lo que cuestan estas recetas' })).toBeTruthy()

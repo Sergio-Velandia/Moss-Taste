@@ -1,4 +1,4 @@
-// Modelo de datos del recetario. Las recetas personales (Fase 6) tendrán la misma forma.
+// Modelo de datos del recetario. Las recetas personales tienen la misma forma (ver lib/cuentas/recetaPersonal.ts).
 
 // Primero las estándar (las que se ofrecen por defecto); al final, las adicionales de la cocina colombiana.
 export const UNIDADES = ['g', 'kg', 'ml', 'l', 'taza', 'cucharada', 'cucharadita', 'unidad', 'libra', 'pizca'] as const

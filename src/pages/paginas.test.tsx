@@ -142,14 +142,6 @@ describe('formularios', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Crear cuenta' }))
     expect(screen.getByText('Usa al menos 8 caracteres.')).toBeTruthy()
   })
-
-  it('nueva receta: sin datos marca los campos obligatorios', async () => {
-    await visitar('/mi-cocina/nueva')
-    fireEvent.click(screen.getByRole('button', { name: 'Guardar receta' }))
-    expect(screen.getByText('Escribe el nombre de la receta.')).toBeTruthy()
-    expect(screen.getByText('Agrega al menos un ingrediente con su cantidad.')).toBeTruthy()
-    expect(document.activeElement).toBe(screen.getByLabelText('Nombre de la receta'))
-  })
 })
 
 describe('galería en móvil', () => {

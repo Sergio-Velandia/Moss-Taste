@@ -16,24 +16,28 @@ import { hojaDeLista, hojaDeRecetasDeLista } from '@/lib/exportar/hojas'
 import { listaAJSON } from '@/lib/exportar/json'
 import { formatoCantidad, formatoCOP } from '@/lib/formato'
 import { useListaCompras } from '@/lib/lista/useListaCompras'
-import { INGREDIENTES, recetaPorSlug } from '@/lib/recetas/catalogo'
+import { buscarReceta, useDatosCuenta } from '@/lib/cuentas/datos'
+import { INGREDIENTES } from '@/lib/recetas/catalogo'
 import { sumarLista, totalesLista, type EntradaLista } from '@/lib/recetas/lista'
 import { MAX_PORCIONES, MIN_PORCIONES } from '@/lib/recetas/porciones'
+import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
 
 export function Lista() {
   const lista = useListaCompras()
+  const { avisoLista } = useDatosCuenta()
   const [confirmarVaciar, setConfirmarVaciar] = useState(false)
   const [aviso, setAviso] = useState('')
 
   // Las recetas guardadas que ya no existen en el recetario se ignoran.
   const entradas: EntradaLista[] = lista.estado.recetas.flatMap(({ id, porciones }) => {
-    const receta = recetaPorSlug(id)
+    const receta = buscarReceta(id)
     return receta ? [{ receta, porciones }] : []
   })
   const items = sumarLista(entradas, INGREDIENTES)
   const totales = totalesLista(items)
   const comprados = new Set(lista.estado.comprados)
   const pendientes = items.filter((i) => !comprados.has(i.clave)).length
+  const parcial = totales.sinPrecio.length > 0
 
   async function generar(formato: Formato) {
     const fecha = hoy()
@@ -51,9 +55,12 @@ export function Lista() {
 
       {!lista.persistente && (
         <p className="max-w-prose rounded-md bg-accent-soft px-4 py-3">
-          Este navegador no deja guardar la lista (por ejemplo, en una ventana privada). Funciona igual, pero se borra al cerrar la pestaña.
+          {lista.enCuenta
+            ? 'No se pudo guardar la lista en tu cuenta. Sigue aquí mientras no cierres la pestaña, y se intenta otra vez con el siguiente cambio.'
+            : 'Este navegador no deja guardar la lista (por ejemplo, en una ventana privada). Funciona igual, pero se borra al cerrar la pestaña.'}
         </p>
       )}
+      {avisoLista && <p className="max-w-prose rounded-md bg-accent-soft px-4 py-3">{avisoLista}</p>}
 
       {entradas.length === 0 ? (
         <EstadoVacio
@@ -77,7 +84,7 @@ export function Lista() {
               {entradas.map(({ receta, porciones }) => (
                 <li key={receta.id} className="grid gap-2 rounded-lg border border-line bg-surface p-4">
                   <div className="flex items-center justify-between gap-3">
-                    <Link to={`/recetas/${receta.id}`} className="min-w-0 font-bold hover:underline">
+                    <Link to={rutaDeReceta(receta.id)} className="min-w-0 font-bold hover:underline">
                       {receta.titulo}
                     </Link>
                     <button
@@ -132,7 +139,7 @@ export function Lista() {
               {items.map((item) => {
                 const comprado = comprados.has(item.clave)
                 const noSeCostea = item.ingrediente?.noSeCostea
-                const enTienda = item.tienda?.descripcion ?? (noSeCostea ? 'De la casa' : 'Suelto, por peso')
+                const enTienda = item.tienda?.descripcion ?? (noSeCostea ? 'De la casa' : item.ingrediente ? 'Suelto, por peso' : 'Sin datos de la tienda')
                 return (
                   <li key={item.clave} className="border-b border-line last:border-b-0">
                     <label className="grid min-h-14 cursor-pointer grid-cols-[1.5rem_minmax(0,1fr)_auto] items-center gap-x-3 py-3">
@@ -165,7 +172,7 @@ export function Lista() {
             <div className="grid gap-3">
               <section aria-labelledby="titulo-cuestan" className="grid content-start gap-1 rounded-md border-y-2 border-dashed border-line-strong bg-surface px-5 py-4">
                 <h3 id="titulo-cuestan" className="font-body text-sm font-bold text-ink-soft">
-                  Lo que cuestan estas recetas
+                  Lo que cuestan estas recetas{parcial && ' (parcial)'}
                 </h3>
                 <p className="text-2xl font-bold tabular-nums">
                   <span className="whitespace-nowrap">{formatoCOP(Math.round(totales.proporcional * (1 - RANGO_COSTO)))}</span> a{' '}
@@ -175,13 +182,13 @@ export function Lista() {
               </section>
               <section aria-labelledby="titulo-caja" className="grid content-start gap-1 rounded-md border-y-2 border-dashed border-accent bg-surface px-5 py-4">
                 <h3 id="titulo-caja" className="font-body text-sm font-bold text-ink-soft">
-                  Lo que pagas hoy en caja
+                  Lo que pagas hoy en caja{parcial && ' (parcial)'}
                 </h3>
                 <p className="text-2xl font-bold tabular-nums">Aprox. {formatoCOP(totales.caja)}</p>
                 <p className="text-sm text-ink-soft">Comprando los empaques completos, como cobra la registradora.</p>
               </section>
             </div>
-            {totales.sinPrecio.length > 0 && <p className="text-sm text-ink-soft">Sin precio, no suman a ningún total: {totales.sinPrecio.join(', ')}.</p>}
+            {parcial && <p className="font-bold">Totales parciales: falta el precio de {totales.sinPrecio.join(', ')}.</p>}
             <MenuExportar nombre={`lista-de-compras-${hoy()}`} generar={generar} tamano="md" />
           </section>
         </div>
