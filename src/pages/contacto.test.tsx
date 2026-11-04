@@ -32,11 +32,17 @@ async function abrirContacto() {
   await screen.findByRole('heading', { level: 1 })
 }
 
+function marcarAutorizacion() {
+  const casilla = screen.getByRole('checkbox', { name: /Autorizo el tratamiento/ }) as HTMLInputElement
+  if (!casilla.checked) fireEvent.click(casilla)
+}
+
 function llenarMensaje() {
   fireEvent.click(screen.getByRole('radio', { name: 'Escribir un mensaje' }))
   fireEvent.change(screen.getByLabelText('Nombre'), { target: { value: 'Ana' } })
   fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'ana@correo.co' } })
   fireEvent.change(screen.getByLabelText('Mensaje'), { target: { value: 'Hola, una pregunta sobre el ajiaco.' } })
+  marcarAutorizacion()
 }
 
 const enviar = () => fireEvent.click(screen.getByRole('button', { name: 'Enviar mensaje' }))
@@ -63,10 +69,21 @@ describe('contacto', () => {
     fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'ana@correo.co' } })
     fireEvent.change(screen.getByLabelText('Nombre de la receta'), { target: { value: 'Sancocho' } })
     fireEvent.change(screen.getByLabelText('Ingredientes y pasos'), { target: { value: 'Para 4 porciones: 1 gallina, 3 papas pastusas.' } })
+    marcarAutorizacion()
     fireEvent.click(screen.getByRole('button', { name: 'Enviar receta' }))
     await screen.findByText(/Recibí tu receta/)
     const [, opciones] = fetchFalso.mock.calls[0] as [string, RequestInit]
     expect(JSON.parse(opciones.body as string).template_params.asunto).toBe('[Moss Taste] Receta propuesta: Sancocho')
+  })
+
+  it('sin la casilla de autorización no envía y la señala', async () => {
+    await abrirContacto()
+    llenarMensaje()
+    fireEvent.click(screen.getByRole('checkbox', { name: /Autorizo el tratamiento/ }))
+    enviar()
+    expect(screen.getByText('Marca la casilla para poder responderte.')).toBeTruthy()
+    expect(document.activeElement).toBe(screen.getByRole('checkbox', { name: /Autorizo el tratamiento/ }))
+    expect(fetchFalso).not.toHaveBeenCalled()
   })
 
   it('si falla, lo dice y conserva lo escrito', async () => {

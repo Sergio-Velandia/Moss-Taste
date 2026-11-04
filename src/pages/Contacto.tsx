@@ -1,5 +1,6 @@
 import { Send } from 'lucide-react'
 import { useRef, useState, type FormEvent } from 'react'
+import { CasillaAutorizacion } from '@/components/cuenta/CasillaAutorizacion'
 import { EncabezadoPagina } from '@/components/EncabezadoPagina'
 import { AvisoEnVivo } from '@/components/ui/AvisoEnVivo'
 import { Boton } from '@/components/ui/Boton'
@@ -9,8 +10,8 @@ import { armarCorreo, emailjsListo, enviarCorreo, ErrorEnvio, type FalloEnvio } 
 import { limiteEnvios, MAX_POR_DIA } from '@/lib/contacto/limite'
 import { validarContacto, type CampoContacto, type DatosContacto, type Errores } from '@/lib/validarFormularios'
 
-const VACIO: DatosContacto = { motivo: 'receta', nombre: '', correo: '', receta: '', mensaje: '' }
-const ORDEN: CampoContacto[] = ['nombre', 'correo', 'receta', 'mensaje']
+const VACIO: DatosContacto = { motivo: 'receta', nombre: '', correo: '', receta: '', mensaje: '', autoriza: false }
+const ORDEN: CampoContacto[] = ['nombre', 'correo', 'receta', 'mensaje', 'autoriza']
 
 // Formulario sin backend: valida aquí y envía por EmailJS. Si falla, lo escrito se conserva para reintentar.
 export function Contacto() {
@@ -23,7 +24,7 @@ export function Contacto() {
   const formulario = useRef<HTMLFormElement>(null)
   const proponiendo = datos.motivo === 'receta'
 
-  const cambiar = (campo: keyof DatosContacto, valor: string) => {
+  const cambiar = (campo: keyof DatosContacto, valor: string | boolean) => {
     const nuevos = { ...datos, [campo]: valor } as DatosContacto
     setDatos(nuevos)
     // Una vez tocado, el campo se revalida al escribir para que el error desaparezca al corregirlo.
@@ -141,6 +142,10 @@ export function Contacto() {
           onBlur={() => alSalir('mensaje')}
         />
 
+        <CasillaAutorizacion name="autoriza" marcada={datos.autoriza} error={errores.autoriza} onChange={(v) => cambiar('autoriza', v)}>
+          Autorizo el tratamiento de mis datos para que me respondan.
+        </CasillaAutorizacion>
+
         {/* Campo trampa (honeypot): fuera de la vista y del orden de tabulación. */}
         <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
           <label htmlFor="sitio-web">Sitio web</label>
@@ -153,8 +158,8 @@ export function Contacto() {
           </Boton>
           <AvisoEnVivo mensaje={estado} />
           <p className="max-w-prose text-sm text-ink-soft">
-            Tu nombre y tu correo se usan solo para responderte. El envío pasa por EmailJS, un servicio que convierte el formulario en
-            un correo.
+            Tu nombre, tu correo y tu mensaje se usan solo para responderte. El envío pasa por EmailJS, un servicio que convierte el
+            formulario en un correo.
           </p>
         </div>
       </form>

@@ -74,7 +74,7 @@ describe('sumarLista', () => {
 })
 
 describe('formularios', () => {
-  const contacto: DatosContacto = { motivo: 'mensaje', nombre: 'Ana', correo: 'ana@correo.co', receta: '', mensaje: 'Hola, una pregunta.' }
+  const contacto: DatosContacto = { motivo: 'mensaje', nombre: 'Ana', correo: 'ana@correo.co', receta: '', mensaje: 'Hola, una pregunta.', autoriza: true }
 
   it('acepta un mensaje completo', () => {
     expect(validarContacto(contacto)).toEqual({})

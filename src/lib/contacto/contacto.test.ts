@@ -3,7 +3,8 @@ import { SITIO } from '@/sitio'
 import { armarCorreo, emailjsListo, enviarCorreo, ErrorEnvio, URL_EMAILJS } from './enviar'
 import { bloqueo, CLAVE_ENVIOS, crearLimite, ESPERA_MS, MAX_POR_DIA } from './limite'
 
-const RECETA = { motivo: 'receta', nombre: ' Ana ', correo: 'ana@correo.co ', receta: ' Sancocho ', mensaje: ' 1 gallina, 3 papas… ' } as const
+const RECETA = { motivo: 'receta', nombre: ' Ana ', correo: 'ana@correo.co ', receta: ' Sancocho ', mensaje: ' 1 gallina, 3 papas… ', autoriza: true } as const
+const AUTORIZO = 'Autorizó el tratamiento de sus datos para recibir respuesta.'
 const MINUTO = ESPERA_MS
 const HORA = 60 * MINUTO
 
@@ -14,13 +15,13 @@ describe('armarCorreo', () => {
       nombre: 'Ana',
       correo: 'ana@correo.co',
       asunto: '[Moss Taste] Receta propuesta: Sancocho',
-      mensaje: 'Receta: Sancocho\n\nIngredientes y pasos:\n1 gallina, 3 papas…',
+      mensaje: `Receta: Sancocho\n\nIngredientes y pasos:\n1 gallina, 3 papas…\n\n${AUTORIZO}`,
     })
   })
 
   it('un mensaje ignora el campo de receta', () => {
     const correo = armarCorreo({ ...RECETA, motivo: 'mensaje', mensaje: 'Hola' })
-    expect(correo).toMatchObject({ tipo: 'Mensaje', asunto: '[Moss Taste] Mensaje de Ana', mensaje: 'Hola' })
+    expect(correo).toMatchObject({ tipo: 'Mensaje', asunto: '[Moss Taste] Mensaje de Ana', mensaje: `Hola\n\n${AUTORIZO}` })
   })
 })
 

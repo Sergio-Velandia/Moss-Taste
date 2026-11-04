@@ -17,6 +17,8 @@ export interface ParametrosCorreo {
   mensaje: string
 }
 
+const AUTORIZO = 'Autorizó el tratamiento de sus datos para recibir respuesta.'
+
 export function armarCorreo(datos: DatosContacto): ParametrosCorreo {
   const nombre = datos.nombre.trim()
   const mensaje = datos.mensaje.trim()
@@ -27,10 +29,10 @@ export function armarCorreo(datos: DatosContacto): ParametrosCorreo {
       nombre,
       correo: datos.correo.trim(),
       asunto: `[Moss Taste] Receta propuesta: ${receta}`,
-      mensaje: `Receta: ${receta}\n\nIngredientes y pasos:\n${mensaje}`,
+      mensaje: `Receta: ${receta}\n\nIngredientes y pasos:\n${mensaje}\n\n${AUTORIZO}`,
     }
   }
-  return { tipo: 'Mensaje', nombre, correo: datos.correo.trim(), asunto: `[Moss Taste] Mensaje de ${nombre}`, mensaje }
+  return { tipo: 'Mensaje', nombre, correo: datos.correo.trim(), asunto: `[Moss Taste] Mensaje de ${nombre}`, mensaje: `${mensaje}\n\n${AUTORIZO}` }
 }
 
 export const emailjsListo = () => Boolean(SITIO.emailjs.serviceId && SITIO.emailjs.templateId && SITIO.emailjs.publicKey)

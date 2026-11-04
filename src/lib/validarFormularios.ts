@@ -16,9 +16,10 @@ export interface DatosContacto {
   correo: string
   receta: string
   mensaje: string
+  autoriza: boolean
 }
 
-export type CampoContacto = 'nombre' | 'correo' | 'receta' | 'mensaje'
+export type CampoContacto = 'nombre' | 'correo' | 'receta' | 'mensaje' | 'autoriza'
 
 export function validarContacto(datos: DatosContacto): Errores<CampoContacto> {
   const errores: Errores<CampoContacto> = {}
@@ -36,16 +37,18 @@ export function validarContacto(datos: DatosContacto): Errores<CampoContacto> {
         ? 'Cuenta los ingredientes y los pasos, con al menos 30 caracteres.'
         : 'Escribe tu mensaje, con al menos 10 caracteres.'
   else if (mensaje.length > 3000) errores.mensaje = 'Acorta el mensaje a 3000 caracteres o menos.'
+  if (!datos.autoriza) errores.autoriza = 'Marca la casilla para poder responderte.'
   return errores
 }
 
-export type CampoAcceso = 'correo' | 'contrasena'
+export type CampoAcceso = 'correo' | 'contrasena' | 'autorizacion'
 
-export function validarAcceso(correo: string, contrasena: string, creando: boolean): Errores<CampoAcceso> {
+export function validarAcceso(correo: string, contrasena: string, creando: boolean, autorizo = false): Errores<CampoAcceso> {
   const errores: Errores<CampoAcceso> = {}
   const errorCorreo = validarCorreo(correo)
   if (errorCorreo) errores.correo = errorCorreo
   if (!contrasena) errores.contrasena = 'Escribe tu contraseña.'
   else if (creando && contrasena.length < 8) errores.contrasena = 'Usa al menos 8 caracteres.'
+  if (creando && !autorizo) errores.autorizacion = 'Marca la casilla para crear tu cuenta.'
   return errores
 }
