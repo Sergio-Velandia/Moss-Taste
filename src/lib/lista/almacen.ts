@@ -1,8 +1,8 @@
-// Lista de compras guardada en el navegador (localStorage) hasta que existan las cuentas (Fase 6).
+// Lista de compras guardada en el navegador (localStorage) para quien no tiene sesión.
 // - Si el almacenamiento no está disponible (modo privado, bloqueado o lleno), la lista vive solo en memoria
 //   y el sitio funciona igual; `persistente` lo dice para avisarlo en pantalla.
 // - Topes para no llenar el almacenamiento: 20 recetas y 16 KB.
-// - PENDIENTE: declararlo en la política de privacidad (Fase Legal) y migrarlo a la cuenta (Fase 6).
+// - Con sesión, la lista pasa a la cuenta (ver combinar.ts y almacenCuenta.ts) y aquí no queda copia.
 
 export const CLAVE_LISTA = 'moss-taste:lista'
 export const MAX_RECETAS = 20
