@@ -1,4 +1,5 @@
 import { calcularReceta } from '@/lib/calculo/costo'
+import { alternativaDe } from '@/lib/recetas/alternativa'
 import { totalesLista, type EntradaLista, type ItemLista } from '@/lib/recetas/lista'
 import type { Ingrediente, Receta } from '@/lib/recetas/tipos'
 import { SITIO } from '@/sitio'
@@ -38,7 +39,7 @@ export function recetaAJSON(receta: Receta, porciones: number, catalogo: Readonl
         fechaPrecio: l.subtotal === null ? null : (l.ingrediente?.fechaPrecio ?? null),
         ajustarAlGusto: Boolean(l.item.ajustarAlGusto),
         opcional: Boolean(l.item.opcional),
-        alternativa: l.item.alternativa ?? null,
+        alternativa: alternativaDe(l.item, l.ingrediente) ?? null,
         nota: l.item.nota ?? null,
         sinPrecio: l.motivo ?? null,
       })),

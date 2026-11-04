@@ -54,6 +54,7 @@ export function validarIngredientes(datos: unknown, archivo = 'ingredientes.json
       const u = d.unidadNombre
       if (!esRegistro(u) || !esTexto(u.singular, 20) || !esTexto(u.plural, 20)) errores.push(`${lugar}.unidadNombre: { singular, plural }`)
     }
+    if (d.alternativa !== undefined && !esTexto(d.alternativa, 60)) errores.push(`${lugar}.alternativa: texto de 1 a 60 caracteres, por ejemplo «pan tostado»`)
     if (d.ejemplo !== undefined && typeof d.ejemplo !== 'boolean') errores.push(`${lugar}.ejemplo: true o false`)
     return undefined
   })

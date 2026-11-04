@@ -30,6 +30,8 @@ export interface Ingrediente {
    * por peso o por unidad, y se paga lo que se compra.
    */
   empaque?: { singular: string; plural: string }
+  /** Lo que puede reemplazarlo, sin sumarse al costo: «pan tostado». Ver lib/recetas/alternativa.ts. */
+  alternativa?: string
   /** El agua de la llave o la sal: se usan pero no se cuentan en el costo. Su precio va en null. */
   noSeCostea?: boolean
   ejemplo?: boolean
@@ -51,7 +53,7 @@ export interface IngredienteReceta {
   ajustarAlGusto?: boolean
   /** Se puede omitir (el queso de la changua). Suma al costo, y la ficha lo marca para restarlo de un vistazo. */
   opcional?: boolean
-  /** Otra opción que lo reemplaza, sin sumarse: «o pan tostado». Solo cuenta el ingrediente principal. */
+  /** Solo si la alternativa depende de la cantidad de esta receta: «o 150 g de azúcar». Si no, va en el catálogo. */
   alternativa?: string
   nota?: string
 }

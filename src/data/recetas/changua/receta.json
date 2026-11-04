@@ -13,7 +13,7 @@
     { "ingrediente": "cilantro", "cantidad": 1, "unidad": "unidad", "nota": "pequeño" },
     { "ingrediente": "huevo", "cantidad": 4, "unidad": "unidad", "nota": "uno por porción" },
     { "ingrediente": "sal", "cantidad": 1, "unidad": "pizca", "ajustarAlGusto": true },
-    { "ingrediente": "calado", "cantidad": 4, "unidad": "unidad", "alternativa": "o pan tostado" },
+    { "ingrediente": "calado", "cantidad": 4, "unidad": "unidad" },
     { "ingrediente": "queso-campesino", "cantidad": 100, "unidad": "g", "opcional": true }
   ],
   "miseEnPlace": [

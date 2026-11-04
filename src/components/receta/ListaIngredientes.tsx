@@ -1,5 +1,6 @@
 import type { LineaCalculada, MotivoSinPrecio } from '@/lib/calculo/costo'
 import { esConversionEstimada } from '@/lib/calculo/unidades'
+import { alternativaDe } from '@/lib/recetas/alternativa'
 import { formatoCantidad, formatoCOP, formatoFecha, formatoPorcentaje } from '@/lib/formato'
 
 const SIN_PRECIO: Record<MotivoSinPrecio, string> = {
@@ -28,7 +29,7 @@ export function ListaIngredientes({ lineas, origenDelPrecio = false }: { lineas:
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-soft">
             {item.opcional && <span className={CHIP}>Opcional</span>}
             {item.ajustarAlGusto && <span className={CHIP}>Al gusto</span>}
-            {item.alternativa && <span>{item.alternativa}</span>}
+            {alternativaDe(item, ingrediente) && <span>{alternativaDe(item, ingrediente)}</span>}
             {ingrediente && uso !== null && esConversionEstimada(item.unidad, ingrediente.unidadBase) && (
               <span className="tabular-nums">≈ {formatoCantidad({ cantidad: uso, unidad: ingrediente.unidadBase }, ingrediente)}</span>
             )}

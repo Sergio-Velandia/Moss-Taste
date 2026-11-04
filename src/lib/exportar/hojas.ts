@@ -1,6 +1,7 @@
 import { calcularReceta, RANGO_COSTO, type LineaCalculada } from '@/lib/calculo/costo'
 import { redondearCocina } from '@/lib/calculo/redondeo'
 import { formatoCantidad, formatoMinutos } from '@/lib/formato'
+import { alternativaDe } from '@/lib/recetas/alternativa'
 import { sumarLista, totalesLista, type EntradaLista, type ItemLista } from '@/lib/recetas/lista'
 import type { Ingrediente, Receta, Unidad } from '@/lib/recetas/tipos'
 import { SITIO } from '@/sitio'
@@ -36,7 +37,7 @@ function marcas(l: LineaCalculada): string {
   return [
     l.item.ajustarAlGusto && 'Al gusto',
     l.item.opcional && 'Opcional',
-    l.item.alternativa,
+    alternativaDe(l.item, l.ingrediente),
     l.item.nota,
     l.motivo && MOTIVOS[l.motivo],
     l.ingrediente && l.ingrediente.merma > 0 && `Merma estimada ${Math.round(l.ingrediente.merma * 100)} %`,
