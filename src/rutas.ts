@@ -59,6 +59,18 @@ export const RUTAS_FIJAS = [
     indexable: false,
   },
   {
+    ruta: '/privacidad',
+    titulo: 'Política de privacidad',
+    descripcion: 'Qué datos guarda Moss Taste, para qué, dónde, por cuánto tiempo y cómo ejercer tus derechos.',
+    indexable: true,
+  },
+  {
+    ruta: '/licencia',
+    titulo: 'Licencia',
+    descripcion: 'Licencias del código, los textos, las imágenes y las fuentes de Moss Taste.',
+    indexable: true,
+  },
+  {
     ruta: '/acerca',
     titulo: 'Acerca de Moss Taste',
     descripcion: 'Qué es Moss Taste, para quién es y cómo se agregan las recetas.',

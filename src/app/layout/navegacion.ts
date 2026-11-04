@@ -9,4 +9,6 @@ export const NAV_PRINCIPAL = [
 export const NAV_PIE = [
   { a: '/acerca', texto: 'Acerca' },
   { a: '/contacto', texto: 'Contacto' },
+  { a: '/privacidad', texto: 'Privacidad' },
+  { a: '/licencia', texto: 'Licencia' },
 ] as const

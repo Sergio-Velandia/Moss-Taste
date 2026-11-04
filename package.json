@@ -1,7 +1,7 @@
 {
   "name": "moss-taste",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Recetario familiar: ingredientes y costo en COP para cualquier número de porciones.",
   "keywords": [
     "recetario",
@@ -21,6 +21,7 @@
     "url": "git+https://github.com/Sergio-Velandia/Moss-Taste.git"
   },
   "author": "Sergio Velandia",
+  "license": "MIT AND CC-BY-4.0",
   "type": "module",
   "engines": {
     "node": ">=22.12"

@@ -1,0 +1,34 @@
+Licencia del contenido de Moss Taste
+
+Este archivo cubre lo que no es código. El código está bajo la licencia MIT (archivo LICENSE).
+
+TEXTOS
+
+Copyright (c) 2026 Sergio Andres Ramirez Velandia
+
+La redacción de las recetas, sus pasos, notas y demás textos propios del sitio está bajo la licencia
+Creative Commons Atribución 4.0 Internacional (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/legalcode.es
+
+CC BY 4.0 PERMITE EL USO COMERCIAL CON ATRIBUCIÓN. El autor lo acepta de forma expresa: son platos clásicos
+y lo propio es la redacción. Para atribuir, basta con: «Moss Taste, de Sergio Andres Ramirez Velandia,
+https://sergio-velandia.dev/Moss-Taste/», e indicar si hiciste cambios.
+
+No se reclama autoría sobre las recetas clásicas como tales, ni sobre los platos, las técnicas o las listas
+de ingredientes: solo sobre cómo están escritas.
+
+IMÁGENES
+
+Las ilustraciones de las recetas se generaron con inteligencia artificial y se etiquetan como tales en el
+sitio. Pueden no coincidir con el plato real. Se ofrecen bajo CC BY 4.0 solo en lo que haya derechos que ceder:
+puede que no exista derecho de autor sobre ellas, y no se garantiza lo contrario.
+
+FUENTES
+
+Young Serif y Atkinson Hyperlegible Next conservan su propia licencia, SIL Open Font License 1.1. Los textos
+de esas licencias están junto a las fuentes, en src/assets/fonts/.
+
+MARCAS
+
+Los nombres de terceros que se mencionan, como Google, Firebase, EmailJS o GitHub, pertenecen a sus dueños.
+Moss Taste no está afiliado a ellos.

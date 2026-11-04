@@ -6,7 +6,7 @@ export function Pie() {
     <footer className="mt-auto border-t print:hidden border-line bg-surface pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-[1fr_auto] sm:items-center sm:px-6">
         <p className="max-w-prose text-ink-soft">
-          El recetario de la familia, con cantidades y costo en pesos colombianos para cualquier número de porciones.
+          El recetario de la familia, con cantidades y costo en pesos colombianos para cualquier número de porciones. Código bajo MIT y textos bajo CC BY 4.0.
         </p>
         <nav aria-label="Pie de página">
           <ul className="flex flex-wrap gap-x-2">
