@@ -65,6 +65,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | Un ingrediente escrito a mano que coincide con el catálogo toma su precio, y la línea lo dice con la fecha | Que se sepa de dónde salió el número |
 | 2026-11-04 | El cambio de versión va siempre en su propio commit | Lo pidió el dueño tras la Fase 6, donde quedó mezclado |
 | 2026-11-04 | No correr `npm audit fix --force`: ver `SECURITY.md` | Las alertas son de una dependencia solo de Node y el arreglo forzado baja Firebase a la versión 9 |
+| 2026-11-04 | Cambiar la URL dentro de la misma página (porciones, filtros) usa `preventScrollReset` | No es ir a otra página: no debe volver arriba |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
@@ -101,7 +102,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 3 | Catálogo real y las 3 primeras recetas con imagen | `0.3.0` y `0.3.1` (precios) | hecha y publicada |
 | 4 | Exportar y lista de compras | `0.4.0` | hecha y publicada |
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | hecha y publicada |
-| 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | en curso |
+| 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | hecha y publicada |
 | 7 | «¿Qué cocino hoy?» | `0.7.0` | pendiente |
 | 8 | Crecer de a poco, una receta por commit | `0.N.0` | pendiente |
 | L | Fase Legal | `0.6.0` | hecha dentro de la Fase 6 |

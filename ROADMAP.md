@@ -59,7 +59,9 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Reglas de Firestore con topes y contadores, con pruebas contra el emulador.
 - [x] Exportar mis datos y borrar mi cuenta.
 - [x] Parte legal: auditoría, `/privacidad`, `/licencia` y casilla de autorización, también en el formulario de contacto.
+- [x] Probado en vivo: recorrido completo y aislamiento entre cuentas contra el Firebase real; Google, recuperar contraseña y borrar cuenta, por el dueño.
 - [ ] Precio propio por ingrediente en las recetas personales.
+- [ ] Decidir en el Repaso si hace falta App Check: la restricción de la clave no frena a un script, que puede crear cuentas sin pasar por la casilla. Esas cuentas no pueden usar nada (las reglas exigen el perfil), pero ocupan lugar en Authentication.
 - [ ] Si la app llega a mandar correos a los usuarios, revisar: hoy no se exige correo verificado, así que nada importante puede depender de que el correo sea de quien dice ser.
 
 ## Fase 7: ¿Qué cocino hoy?

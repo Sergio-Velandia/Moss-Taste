@@ -22,6 +22,10 @@ Cuentas, datos personales y la parte legal.
 
 - Si falta el precio de una línea, el costo se dice parcial en la ficha, la tarjeta, la lista y las exportaciones. El precio que falta queda vacío, nunca en cero.
 
+### Corregido
+
+- Cambiar las porciones, filtrar la galería o marcar ingredientes en «¿Qué cocino hoy?» ya no devuelve la página al inicio.
+
 ### Seguridad
 
 - Reglas de Firestore: cada persona solo lee y escribe lo suyo, con validación por campo y topes. Reglas pegadas en la consola el 2026-11-04 a las 17:45 (hora de Colombia), desde `firestore.rules` de esta versión.
