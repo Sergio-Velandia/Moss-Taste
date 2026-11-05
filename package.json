@@ -1,7 +1,7 @@
 {
   "name": "moss-taste",
   "private": true,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Recetario familiar: ingredientes y costo en COP para cualquier número de porciones.",
   "keywords": [
     "recetario",
