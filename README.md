@@ -21,8 +21,9 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 8 · Platos fuertes | Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, **con precios pendientes** | `0.8.0` |
 | 8 · Imágenes y precios | Ilustraciones de los platos fuertes y 9 de los 16 precios nuevos | `0.8.1` |
 | 8 · Precios completos | Los 7 precios que faltaban: ninguna receta queda con costo parcial | `0.8.2` |
+| 9 · Modo cocina | Temporizadores que suenan, varios a la vez, y pantalla que no se apaga | `0.9.0` |
 
-Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
+El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
@@ -31,7 +32,7 @@ Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya
 - Buscar recetas por nombre o ingrediente y filtrarlas por categoría y presupuesto por porción. Los filtros quedan en la URL.
 - Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.
 - Leer una receta completa: ingredientes (con los opcionales y las alternativas marcados), lo que se deja listo antes de empezar, los pasos y las notas de la casa.
-- Cocinarla en el **modo cocina**: un paso a la vez, con letra grande, los ingredientes de ese paso y botones grandes. Funciona con el teclado (flechas y Escape).
+- Cocinarla en el **modo cocina**: un paso a la vez, con letra grande, los ingredientes de ese paso y botones grandes. Funciona con el teclado (flechas y Escape). Los temporizadores corren varios a la vez, suenan al terminar y no se pierden si se recarga la página; iniciar uno mantiene la pantalla encendida.
 - Juntar varias recetas en la **lista de compras**: suma los ingredientes, dice cómo vienen en la tienda («1 frasco de 100 g») y muestra por separado lo que cuestan las recetas y lo que se paga hoy en caja. Se guarda en el navegador, sin cuenta.
 - Exportar una receta o la lista a Excel, CSV (listo para Excel en español) o JSON, con las porciones elegidas.
 - Proponer una receta o escribir un mensaje desde el formulario de contacto.
@@ -65,6 +66,13 @@ Decisión del dueño, para no tener que reconstruirla mirando el código. Vale p
 - **Una receta con costo parcial no pasa**, porque le falta el precio de algún ingrediente y no se sabe cuánto cuesta. Pero no desaparece en silencio: sale aparte, al final, bajo «No se puede saber si caben», diciendo qué le falta.
 
 El código está en `topePorPorcion` (`src/lib/calculo/costo.ts`).
+
+## Qué esperar de los temporizadores
+
+- **Suenan solo con la página abierta en el modo cocina.** Con el teléfono bloqueado o el navegador cerrado no suenan: avisar en ese caso exigiría notificaciones y un service worker. Al volver, el sitio dice «Terminó hace 3 minutos». Por eso iniciar un temporizador mantiene la pantalla encendida.
+- **Siguen contando aunque salgas a la ficha de la receta**, pero solo avisan al volver al modo cocina.
+- **La pantalla encendida** depende del navegador (Screen Wake Lock). Donde no existe, el sitio lo dice.
+- El sonido y la vibración hay que probarlos en un teléfono real. En iPhone no hay vibración, y el interruptor de silencio puede apagar el sonido.
 
 ## Cómo funcionan las alternativas
 

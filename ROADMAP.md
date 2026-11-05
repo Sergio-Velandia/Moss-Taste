@@ -87,9 +87,12 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [ ] Categorías Acompañamientos y Bebidas: entran cuando haya recetas que las llenen. Una categoría sin recetas es una galería vacía y no tiene imagen de respaldo.
 - [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.
 
-## Fase funcional del modo cocina
-- [ ] Lógica de «Mantener pantalla encendida» en `src/features/cocina/usePantallaEncendida.ts` (Screen Wake Lock API). El botón y su estado «No disponible en este navegador» ya existen.
-- [ ] Lógica de los temporizadores en `src/features/cocina/Temporizador.tsx` (hoy solo muestra el tiempo).
+## Fase funcional del modo cocina (`0.9.0`)
+- [x] «Mantener pantalla encendida» con Screen Wake Lock: se vuelve a pedir al regresar a la pestaña y se suelta al salir.
+- [x] Temporizadores: varios a la vez, por hora de fin, con pausa, un minuto más, alarma y silencio. Sobreviven a una recarga.
+- [ ] Probar en un teléfono real el sonido, la vibración y la pantalla encendida. Lo hace el dueño.
+- [ ] Decidir en el Repaso si los temporizadores deben avisar con el teléfono bloqueado: exige notificaciones y un service worker.
+- [ ] Decidir si la alarma debe sonar también fuera del modo cocina (por ejemplo, en la ficha de la receta).
 
 ## Antes del lanzamiento
 - [ ] Capturas del sitio para el README (se dejan para el final por si cambia el diseño).

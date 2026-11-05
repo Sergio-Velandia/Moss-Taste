@@ -4,6 +4,26 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.9.0] - 2026-11-04
+
+El modo cocina ya funciona de verdad.
+
+### Añadido
+
+- Temporizadores en los pasos que los llevan: iniciar, pausar, reanudar, un minuto más y reiniciar.
+- Varios a la vez: una franja acompaña todos los pasos, y desde ella se vuelve al paso de cada uno. Las lentejas lo necesitan, con 30 minutos corriendo mientras se trabaja en el paso siguiente.
+- Al terminar suena una alarma, vibra donde se pueda y se queda el aviso hasta darle «Listo». Suena un minuto como mucho, y se puede silenciar.
+- «Mantener pantalla encendida» funciona, y se activa al iniciar un temporizador, avisándolo y con opción de apagarla.
+- Los temporizadores no se pierden si se recarga la página. Si uno terminó mientras no mirabas, al volver dice hace cuánto.
+
+### Privacidad
+
+- La política declara lo nuevo que se guarda en el navegador: la receta, el paso y la hora de fin de cada temporizador, y si la alarma está silenciada.
+
+### Limitaciones
+
+- Con el teléfono bloqueado o el navegador cerrado la alarma no suena, y fuera del modo cocina tampoco.
+
 ## [0.8.2] - 2026-11-04
 
 Los platos fuertes ya tienen su costo completo.
@@ -247,7 +267,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.7.0...v0.8.0

@@ -76,6 +76,9 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | `fsModuleCache: false` en Vitest | Ese caché guarda el resultado de `import.meta.glob` y ocultaba las carpetas de recetas nuevas |
 | 2026-11-04 | El precio del catálogo es lo que se paga, sin descontar el recorte: la sobrebarriga va en $ 31.000 el kilo, no en un «neto» | La merma ya calcula cuánto hay que comprar; descontarla del precio contaría al revés y bajaría el costo |
 | 2026-11-04 | Zanahoria, tomate y cebolla cabezona llevan precio mayorista de Corabastos hasta tener un recibo de tienda; queda dicho en el CHANGELOG y en el ROADMAP | Decisión del dueño: aun con esas verduras al doble, las lentejas siguen dentro de su filtro |
+| 2026-11-04 | Los temporizadores cuentan por hora de fin y se guardan en `moss-taste:temporizadores` (receta, paso y hora de fin, o lo que falta si están en pausa). Se borran con «Listo» o 12 horas después de terminar | Los navegadores frenan las pestañas en segundo plano, y una recarga no debe perder 2 h 30 de sobrebarriga |
+| 2026-11-04 | Iniciar un temporizador enciende la pantalla, avisándolo; si la apagan a mano, no se vuelve a encender. La alarma suena por defecto, un minuto como mucho, con botón de silencio. Si terminó hace más de 2 minutos, al volver solo se avisa en pantalla | Con la pantalla apagada la alarma no suena. Decisión del dueño |
+| 2026-11-04 | La alarma no suena con el teléfono bloqueado ni fuera del modo cocina | Lo primero exige notificaciones y un service worker. Queda para decidir en el Repaso |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
@@ -115,6 +118,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | hecha y publicada |
 | 7 | «¿Qué cocino hoy?» | `0.7.0` | hecha y publicada |
 | 8 | Crecer de a poco, una receta por commit | `0.8.0` a `0.8.2` | en curso: se suman recetas de a poco |
+| 9 | Modo cocina funcional: temporizadores y pantalla encendida | `0.9.0` | hecha; falta probar en un teléfono |
 | L | Fase Legal | `0.6.0` | hecha dentro de la Fase 6 |
 | R | Repaso | `0.N.x` | pendiente |
 | 🚀 | Documentarlo en Moss y mencionarlo en el portafolio | `1.0.0` | pendiente |
@@ -168,8 +172,8 @@ src/
 │  ├─ recetas/<slug>/      receta.json + ilustracion.svg (o original.png sin subir) → imagen.webp y miniatura.webp
 │  ├─ ingredientes.json            catálogo con precio en COP entero, fecha, merma, densidad, gramosPorUnidad y empaque
 │  └─ categorias.json
-├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador y BotonPantalla (visuales),
-│                       usePantallaEncendida (gancho pendiente de la fase funcional)
+├─ features/cocina/     ModoCocina (pasos, progreso, teclado, transición), Temporizador, FranjaTemporizadores, BotonPantalla,
+│                       temporizadores (lógica y almacenamiento), useTemporizadores, alarma (sonido sin archivos), usePantallaEncendida
 ├─ pages/               una por ruta
 ├─ lib/
 │  ├─ recetas/          tipos, validar (propia, sin dependencias), crearCatalogo (validación + imágenes, reutilizable),
@@ -201,7 +205,7 @@ src/
    └─ index.css         estilos base y movimiento reducido
 ```
 
-- Lo que todavía no funciona (temporizadores, pantalla encendida) existe en la interfaz y avisa con `AvisoEnVivo` que llega después. Los datos ficticios se marcan con `AvisoEjemplo`.
+- Los datos ficticios se marcan con `AvisoEjemplo`.
 - **Cálculo:** todo pasa por `calcularReceta(receta, porciones, catalogo)` en `src/lib/calculo/costo.ts`. Si una línea no se puede calcular, trae `motivo` (`sin-ingrediente`, `sin-precio`, `sin-conversion`) y no suma al total. Para mostrar cantidades se usa `formatoCantidad`, que aplica el redondeo de cocina.
 - **Agregar una receta:** crear `src/data/recetas/<slug>/receta.json` (el `id` igual al nombre de la carpeta) y, si hace falta, sus ingredientes en `ingredientes.json`. Si la receta usa tazas o cucharadas de algo que se vende por peso, el ingrediente necesita `densidad`; si usa unidades de algo que se vende por peso, `gramosPorUnidad`; si se vende en frasco, bolsa o caja, `empaque` con su nombre en singular y plural (sin él, la lista lo trata como suelto). Una prueba falla si alguna medida no se puede convertir. La imagen: `ilustracion.svg` u `original.png` en la carpeta y `npm run imagenes` (ver `docs/prompt-imagenes.md`), más `imagenAlt` en el `receta.json`. No se toca ningún componente. `npm test` dice qué falla y dónde; una receta inválida se omite del sitio sin romperlo.
 - **Cambiar lo que se guarda o a quién se le envía:** se actualiza `src/pages/Privacidad.tsx` y `VERSION_POLITICA` (`lib/cuentas/config.ts`) en el mismo cambio. Si cambia un tope, se cambia en `firestore.rules` y en `TOPES`, y las reglas se vuelven a pegar en la consola.
