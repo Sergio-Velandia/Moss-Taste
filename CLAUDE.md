@@ -74,6 +74,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | El tiempo total de una receta incluye la preparación, no solo los temporizadores | Lo decidió el dueño al revisar el sudado y la sobrebarriga |
 | 2026-11-04 | Las recetas se pueden publicar sin precio ni imagen: precio en null, costo parcial e ilustración de categoría. Las recetas sin imagen van en una lista explícita (`IMAGEN_PENDIENTE`, en `datos.test.ts`), y la prueba falla si una ya tiene imagen y sigue ahí | Nunca inventar un precio; y la lista evita que la excepción se vuelva permanente |
 | 2026-11-04 | `fsModuleCache: false` en Vitest | Ese caché guarda el resultado de `import.meta.glob` y ocultaba las carpetas de recetas nuevas |
+| 2026-11-04 | El precio del catálogo es lo que se paga, sin descontar el recorte: la sobrebarriga va en $ 31.000 el kilo, no en un «neto» | La merma ya calcula cuánto hay que comprar; descontarla del precio contaría al revés y bajaría el costo |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
@@ -112,7 +113,7 @@ Contraste verificado (WCAG AA): texto 14,45 / 16,13; secundario 6,80 / 9,42; ace
 | 5 | Formulario de contacto con EmailJS | `0.5.0` | hecha y publicada |
 | 6 | Login, favoritos, notas, recetas personales, mis datos y parte legal | `0.6.0` | hecha y publicada |
 | 7 | «¿Qué cocino hoy?» | `0.7.0` | hecha y publicada |
-| 8 | Crecer de a poco, una receta por commit | `0.8.0` | en curso: faltan precios e imágenes |
+| 8 | Crecer de a poco, una receta por commit | `0.8.0` y `0.8.1` | en curso: faltan 7 precios |
 | L | Fase Legal | `0.6.0` | hecha dentro de la Fase 6 |
 | R | Repaso | `0.N.x` | pendiente |
 | 🚀 | Documentarlo en Moss y mencionarlo en el portafolio | `1.0.0` | pendiente |

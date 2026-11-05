@@ -4,6 +4,31 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.8.1] - 2026-11-04
+
+Imágenes y la mayoría de los precios de los platos fuertes.
+
+### Añadido
+
+- Ilustraciones de lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, generadas con IA en el mismo estilo que las demás y etiquetadas así.
+- Precios de 9 de los 16 ingredientes nuevos, con fecha del 4 de noviembre de 2026: lentejas, chorizo, tocineta, pollo en presas, sobrebarriga, yuca, pimentón, aceite y cerveza. Son precios de referencia promedio de Bogotá.
+- Los empaques de comino, color, pimienta y laurel, todavía sin precio.
+
+### Pendiente
+
+- Faltan los precios de zanahoria, tomate, cebolla cabezona, comino, color, pimienta y laurel. Por eso las tres recetas siguen con costo parcial y salen aparte al filtrar por presupuesto.
+
+Estimados por porción de esta versión. Los de las tres últimas son parciales: **el costo final será mayor**.
+
+| Receta | Estimado alto por porción | Primer filtro que pasa |
+|---|---|---|
+| Arroz con leche | $ 2.488 | Hasta $ 5.000 |
+| Changua | $ 3.229 | Hasta $ 5.000 |
+| Ajiaco santafereño | $ 9.815 | Hasta $ 10.000 |
+| Lentejas con chorizo | Al menos $ 4.252 (parcial) | No se puede saber |
+| Sudado de pollo | Al menos $ 5.479 (parcial) | No se puede saber |
+| Sobrebarriga en salsa criolla | Al menos $ 10.769 (parcial) | No se puede saber |
+
 ## [0.8.0] - 2026-11-04
 
 Tres platos fuertes, publicados antes de tener todos sus precios e imágenes.
@@ -192,7 +217,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.5.0...v0.6.0

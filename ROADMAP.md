@@ -77,9 +77,11 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 
 ## Fase 8: crecer el recetario
 - [x] Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, con la categoría Platos fuertes (`0.8.0`).
-- [ ] **Cotizar los 16 ingredientes nuevos:** precio, tamaño del empaque (`porCantidad` y `empaque`) y fecha. Hoy van en `precio: null`. Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`.
+- [x] Precios de lentejas, chorizo, tocineta, pollo en presas, sobrebarriga, yuca, pimentón, aceite y cerveza (`0.8.1`). Son precios de referencia promedio; se pueden ajustar al comprar.
+- [ ] **Faltan 7 precios:** zanahoria, tomate y cebolla cabezona (por kilo); comino (sobre de 30 g), color (sobre de 50 g), pimienta (frasco de 30 g) y laurel (sobre de 10 g). Hasta entonces, las tres recetas siguen con costo parcial.
+- [ ] Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`: los valores actuales siguen siendo estimados.
 - [ ] Pesar lo que se recorta de la sobrebarriga al comprarla y corregir su merma (hoy 10 % estimado).
-- [ ] **Las tres imágenes de Gemini:** al agregarlas, sacar la receta de `IMAGEN_PENDIENTE` en `datos.test.ts` y escribir su `imagenAlt`.
+- [x] Ilustraciones de las tres recetas, en SVG, con el estilo de las demás (`0.8.1`).
 - [ ] Con los precios, llenar la tabla de estimados altos y revisar si los tres filtros de presupuesto siguen separando bien.
 - [ ] Categorías Acompañamientos y Bebidas: entran cuando haya recetas que las llenen. Una categoría sin recetas es una galería vacía y no tiene imagen de respaldo.
 - [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.

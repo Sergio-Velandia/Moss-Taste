@@ -18,7 +18,8 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 5 · Formulario de contacto | Proponer recetas y escribir mensajes, enviados por EmailJS con tope de envíos | `0.5.0` |
 | 6 · Cuentas | Cuentas con correo y Google, favoritos, notas, recetas personales, mis datos, política de privacidad y licencia | `0.6.0` |
 | 7 · ¿Qué cocino hoy? | Sugerencias revisadas con las recetas reales, recetas personales incluidas y presupuesto que nunca se queda corto | `0.7.0` |
-| 8 · Platos fuertes | Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, **con precios e imágenes pendientes** | `0.8.0` |
+| 8 · Platos fuertes | Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, **con precios pendientes** | `0.8.0` |
+| 8 · Imágenes y precios | Ilustraciones de los platos fuertes y 9 de los 16 precios nuevos | `0.8.1` |
 
 Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
