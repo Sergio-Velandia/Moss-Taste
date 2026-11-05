@@ -4,6 +4,21 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [1.0.0] - 2026-11-04
+
+La primera versión estable. Se probó en un teléfono real, con el modo cocina incluido.
+
+### Añadido
+
+- Capturas del sitio en el README, y una imagen para compartir que muestra el modo cocina.
+- El texto alternativo de la imagen también para las tarjetas de Twitter/X.
+
+### Cambiado
+
+- «Acerca» cuenta lo que hay hoy y aclara que los precios son de referencia y que algunas verduras tienen precio mayorista.
+- El README se reescribió completo.
+- El ROADMAP separa lo que falta fuera de este repo de lo que puede venir después.
+
 ## [0.9.0] - 2026-11-04
 
 El modo cocina ya funciona de verdad.
@@ -267,7 +282,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.9.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.9.0...v1.0.0
 [0.9.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.0...v0.8.1

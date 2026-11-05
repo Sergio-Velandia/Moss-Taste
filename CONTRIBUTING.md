@@ -35,6 +35,7 @@ Tipos: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 
 ```bash
 npm test        # datos, contraste de colores, cálculo y pantallas
+npm run test:reglas  # reglas de Firestore, si se tocaron (necesita Java 21; ver el README)
 npm run lint
 npm run build   # incluye el typecheck
 ```

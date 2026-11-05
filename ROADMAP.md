@@ -31,7 +31,6 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Prerenderizado de `/recetas/:slug` (indexable) y `/recetas/:slug/cocinar` (con `noindex`), con imagen para compartir propia.
 - [x] Precios cotizados con fecha (0.3.1): punto medio de cada rango que cotizó el dueño, mostrado con ±10 %. Empaques confirmados; la canela en polvo es de 40 g.
 - [x] README, CHANGELOG, versión 0.3.0 y push.
-- [ ] Opcional: reemplazar las ilustraciones por fotos de Gemini con el prompt de `docs/prompt-imagenes.md`.
 
 ## Deuda técnica
 - [ ] Revisar en cada actualización de `firebase` si ya no arrastra `@grpc/grpc-js` vulnerable, y borrar la nota de `SECURITY.md` (ver ese archivo).
@@ -60,42 +59,54 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 - [x] Exportar mis datos y borrar mi cuenta.
 - [x] Parte legal: auditoría, `/privacidad`, `/licencia` y casilla de autorización, también en el formulario de contacto.
 - [x] Probado en vivo: recorrido completo y aislamiento entre cuentas contra el Firebase real; Google, recuperar contraseña y borrar cuenta, por el dueño.
-- [ ] Precio propio por ingrediente en las recetas personales.
-- [ ] Decidir en el Repaso si hace falta App Check: la restricción de la clave no frena a un script, que puede crear cuentas sin pasar por la casilla. Esas cuentas no pueden usar nada (las reglas exigen el perfil), pero ocupan lugar en Authentication.
-- [ ] Si la app llega a mandar correos a los usuarios, revisar: hoy no se exige correo verificado, así que nada importante puede depender de que el correo sea de quien dice ser.
 
 ## Fase 7: ¿Qué cocino hoy? (`0.7.0`)
 - [x] Revisar `src/lib/recetas/hoy.ts` con las recetas reales: el agua, los opcionales y las alternativas.
 - [x] El presupuesto usa el extremo alto del estimado, también en la galería. Lo parcial sale aparte.
 - [x] Recetas personales marcadas como «Tuya», con sus nombres libres aparte del catálogo.
-- [ ] Mostrar la alternativa también en la lista de compras: ya está en el catálogo, falta decidir si se quiere.
-- [ ] Que tener la alternativa cuente como tener el ingrediente. Hoy es solo texto: si tienes pan tostado sigue diciendo «Calado (o pan tostado)» y la receta no sube en el orden. Con tres recetas da igual; con unas veinte, una receta que sí se puede cocinar queda debajo de una que no. Ese es el momento de arreglarlo.
 
 ## Fase Legal
 - [x] Se hizo dentro de la Fase 6: la política se escribió auditando el código real.
-- [ ] Revisar la política en la Fase R y cada vez que cambie lo que se guarda o a quién se le envía. Si el proyecto deja de ser familiar, revisarla con un profesional: no es asesoría jurídica.
 
 ## Fase 8: crecer el recetario
 - [x] Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, con la categoría Platos fuertes (`0.8.0`).
 - [x] Precios de lentejas, chorizo, tocineta, pollo en presas, sobrebarriga, yuca, pimentón, aceite y cerveza (`0.8.1`). Son precios de referencia promedio; se pueden ajustar al comprar.
 - [x] Precios de zanahoria, tomate, cebolla cabezona, comino, color, pimienta y laurel, con los tamaños reales de sus empaques (`0.8.2`).
-- [ ] Cambiar por precios de tienda los mayoristas de Corabastos (zanahoria, tomate y cebolla cabezona), con un recibo: hoy los estimados pueden quedarse cortos en la tienda.
-- [ ] Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`: los valores actuales (80 g, 120 g, 150 g y 0,2 g) son referencias generales, no pesados.
-- [ ] Pesar lo que se recorta de la sobrebarriga al comprarla y corregir su merma (hoy 10 % estimado).
 - [x] Ilustraciones de las tres recetas, en SVG, con el estilo de las demás (`0.8.1`).
 - [x] Tabla de estimados altos completa: los tres filtros de presupuesto separan tres, dos y una receta (`0.8.2`).
-- [ ] Categorías Acompañamientos y Bebidas: entran cuando haya recetas que las llenen. Una categoría sin recetas es una galería vacía y no tiene imagen de respaldo.
-- [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.
 
 ## Fase funcional del modo cocina (`0.9.0`)
 - [x] «Mantener pantalla encendida» con Screen Wake Lock: se vuelve a pedir al regresar a la pestaña y se suelta al salir.
 - [x] Temporizadores: varios a la vez, por hora de fin, con pausa, un minuto más, alarma y silencio. Sobreviven a una recarga.
-- [ ] Probar en un teléfono real el sonido, la vibración y la pantalla encendida. Lo hace el dueño.
-- [ ] Decidir en el Repaso si los temporizadores deben avisar con el teléfono bloqueado: exige notificaciones y un service worker.
-- [ ] Decidir si la alarma debe sonar también fuera del modo cocina (por ejemplo, en la ficha de la receta).
 
-## Antes del lanzamiento
-- [ ] Capturas del sitio para el README (se dejan para el final por si cambia el diseño).
+## Repaso y lanzamiento (`1.0.0`)
+- [x] Probado en un teléfono real por el dueño: modo cocina, alarma y pantalla encendida.
+- [x] Repaso en vivo: 23 rutas directas con sus metadatos, a 4 tamaños y temas, sin hallazgos de accesibilidad ni errores en consola.
+- [x] Lo que dice el sitio sigue siendo cierto; imagen para compartir con el modo cocina; README con capturas.
+- [x] ECOSISTEMA corregido: GitHub Pages en `/Moss-Taste`, Firebase solo para Authentication y Firestore.
 
-## Fuera del repo
-- [ ] Corregir en el ECOSISTEMA el hosting de Moss Taste: GitHub Pages en `/Moss-Taste`, Firebase solo para Auth y Firestore. Lo hace el dueño.
+## Lo que falta fuera de este repo
+Ver `CHECKLIST-lanzamiento-Moss-Taste.md`. Hacerlo visible es lo último, y cada uno se hace en su propio repo.
+- [ ] Declarar `https://sergio-velandia.dev/Moss-Taste/sitemap.xml` en el `robots.txt` del repo raíz.
+- [ ] Subir `docs/social-preview.png` en Settings → General → Social preview, y fijar el repo en el perfil.
+- [ ] README del perfil, hoja de vida, portafolio y la ficha de Moss.
+
+## Después de la 1.0
+Nada de esto es necesario para usar el sitio. Se decide cuando haga falta.
+
+**Contenido**
+- [ ] Sumar recetas de a poco, una por commit. Categorías Acompañamientos y Bebidas: cuando haya recetas que las llenen.
+- [ ] Pesar una zanahoria, un tomate, una cebolla cabezona, una hoja de laurel y el recorte de la sobrebarriga, si algún día se quiere afinar: hoy son referencias.
+- [ ] Reemplazar las ilustraciones por fotos de Gemini, con el prompt de `docs/prompt-imagenes.md`. Es opcional.
+
+**Funciones**
+- [ ] Que tener la alternativa cuente como tener el ingrediente. Con tres recetas da igual; con unas veinte, una receta que sí se puede cocinar queda debajo de una que no. Ese es el momento de arreglarlo.
+- [ ] Mostrar la alternativa también en la lista de compras.
+- [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.
+- [ ] Precio propio por ingrediente en las recetas personales.
+- [ ] Que la alarma avise con el teléfono bloqueado (exige notificaciones y un service worker), o también fuera del modo cocina.
+
+**Si cambia algo**
+- [ ] App Check, si aparece abuso: la restricción de la clave no frena a un script, que puede crear cuentas sin pasar por la casilla. Esas cuentas no pueden usar nada, pero ocupan lugar. Suma un tercero más, y hoy no se justifica para un uso familiar.
+- [ ] Si la app llega a mandar correos a los usuarios, revisar: hoy no se exige correo verificado, así que nada importante puede depender de que el correo sea de quien dice ser.
+- [ ] Revisar la política de privacidad cada vez que cambie lo que se guarda o a quién se le envía. Si el proyecto deja de ser familiar, revisarla con un profesional: no es asesoría jurídica.
