@@ -63,8 +63,7 @@ describe('modo cocina', () => {
     await screen.findByText(/Cuando espese, añade el azúcar/)
     expect(screen.getByText('Para este paso')).toBeTruthy()
     expect(screen.getByText('08:00')).toBeTruthy()
-    fireEvent.click(screen.getByRole('button', { name: /Iniciar/ }))
-    expect(screen.getByText('Los temporizadores funcionarán en una próxima versión.')).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Iniciar/ })).toBeTruthy()
   })
 
   it('en el último paso ofrece terminar y luego volver a la receta', async () => {

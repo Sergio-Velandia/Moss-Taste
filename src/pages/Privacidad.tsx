@@ -57,6 +57,12 @@ export function Privacidad() {
             <strong className="font-bold">Tope de envíos</strong> (<code>moss-taste:envios</code>): las horas de tus últimos envíos del formulario, para limitar a uno por minuto y cinco por día. No guarda lo que escribiste.
           </li>
           <li>
+            <strong className="font-bold">Temporizadores del modo cocina</strong> (<code>moss-taste:temporizadores</code>): la receta, el paso y la hora de fin (o lo que falta, si está en pausa), para que no se pierdan si se recarga la página. Se borran al darles «Listo» o, como mucho, 12 horas después de terminar.
+          </li>
+          <li>
+            <strong className="font-bold">Alarma silenciada</strong> (<code>moss-taste:alarma-silenciada</code>): solo si la silencias, para recordarlo.
+          </li>
+          <li>
             <strong className="font-bold">Pista de sesión</strong> (<code>moss-taste:sesion</code>): recuerda que este navegador tenía una sesión, para no descargar el código de las cuentas a quien solo mira recetas.
           </li>
           <li>

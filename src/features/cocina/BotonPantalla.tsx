@@ -4,15 +4,18 @@ import type { PantallaEncendida } from './usePantallaEncendida'
 
 interface Props {
   pantalla: PantallaEncendida
-  /** Se llama al pulsar mientras la función está pendiente, para avisar. */
-  onPendiente: () => void
   className?: string
 }
 
-// Tres estados: no disponible en este navegador, disponible (pendiente de la fase funcional) y activa.
-export function BotonPantalla({ pantalla, onPendiente, className }: Props) {
-  const { soportada, activa, pendiente } = pantalla
-  const estado = !soportada ? 'No disponible en este navegador' : activa ? 'La pantalla no se apagará' : pendiente ? 'Llega en una próxima versión' : 'La pantalla puede apagarse'
+export function BotonPantalla({ pantalla, className }: Props) {
+  const { soportada, activa, negada } = pantalla
+  const estado = !soportada
+    ? 'No disponible en este navegador'
+    : activa
+      ? 'La pantalla no se apagará'
+      : negada
+        ? 'El navegador no lo permitió. Intenta de nuevo o revisa el ahorro de batería'
+        : 'Tócalo para que no se apague mientras cocinas'
   const Icono = activa ? Sun : SunDim
 
   return (
@@ -21,9 +24,7 @@ export function BotonPantalla({ pantalla, onPendiente, className }: Props) {
       aria-pressed={soportada ? activa : undefined}
       aria-disabled={!soportada || undefined}
       onClick={() => {
-        if (!soportada) return
-        if (pendiente) onPendiente()
-        else pantalla.alternar()
+        if (soportada) pantalla.alternar()
       }}
       className={cx(
         'flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 text-left',

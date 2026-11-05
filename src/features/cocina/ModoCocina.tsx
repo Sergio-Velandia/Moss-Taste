@@ -16,8 +16,10 @@ import { consultaPorciones, leerPorciones } from '@/lib/recetas/porciones'
 import { rutaDeReceta } from '@/lib/recetas/rutaReceta'
 import type { IngredienteReceta, Receta } from '@/lib/recetas/tipos'
 import { BotonPantalla } from './BotonPantalla'
+import { FranjaTemporizadores } from './FranjaTemporizadores'
 import { Temporizador } from './Temporizador'
 import { usePantallaEncendida } from './usePantallaEncendida'
+import { useTemporizadores } from './useTemporizadores'
 
 // Pantallas: 0 = antes de empezar, 1..N = pasos, N+1 = final. La actual vive en la URL (?paso=3).
 
@@ -38,7 +40,19 @@ export function ModoCocina({ receta }: { receta: Receta }) {
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
   const pantalla = usePantallaEncendida()
+  const temporizadores = useTemporizadores(receta.id)
   const [aviso, setAviso] = useState('')
+
+  // Con la pantalla apagada la alarma no suena: por eso un temporizador la enciende, avisándolo.
+  function iniciarTemporizador(pasoDe: number, minutos: number) {
+    temporizadores.iniciar(pasoDe, minutos)
+    pantalla.encender()
+    setAviso(
+      pantalla.soportada
+        ? 'Temporizador en marcha. Mantenemos la pantalla encendida para que la alarma suene; puedes apagarlo abajo.'
+        : 'Temporizador en marcha. Este navegador no puede mantener la pantalla encendida: si se apaga, la alarma no suena.',
+    )
+  }
   const total = receta.pasos.length
   const ultima = total + 1
   // Las porciones llegan desde la ficha (?porciones=8) y se conservan al avanzar y al salir.
@@ -151,7 +165,7 @@ export function ModoCocina({ receta }: { receta: Receta }) {
                     </ul>
                   </div>
                 </div>
-                <BotonPantalla pantalla={pantalla} onPendiente={() => setAviso('Mantener la pantalla encendida llega en una próxima versión.')} className="max-w-md" />
+                <BotonPantalla pantalla={pantalla} className="max-w-md" />
               </>
             )}
 
@@ -176,7 +190,16 @@ export function ModoCocina({ receta }: { receta: Receta }) {
                     </div>
                   )}
                   {paso.temporizadorMin && (
-                    <Temporizador minutos={paso.temporizadorMin} onIniciar={() => setAviso('Los temporizadores funcionarán en una próxima versión.')} />
+                    <Temporizador
+                      minutos={paso.temporizadorMin}
+                      temporizador={temporizadores.lista.find((t) => t.paso === actual)}
+                      ahora={temporizadores.ahora}
+                      onIniciar={() => iniciarTemporizador(actual, paso.temporizadorMin ?? 0)}
+                      onPausar={() => temporizadores.pausar(actual)}
+                      onReanudar={() => temporizadores.reanudar(actual)}
+                      onSumarMinuto={() => temporizadores.sumarMinuto(actual)}
+                      onQuitar={() => temporizadores.quitar(actual)}
+                    />
                   )}
                 </div>
               </div>
@@ -204,30 +227,36 @@ export function ModoCocina({ receta }: { receta: Receta }) {
         </AnimatePresence>
       </div>
 
-      <nav aria-label="Pasos" className="border-t border-line bg-bg pb-[env(safe-area-inset-bottom)]">
-        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 px-4 py-3 sm:px-6">
-          <button
-            type="button"
-            onClick={() => ir(actual - 1)}
-            aria-disabled={actual === 0 || undefined}
-            aria-keyshortcuts="ArrowLeft"
-            className={clasesBoton('secundario', 'lg', 'min-h-16 w-full')}
-          >
-            <ChevronLeft aria-hidden="true" className="size-6" />
-            Anterior
-          </button>
-          {actual < ultima ? (
-            <button type="button" onClick={() => ir(actual + 1)} aria-keyshortcuts="ArrowRight" className={clasesBoton('primario', 'lg', 'min-h-16 w-full')}>
-              {actual === 0 ? 'Empezar' : actual === total ? 'Terminar' : 'Siguiente'}
-              <ChevronRight aria-hidden="true" className="size-6" />
+      <div>
+        <FranjaTemporizadores temporizadores={temporizadores} pantalla={pantalla} pasoActual={actual} irAlPaso={ir} />
+        <output aria-live="assertive" className="sr-only">
+          {temporizadores.anuncio}
+        </output>
+        <nav aria-label="Pasos" className="border-t border-line bg-bg pb-[env(safe-area-inset-bottom)]">
+          <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 px-4 py-3 sm:px-6">
+            <button
+              type="button"
+              onClick={() => ir(actual - 1)}
+              aria-disabled={actual === 0 || undefined}
+              aria-keyshortcuts="ArrowLeft"
+              className={clasesBoton('secundario', 'lg', 'min-h-16 w-full')}
+            >
+              <ChevronLeft aria-hidden="true" className="size-6" />
+              Anterior
             </button>
-          ) : (
-            <BotonEnlace to={volver} tamano="lg" className="min-h-16 w-full">
-              Salir
-            </BotonEnlace>
-          )}
-        </div>
-      </nav>
+            {actual < ultima ? (
+              <button type="button" onClick={() => ir(actual + 1)} aria-keyshortcuts="ArrowRight" className={clasesBoton('primario', 'lg', 'min-h-16 w-full')}>
+                {actual === 0 ? 'Empezar' : actual === total ? 'Terminar' : 'Siguiente'}
+                <ChevronRight aria-hidden="true" className="size-6" />
+              </button>
+            ) : (
+              <BotonEnlace to={volver} tamano="lg" className="min-h-16 w-full">
+                Salir
+              </BotonEnlace>
+            )}
+          </div>
+        </nav>
+      </div>
     </main>
   )
 }
