@@ -72,6 +72,12 @@ const iniciar = () => fireEvent.click(screen.getByRole('button', { name: 'Inicia
 const reloj = () => within(screen.getByRole('region', { name: 'Temporizador' })).getByRole('timer').textContent
 
 describe('un temporizador en el modo cocina', () => {
+  it('avisa desde antes de iniciar que la alarma necesita esta pantalla abierta', async () => {
+    await cocinar()
+    const temporizador = screen.getByRole('region', { name: 'Temporizador' })
+    expect(within(temporizador).getByText('Suena solo con esta pantalla abierta. Con el teléfono bloqueado no suena.')).toBeTruthy()
+  })
+
   it('cuenta, pausa, reanuda, suma un minuto y se reinicia', async () => {
     await cocinar()
     congelarReloj()

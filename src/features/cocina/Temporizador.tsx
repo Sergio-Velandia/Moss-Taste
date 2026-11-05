@@ -92,6 +92,7 @@ export function Temporizador({ minutos, temporizador: t, ahora, onIniciar, onPau
           </span>
         )}
       </div>
+      {!terminado && <p className="text-sm text-ink-soft">Suena solo con esta pantalla abierta. Con el teléfono bloqueado no suena.</p>}
     </section>
   )
 }
