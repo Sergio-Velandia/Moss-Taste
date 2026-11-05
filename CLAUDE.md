@@ -16,7 +16,7 @@ Recetario familiar: calcula ingredientes y costo en pesos colombianos para cualq
 - Commits en español con Conventional Commits (`tipo(ámbito): descripción en imperativo`, ≤ 70 caracteres). Un commit = un cambio lógico, y cada uno deja el proyecto compilando.
 - **Sin push, sin tags y sin dependencias nuevas sin OK del dueño.**
 - No afirmar que algo funciona sin ejecutar `npm test`, `npm run lint` y `npm run build`.
-- Sincronía obligatoria: `package.json` ⇄ `CHANGELOG.md` ⇄ tag ⇄ tabla de estado del README.
+- Sincronía obligatoria: `package.json` ⇄ `CHANGELOG.md` ⇄ tag.
 - Datos de ejemplo siempre ficticios y marcados como tales. Nada de datos personales en lo público.
 
 ## Stack
@@ -66,7 +66,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | El cambio de versión va siempre en su propio commit | Lo pidió el dueño tras la Fase 6, donde quedó mezclado |
 | 2026-11-04 | No correr `npm audit fix --force`: ver `SECURITY.md` | Las alertas son de una dependencia solo de Node y el arreglo forzado baja Firebase a la versión 9 |
 | 2026-11-04 | Cambiar la URL dentro de la misma página (porciones, filtros) usa `preventScrollReset` | No es ir a otra página: no debe volver arriba |
-| 2026-11-04 | El filtro de presupuesto compara el **extremo alto** del estimado (`topePorPorcion`), en `/hoy` y en la galería. Las tarjetas dicen «estimado hasta». Lo escribe también el README | Quien sale con $ 5.000 confiando en el filtro no puede encontrarse con $ 5.280: mejor mostrar de menos |
+| 2026-11-04 | El filtro de presupuesto compara el **extremo alto** del estimado (`topePorPorcion`), en `/hoy` y en la galería. Las tarjetas dicen «estimado hasta». Lo explica «Acerca» | Quien sale con $ 5.000 confiando en el filtro no puede encontrarse con $ 5.280: mejor mostrar de menos |
 | 2026-11-04 | Con presupuesto, una receta con costo parcial no pasa, pero sale aparte, al final, diciendo qué le falta | Un costo parcial no es un costo, y desaparecer en silencio parecería un error |
 | 2026-11-04 | La `alternativa` vive en `ingredientes.json`. Una receta solo la escribe si depende de su cantidad («o 150 g de azúcar»), y entonces manda la suya (`alternativaDe`) | Un solo lugar para reutilizarla; la cantidad no puede ir en el catálogo |
 | 2026-11-04 | En `/hoy` se dan por hechos lo «al gusto», lo opcional y lo que no se costea. Los nombres libres de las recetas personales van en un grupo aparte, sin mezclarse | El catálogo tiene precio y fecha; los nombres libres, no |
@@ -75,13 +75,14 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | Las recetas se pueden publicar sin precio ni imagen: precio en null, costo parcial e ilustración de categoría. Las recetas sin imagen van en una lista explícita (`IMAGEN_PENDIENTE`, en `datos.test.ts`), y la prueba falla si una ya tiene imagen y sigue ahí | Nunca inventar un precio; y la lista evita que la excepción se vuelva permanente |
 | 2026-11-04 | `fsModuleCache: false` en Vitest | Ese caché guarda el resultado de `import.meta.glob` y ocultaba las carpetas de recetas nuevas |
 | 2026-11-04 | El precio del catálogo es lo que se paga, sin descontar el recorte: la sobrebarriga va en $ 31.000 el kilo, no en un «neto» | La merma ya calcula cuánto hay que comprar; descontarla del precio contaría al revés y bajaría el costo |
-| 2026-11-04 | Zanahoria, tomate y cebolla cabezona se quedan con precio mayorista de Corabastos: el dueño descartó buscar un recibo de tienda. Lo dicen «Acerca», el README y el CHANGELOG | Aun con esas verduras al doble, las lentejas siguen dentro de su filtro |
+| 2026-11-04 | Zanahoria, tomate y cebolla cabezona se quedan con precio mayorista de Corabastos: el dueño descartó buscar un recibo de tienda. Lo dicen «Acerca» y el CHANGELOG | Aun con esas verduras al doble, las lentejas siguen dentro de su filtro |
 | 2026-11-04 | Los temporizadores cuentan por hora de fin y se guardan en `moss-taste:temporizadores` (receta, paso y hora de fin, o lo que falta si están en pausa). Se borran con «Listo» o 12 horas después de terminar | Los navegadores frenan las pestañas en segundo plano, y una recarga no debe perder 2 h 30 de sobrebarriga |
 | 2026-11-04 | Iniciar un temporizador enciende la pantalla, avisándolo; si la apagan a mano, no se vuelve a encender. La alarma suena por defecto, un minuto como mucho, con botón de silencio. Si terminó hace más de 2 minutos, al volver solo se avisa en pantalla | Con la pantalla apagada la alarma no suena. Decisión del dueño |
 | 2026-11-04 | La alarma no suena con el teléfono bloqueado ni fuera del modo cocina | Lo primero exige notificaciones y un service worker. Queda para decidir en el Repaso |
 | 2026-11-04 | App Check y avisar con el teléfono bloqueado no entran en la `1.0.0`; quedan en el ROADMAP | App Check suma un tercero y no hay abuso; lo otro exige notificaciones y un service worker. Para un uso familiar no se justifican hoy |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
 | 2026-11-04 | Pantalla de entrada de 2,6 s en el `index.html`, solo al llegar de afuera, y se salta con un toque o una tecla. Se decide con el tipo de navegación y el referente, sin guardar nada. No sale al recargar, en el modo cocina ni con movimiento reducido | Que no frene a quien ya está cocinando ni sume nada a la política de privacidad; si falla JavaScript, la página sigue igual |
+| 2026-11-05 | El README solo lleva lo que no vive en otro lado: sin versión, tabla de estado, precios ni detalle de funciones. Lo que necesita quien cocina va en el sitio («Acerca» y el aviso junto al temporizador) | Lo pidió el dueño tras auditarlo: casi la mitad estaba duplicada, y los precios se copiaban a mano sin prueba que los cuidara |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
 ## Identidad visual: Berenjena

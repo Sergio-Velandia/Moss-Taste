@@ -29,7 +29,7 @@ Tipos: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 
 [SemVer](https://semver.org/lang/es/). Mientras sea `0.x`: MINOR para una fase o una función nueva, PATCH para correcciones y documentación. Las recetas se acumulan en el CHANGELOG y suben una versión MINOR cada diez, más o menos.
 
-`package.json`, [CHANGELOG.md](CHANGELOG.md), el tag `vX.Y.Z` y la tabla de estado del README siempre dicen la misma versión. El CHANGELOG sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), con la sección `[Sin publicar]` arriba.
+`package.json`, [CHANGELOG.md](CHANGELOG.md) y el tag `vX.Y.Z` siempre dicen la misma versión. El CHANGELOG sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), con la sección `[Sin publicar]` arriba.
 
 ## Antes de cada commit
 
