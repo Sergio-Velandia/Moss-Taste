@@ -44,6 +44,26 @@ export function Acerca() {
         <p>Si un ingrediente no tiene precio, la receta lo dice y no lo cuenta como si costara cero.</p>
       </Bloque>
 
+      <Bloque id="acerca-presupuesto" titulo="Cómo filtra el presupuesto">
+        <p>
+          El filtro compara tu presupuesto con el extremo alto del estimado. Por ejemplo, una receta de $ 4.800 con el rango de 10 % puede
+          llegar a $ 5.280, así que no aparece en «Hasta $ 5.000». Salen menos recetas, y es a propósito: si sales con $ 5.000 confiando en
+          el filtro, no deberías encontrarte con una cuenta de $ 5.280.
+        </p>
+        <p>Si a una receta le falta algún precio, no se sabe cuánto cuesta. Por eso no pasa el filtro, pero sale aparte, al final, diciendo qué le falta.</p>
+      </Bloque>
+
+      <Bloque id="acerca-temporizadores" titulo="Lo que debes saber de los temporizadores">
+        <p>
+          Puedes tener varios a la vez. Siguen contando si sales a la ficha de la receta o recargas la página, pero solo suenan con el modo
+          cocina abierto. Con el teléfono bloqueado o el navegador cerrado no suenan; al volver, el sitio te dice hace cuánto terminaron.
+        </p>
+        <p>
+          Por eso, iniciar un temporizador mantiene la pantalla encendida, si tu navegador lo permite; si no, te lo avisa. En iPhone no hay
+          vibración, y el interruptor de silencio puede apagar el sonido.
+        </p>
+      </Bloque>
+
       <Bloque id="acerca-recetas" titulo="De dónde salen las recetas">
         <p>
           Las recetas del recetario las agrego yo, escritas con mis palabras. Se puede partir de una receta conocida, pero el texto de los
