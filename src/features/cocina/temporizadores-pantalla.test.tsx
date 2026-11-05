@@ -243,6 +243,21 @@ describe('mantener la pantalla encendida', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Mantener pantalla encendida' }).getAttribute('aria-pressed')).toBe('true'))
   })
 
+  it('tras una recarga con un temporizador corriendo, la vuelve a pedir', async () => {
+    const pedido = instalarWakeLock()
+    localStorage.setItem(CLAVE_TEMPORIZADORES, JSON.stringify([{ receta: RECETA, paso: 3, fin: Date.now() + 5 * MINUTO_MS, restanteMs: null }]))
+    await cocinar()
+    await waitFor(() => expect(pedido).toHaveBeenCalledOnce())
+  })
+
+  it('con uno en pausa o ya terminado no la pide sola', async () => {
+    const pedido = instalarWakeLock()
+    localStorage.setItem(CLAVE_TEMPORIZADORES, JSON.stringify([{ receta: RECETA, paso: 3, fin: null, restanteMs: 5 * MINUTO_MS }, { receta: RECETA, paso: 2, fin: Date.now() - MINUTO_MS, restanteMs: null }]))
+    await cocinar()
+    await act(async () => {})
+    expect(pedido).not.toHaveBeenCalled()
+  })
+
   it('si la apagan a mano, otro temporizador no la vuelve a encender', async () => {
     const pedido = instalarWakeLock()
     const router = await cocinar('?paso=2')

@@ -18,6 +18,7 @@ import type { IngredienteReceta, Receta } from '@/lib/recetas/tipos'
 import { BotonPantalla } from './BotonPantalla'
 import { FranjaTemporizadores } from './FranjaTemporizadores'
 import { Temporizador } from './Temporizador'
+import { estaTerminado } from './temporizadores'
 import { usePantallaEncendida } from './usePantallaEncendida'
 import { useTemporizadores } from './useTemporizadores'
 
@@ -43,10 +44,16 @@ export function ModoCocina({ receta }: { receta: Receta }) {
   const temporizadores = useTemporizadores(receta.id)
   const [aviso, setAviso] = useState('')
 
-  // Con la pantalla apagada la alarma no suena: por eso un temporizador la enciende, avisándolo.
+  // Con la pantalla apagada la alarma no suena: mientras algo corra, se mantiene encendida. También tras recargar,
+  // o al reanudar, salvo que la hayan apagado a mano.
+  const { encender } = pantalla
+  const hayCorriendo = temporizadores.lista.some((t) => t.fin !== null && !estaTerminado(t, temporizadores.ahora))
+  useEffect(() => {
+    if (hayCorriendo) encender()
+  }, [hayCorriendo, encender])
+
   function iniciarTemporizador(pasoDe: number, minutos: number) {
     temporizadores.iniciar(pasoDe, minutos)
-    pantalla.encender()
     setAviso(
       pantalla.soportada
         ? 'Temporizador en marcha. Mantenemos la pantalla encendida para que la alarma suene; puedes apagarlo abajo.'
