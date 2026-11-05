@@ -21,6 +21,15 @@
   --c-danger-soft: #fbe9e7;
   --c-overlay: rgb(42 35 32 / 0.45);
 
+  /* Pantalla de entrada: es igual en los dos temas */
+  --c-entrada-fondo: #6b3a8c;
+  --c-entrada-medio: #47245f;
+  --c-entrada-borde: #1f1029;
+  --c-entrada-texto: #faf7f2;
+  --c-entrada-lema: #efe6f5;
+  --c-entrada-grano: #e4d0f7;
+  --c-entrada-vapor: rgb(239 230 245 / 0.16);
+
   /* Sombras de dos capas: contacto + ambiente */
   --c-shadow-1: 0 1px 2px rgb(42 35 32 / 0.06), 0 2px 8px rgb(42 35 32 / 0.06);
   --c-shadow-2: 0 2px 4px rgb(42 35 32 / 0.06), 0 12px 32px rgb(42 35 32 / 0.1);

@@ -42,6 +42,81 @@
     <meta name="twitter:description" content="Recetas de la familia con cantidades y costo en pesos colombianos para cualquier número de porciones." />
   </head>
   <body>
+    <template id="plantilla-entrada">
+      <div class="entrada" aria-hidden="true">
+        <span class="entrada-vapor"></span>
+        <span class="entrada-vapor"></span>
+        <span class="entrada-vapor"></span>
+        <div class="entrada-centro">
+          <div class="entrada-marca">
+            <div class="entrada-granos"></div>
+            <svg class="entrada-silueta" viewBox="0 0 32 32" fill="currentColor">
+              <g transform="rotate(-30 16 16)">
+                <ellipse cx="16" cy="18.6" rx="5.8" ry="9.6" />
+                <path d="M9.6 11.4c2.6-2.6 10.2-2.6 12.8 0l-2.9 2.6-3.5-1.6-3.5 1.6z" fill="var(--c-entrada-fondo)" />
+                <path d="M10.4 10.6c2.4-1.9 8.8-1.9 11.2 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                <rect x="15.1" y="4.5" width="1.8" height="6" rx="0.9" />
+              </g>
+            </svg>
+          </div>
+          <div class="entrada-nombre">
+            <span class="entrada-palabra"><span class="entrada-nitida">Moss</span><span class="entrada-difusa">Moss</span></span>
+            <span class="entrada-palabra"><span class="entrada-nitida">Taste</span><span class="entrada-difusa">Taste</span></span>
+          </div>
+          <span class="entrada-linea"></span>
+          <span class="entrada-lema">El recetario de la familia</span>
+        </div>
+      </div>
+    </template>
+    <script>
+      // Pantalla de entrada: solo al llegar de afuera, sin guardar nada. Ni al recargar, ni en el modo cocina, ni con movimiento reducido.
+      (function () {
+        try {
+          var nav = performance.getEntriesByType("navigation")[0];
+          if (nav && nav.type !== "navigate") return;
+          if (document.referrer.indexOf(location.origin + "%BASE_URL%") === 0) return;
+          if (/\/cocinar\/?$/.test(location.pathname)) return;
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+          var entrada = document.getElementById("plantilla-entrada").content.firstElementChild.cloneNode(true);
+          var granos = entrada.querySelector(".entrada-granos");
+          var grano = function (x, y, angulo, i) {
+            var g = document.createElement("span");
+            var lejos = 40 + (i % 5) * 9;
+            g.className = "entrada-grano";
+            g.style.cssText =
+              "--x:" + (x - 16) * 4 + "px;--y:" + (y - 16) * 4 + "px;--d:" + (i % 7) * 40 + "ms;" +
+              "--sx:" + Math.cos(angulo) * lejos + "vmax;--sy:" + Math.sin(angulo) * lejos + "vmax";
+            granos.appendChild(g);
+          };
+          // El cuerpo de la berenjena, repartido como las semillas de un girasol; luego el cáliz y el tallo.
+          for (var i = 0; i < 56; i++) {
+            var r = Math.sqrt((i + 0.5) / 56);
+            var a = i * 2.39996;
+            grano(16 + 5.8 * r * Math.cos(a), 18.6 + 9.6 * r * Math.sin(a), a, i);
+          }
+          for (var j = 0; j < 9; j++) grano(10.4 + j * 1.4, 10.6 - 1.6 * Math.sin((Math.PI * j) / 8), j * 0.8 - 2.4, j);
+          for (var k = 0; k < 3; k++) grano(16, 5 + k * 2, k - 2, k);
+
+          var color = document.querySelector("meta[name=theme-color]");
+          var colorAntes = color.getAttribute("content");
+          var quitar = function () {
+            entrada.remove();
+            color.setAttribute("content", colorAntes);
+            removeEventListener("pointerdown", quitar);
+            removeEventListener("keydown", quitar);
+          };
+          entrada.addEventListener("animationend", function (e) {
+            if (e.target === entrada) quitar();
+          });
+          addEventListener("pointerdown", quitar);
+          addEventListener("keydown", quitar);
+          setTimeout(quitar, 3000);
+          color.setAttribute("content", "#1f1029");
+          document.body.prepend(entrada);
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <noscript><p style="padding:1rem;font-family:system-ui,sans-serif">Moss Taste necesita JavaScript activado para funcionar.</p></noscript>
     <script type="module" src="/src/main.tsx"></script>

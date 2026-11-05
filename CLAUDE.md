@@ -81,6 +81,7 @@ Firebase se usa **solo** para Authentication y Firestore, desde el sitio estáti
 | 2026-11-04 | La alarma no suena con el teléfono bloqueado ni fuera del modo cocina | Lo primero exige notificaciones y un service worker. Queda para decidir en el Repaso |
 | 2026-11-04 | App Check y avisar con el teléfono bloqueado no entran en la `1.0.0`; quedan en el ROADMAP | App Check suma un tercero y no hay abuso; lo otro exige notificaciones y un service worker. Para un uso familiar no se justifican hoy |
 | 2026-11-04 | No se exige correo verificado | Nada importante depende hoy de que el correo sea de quien dice ser; se revisa si la app llega a mandar correos |
+| 2026-11-04 | Pantalla de entrada de 2,6 s en el `index.html`, solo al llegar de afuera, y se salta con un toque o una tecla. Se decide con el tipo de navegación y el referente, sin guardar nada. No sale al recargar, en el modo cocina ni con movimiento reducido | Que no frene a quien ya está cocinando ni sume nada a la política de privacidad; si falla JavaScript, la página sigue igual |
 | 2026-11-04 | Responsable en la política: nombre, «Bogotá, Colombia» y `contacto@sergio-velandia.dev`, sin teléfono ni dirección | Decisión del dueño, que asume el riesgo frente al Decreto 1377 de 2013; no es asesoría jurídica |
 
 ## Identidad visual: Berenjena
@@ -137,7 +138,7 @@ Ramas, commits, versiones y reglas de contenido y diseño: [CONTRIBUTING.md](CON
 Se completa a medida que se construye.
 
 ```
-index.html              metadatos base, script que aplica el tema antes de pintar, precarga de fuentes
+index.html              metadatos base, script que aplica el tema antes de pintar, precarga de fuentes, pantalla de entrada
 public/                 favicon.svg, site.webmanifest, og-imagen.png (para compartir), apple-touch-icon.png, icono-192/512.png
 docs/imagenes.md        cómo se generaron las imágenes del sitio
 docs/prompt-imagenes.md prompt base, flujo de las imágenes de recetas y revisión de los términos de Google
@@ -202,6 +203,7 @@ src/
 └─ styles/
    ├─ tokens.css        color (claro, oscuro, sistema), tipografía, radios, sombras y movimiento → utilidades de Tailwind
    ├─ tokens.test.ts    verifica el contraste AA de cada par de tokens
+   ├─ entrada.css       pantalla de entrada; entrada.test.ts verifica los 3 s y cuándo aparece
    ├─ fuentes.css       @font-face
    └─ index.css         estilos base y movimiento reducido
 ```

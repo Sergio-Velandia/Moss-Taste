@@ -49,6 +49,13 @@ const PARES: [string, string, number][] = [
   ['line-strong', 'surface', 3],
 ]
 
+// La pantalla de entrada es igual en los dos temas. «Taste» es texto grande: 3:1.
+const PARES_ENTRADA: [string, string, number][] = [
+  ['entrada-texto', 'entrada-fondo', 4.5],
+  ['entrada-lema', 'entrada-fondo', 4.5],
+  ['entrada-grano', 'entrada-fondo', 3],
+]
+
 const TEMAS = {
   claro: leerBloque(':root {'),
   oscuro: leerBloque(":root[data-theme='dark']"),
@@ -58,6 +65,12 @@ describe('tokens de color', () => {
   it('el tema sistema repite exactamente los valores del tema oscuro', () => {
     expect(leerBloque(":root[data-theme='system']")).toEqual(TEMAS.oscuro)
   })
+
+  for (const [texto, fondo, minimo] of PARES_ENTRADA) {
+    it(`entrada: ${texto} sobre ${fondo} cumple ${minimo}:1`, () => {
+      expect(contraste(TEMAS.claro[texto]!, TEMAS.claro[fondo]!)).toBeGreaterThanOrEqual(minimo)
+    })
+  }
 
   for (const [tema, tokens] of Object.entries(TEMAS)) {
     for (const [texto, fondo, minimo] of PARES) {
