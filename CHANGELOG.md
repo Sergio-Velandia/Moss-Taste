@@ -4,6 +4,19 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [1.1.1] - 2026-11-05
+
+### Añadido
+
+- El temporizador del modo cocina avisa, desde antes de iniciarlo, que la alarma suena solo con esa pantalla abierta y no con el teléfono bloqueado.
+- «Acerca» explica cómo filtra el presupuesto y qué esperar de los temporizadores.
+- El README cuenta por qué existe el proyecto: digitalizar las recetas y dejar el papeleo y las hojas de cálculo.
+
+### Cambiado
+
+- El README deja solo lo que no vive en otro lado, y queda en cerca de la mitad. Cómo agregar una receta y las alternativas pasan a `CONTRIBUTING.md`.
+- La versión ya no se sincroniza con el README.
+
 ## [1.1.0] - 2026-11-04
 
 ### Añadido
@@ -292,7 +305,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.1.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.9.0...v1.0.0
 [0.9.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...v0.9.0
