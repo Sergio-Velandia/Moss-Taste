@@ -38,8 +38,8 @@ export function Acerca() {
           una taza de cada ingrediente son estimados de cocina, así que las cantidades a comprar son aproximadas.
         </p>
         <p>
-          El resultado se muestra con un rango de más o menos 10 %, porque los precios cambian según el lugar y la semana, y siempre
-          con la fecha del precio. Los ingredientes al gusto, como la sal, también se escalan, pero solo como referencia.
+          Los precios son valores de referencia de Bogotá, y algunas verduras tienen precio mayorista, así que en tu tienda pueden salir
+          más caros. Por eso el resultado se muestra con un rango de más o menos 10 % y siempre con la fecha del precio. Los ingredientes al gusto, como la sal, también se escalan, pero solo como referencia.
         </p>
         <p>Si un ingrediente no tiene precio, la receta lo dice y no lo cuenta como si costara cero.</p>
       </Bloque>
@@ -56,9 +56,9 @@ export function Acerca() {
 
       <Bloque id="acerca-estado" titulo="En qué va">
         <p>
-          Ya están las primeras recetas de la casa, con ilustraciones generadas con IA, la lista de compras y la opción de exportar a
-          Excel, CSV o JSON. Ya puedes proponer recetas desde el formulario de contacto y crear una cuenta para guardar favoritos,
-          notas y tus propias recetas. En las próximas versiones llegan más recetas.
+          Ya están seis recetas de la casa, con ilustraciones generadas con IA, la lista de compras, el modo cocina con temporizadores
+          y la opción de exportar a Excel, CSV o JSON. Puedes proponer recetas desde el formulario de contacto y crear una cuenta para
+          guardar favoritos, notas y tus propias recetas. Las recetas nuevas van llegando de a poco.
         </p>
       </Bloque>
     </div>

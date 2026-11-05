@@ -79,6 +79,6 @@ export interface Receta {
   imagenAlt?: string
   /** Consejos de la casa: por qué se hace así, cómo corregir si algo sale distinto. */
   notas?: string[]
-  /** Receta ficticia de la Fase 1: se marca visiblemente como ejemplo. */
+  /** Receta ficticia: se marca visiblemente como ejemplo. Hoy solo las de las pruebas. */
   ejemplo?: boolean
 }
