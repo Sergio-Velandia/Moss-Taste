@@ -49,6 +49,29 @@ El workflow corre lo mismo en cada push y en cada pull request.
 - Los datos de ejemplo y de prueba son ficticios y se marcan como tales. Nunca datos reales de personas.
 - Nada de secretos ni datos personales en el repo: ni claves, ni correos personales, ni teléfonos.
 
+## Agregar una receta
+
+1. Crea la carpeta `src/data/recetas/<slug>/` con un `receta.json`. El `id` debe ser igual al nombre de la carpeta.
+2. Si usa ingredientes nuevos, agrégalos a `src/data/ingredientes.json` con su precio en pesos (entero) y la fecha del precio. Si la receta los pide en tazas o cucharadas y se venden por peso, agrega su `densidad`; si los pide por unidad y se venden por peso, `gramosPorUnidad`.
+3. Agrega la imagen: `ilustracion.svg` u `original.png` en la carpeta, `npm run imagenes` y una descripción en `imagenAlt`. Ver [docs/prompt-imagenes.md](docs/prompt-imagenes.md).
+4. Corre `npm test`: si algo está mal, dice el archivo, el campo y qué corregir.
+
+No hace falta tocar ningún componente. Una receta inválida se omite del sitio sin romperlo.
+
+Al escribirla:
+
+- **Las cantidades son lo que va a la olla**, ya limpio y pelado. La merma del catálogo calcula cuánto comprar. Solo cuenta lo que se quita antes de cocinar (cáscara, recorte), nunca lo que se pierde cocinando.
+- **El tiempo total incluye la preparación**, no solo los temporizadores.
+
+### Las alternativas
+
+Lo que puede reemplazar a un ingrediente, sin sumarse al costo, se escribe en dos niveles:
+
+- **En el catálogo** (`alternativa` en `ingredientes.json`): «pan tostado» para el calado. Vale para todas las recetas que lo usen.
+- **En la receta** (`alternativa` en `receta.json`), solo si depende de su cantidad: «o 150 g de azúcar».
+
+La de la receta manda sobre la del catálogo. Es solo texto: tener la alternativa no cuenta como tener el ingrediente.
+
 ## Diseño
 
 - Colores, tipografía, radios y sombras salen de los tokens en `src/styles/tokens.css`. Nada de colores sueltos en los componentes.
