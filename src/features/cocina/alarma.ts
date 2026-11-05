@@ -31,8 +31,13 @@ export function crearAlarma(): Alarma {
     return contexto
   }
 
+  // El navegador solo deja vibrar después de un toque en la página (tras recargar, todavía no lo hay).
+  function vibrar(patron: number | number[]) {
+    if (navigator.userActivation?.hasBeenActive !== false) navigator.vibrate?.(patron)
+  }
+
   function pitar() {
-    navigator.vibrate?.([300, 150, 300])
+    vibrar([300, 150, 300])
     const ctx = obtenerContexto()
     if (!ctx) return
     const inicio = ctx.currentTime
@@ -52,10 +57,12 @@ export function crearAlarma(): Alarma {
   }
 
   const detener = () => {
+    // Sin esto, abrir el modo cocina pediría apagar una vibración que nunca empezó, y el navegador lo rechaza.
+    if (intervalo === undefined) return
     clearInterval(intervalo)
     clearTimeout(limite)
     intervalo = undefined
-    navigator.vibrate?.(0)
+    vibrar(0)
   }
 
   return {

@@ -201,6 +201,24 @@ describe('un temporizador en el modo cocina', () => {
     expect(screen.queryByText(/Terminó el paso 3/)).toBeNull()
   })
 
+  it('abrir el modo cocina no toca la vibración: solo vibra al sonar, y al parar la apaga', async () => {
+    const vibrar = vi.fn(() => true)
+    Object.defineProperty(navigator, 'vibrate', { value: vibrar, configurable: true })
+    try {
+      await cocinar()
+      expect(vibrar).not.toHaveBeenCalled()
+      congelarReloj()
+      iniciar()
+      await avanzar(8 * 60_000)
+      expect(vibrar).toHaveBeenCalledWith([300, 150, 300])
+      fireEvent.click(screen.getByRole('button', { name: 'Listo, paso 3' }))
+      await avanzar(0)
+      expect(vibrar).toHaveBeenLastCalledWith(0)
+    } finally {
+      Reflect.deleteProperty(navigator, 'vibrate')
+    }
+  })
+
   it('funciona sin AudioContext, sin vibración y sin almacenamiento', async () => {
     vi.stubGlobal('AudioContext', undefined)
     const original = Storage.prototype.setItem
