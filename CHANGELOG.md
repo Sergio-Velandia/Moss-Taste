@@ -4,6 +4,36 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [0.8.2] - 2026-11-04
+
+Los platos fuertes ya tienen su costo completo.
+
+### Añadido
+
+- Precios de zanahoria, tomate, cebolla cabezona, comino, color, pimienta y laurel. Ninguna receta queda con costo parcial, y las tres nuevas pasan el filtro de presupuesto que les corresponde.
+
+### Cambiado
+
+- Tamaños reales de los empaques: comino 25 g, color 55 g, pimienta 60 g y laurel 20 g.
+- Pesos de referencia por unidad: zanahoria 80 g y cebolla cabezona 150 g. El tomate sigue en 120 g y la hoja de laurel en 0,2 g.
+- La pimienta del catálogo ahora se llama «Pimienta negra molida»: la de 60 g no es pura.
+
+### A tener en cuenta
+
+- **Zanahoria, tomate y cebolla cabezona tienen precio mayorista de Corabastos** (29 y 30 de octubre, y 15 de octubre la cebolla). En tienda salen más caros, así que estos estimados pueden quedarse cortos. Aun con esas tres verduras al doble, las lentejas seguirían dentro de «Hasta $ 5.000».
+- Las recetas que usan esos precios dicen «Estimado al 15 de octubre de 2026», por la cebolla: la ficha muestra siempre el precio más antiguo.
+
+Estimados por porción de esta versión, para comparar cuando cambien los precios:
+
+| Receta | Por porción | Estimado alto | Primer filtro que pasa |
+|---|---|---|---|
+| Arroz con leche | $ 2.262 | $ 2.488 | Hasta $ 5.000 |
+| Changua | $ 2.936 | $ 3.229 | Hasta $ 5.000 |
+| Lentejas con chorizo | $ 4.175 | $ 4.593 | Hasta $ 5.000 |
+| Sudado de pollo | $ 5.332 | $ 5.865 | Hasta $ 10.000 |
+| Ajiaco santafereño | $ 8.922 | $ 9.815 | Hasta $ 10.000 |
+| Sobrebarriga en salsa criolla | $ 10.207 | $ 11.227 | Hasta $ 20.000 |
+
 ## [0.8.1] - 2026-11-04
 
 Imágenes y la mayoría de los precios de los platos fuertes.
@@ -217,7 +247,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...HEAD
+[0.8.2]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.6.0...v0.7.0

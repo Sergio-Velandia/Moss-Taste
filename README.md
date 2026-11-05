@@ -20,12 +20,13 @@ El recetario de la familia: las recetas de la casa con las cantidades y el costo
 | 7 · ¿Qué cocino hoy? | Sugerencias revisadas con las recetas reales, recetas personales incluidas y presupuesto que nunca se queda corto | `0.7.0` |
 | 8 · Platos fuertes | Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, **con precios pendientes** | `0.8.0` |
 | 8 · Imágenes y precios | Ilustraciones de los platos fuertes y 9 de los 16 precios nuevos | `0.8.1` |
+| 8 · Precios completos | Los 7 precios que faltaban: ninguna receta queda con costo parcial | `0.8.2` |
 
 Lo que todavía no funciona (temporizadores y mantener la pantalla encendida) ya existe en la interfaz y avisa que llega en una próxima versión. El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Qué se puede hacer hoy
 
-- Cocinar las recetas de la casa: ajiaco santafereño, changua y arroz con leche, con su costo estimado al 2 de noviembre de 2026; y lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, cuyo costo es parcial mientras se cotizan sus ingredientes.
+- Cocinar las recetas de la casa: ajiaco santafereño, changua y arroz con leche, con su costo estimado al 2 de noviembre de 2026; y lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla.
 
 - Buscar recetas por nombre o ingrediente y filtrarlas por categoría y presupuesto por porción. Los filtros quedan en la URL.
 - Elegir las porciones y ver al instante las cantidades y el costo recalculados: convierte tazas, cucharadas y libras, suma lo que se pierde al limpiar o pelar y muestra el costo con rango de ±10 % y la fecha del precio.

@@ -78,11 +78,12 @@ Pendientes anotados por fase, para que no se pierdan entre una y otra. El detall
 ## Fase 8: crecer el recetario
 - [x] Lentejas con chorizo, sudado de pollo y sobrebarriga en salsa criolla, con la categoría Platos fuertes (`0.8.0`).
 - [x] Precios de lentejas, chorizo, tocineta, pollo en presas, sobrebarriga, yuca, pimentón, aceite y cerveza (`0.8.1`). Son precios de referencia promedio; se pueden ajustar al comprar.
-- [ ] **Faltan 7 precios:** zanahoria, tomate y cebolla cabezona (por kilo); comino (sobre de 30 g), color (sobre de 50 g), pimienta (frasco de 30 g) y laurel (sobre de 10 g). Hasta entonces, las tres recetas siguen con costo parcial.
-- [ ] Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`: los valores actuales siguen siendo estimados.
+- [x] Precios de zanahoria, tomate, cebolla cabezona, comino, color, pimienta y laurel, con los tamaños reales de sus empaques (`0.8.2`).
+- [ ] Cambiar por precios de tienda los mayoristas de Corabastos (zanahoria, tomate y cebolla cabezona), con un recibo: hoy los estimados pueden quedarse cortos en la tienda.
+- [ ] Pesar una zanahoria, un tomate, una cebolla cabezona y una hoja de laurel, y corregir `gramosPorUnidad`: los valores actuales (80 g, 120 g, 150 g y 0,2 g) son referencias generales, no pesados.
 - [ ] Pesar lo que se recorta de la sobrebarriga al comprarla y corregir su merma (hoy 10 % estimado).
 - [x] Ilustraciones de las tres recetas, en SVG, con el estilo de las demás (`0.8.1`).
-- [ ] Con los precios, llenar la tabla de estimados altos y revisar si los tres filtros de presupuesto siguen separando bien.
+- [x] Tabla de estimados altos completa: los tres filtros de presupuesto separan tres, dos y una receta (`0.8.2`).
 - [ ] Categorías Acompañamientos y Bebidas: entran cuando haya recetas que las llenen. Una categoría sin recetas es una galería vacía y no tiene imagen de respaldo.
 - [ ] Filtro de categorías en `/hoy`: hoy solo existe en la galería.
 
