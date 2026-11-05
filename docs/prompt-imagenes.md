@@ -4,7 +4,7 @@ Las imágenes de las recetas son generadas con IA y siguen un mismo estilo, para
 
 ## Imágenes actuales
 
-Las tres primeras recetas usan **ilustraciones vectoriales** dibujadas por Claude (IA) con el mismo estilo: vista cenital, mesa de madera clara, loza blanca y servilleta berenjena. La fuente de cada una es `src/data/recetas/<slug>/ilustracion.svg`, que se sube al repo; `npm run imagenes` la convierte en `imagen.webp` y `miniatura.webp`. Se pueden reemplazar por fotos de Gemini con el prompt de abajo, sin tocar código: un `original.png` en la carpeta gana sobre el SVG.
+Las seis recetas usan **ilustraciones vectoriales** dibujadas por Claude (IA) con el mismo estilo: vista cenital, mesa de madera clara, loza blanca y servilleta berenjena. La fuente de cada una es `src/data/recetas/<slug>/ilustracion.svg`, que se sube al repo; `npm run imagenes` la convierte en `imagen.webp` y `miniatura.webp`. Se pueden reemplazar por fotos de Gemini con el prompt de abajo, sin tocar código: un `original.png` en la carpeta gana sobre el SVG.
 
 ## Prompt base (para fotos con Gemini)
 

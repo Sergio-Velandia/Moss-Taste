@@ -5,6 +5,7 @@
   "categoria": "platos-fuertes",
   "porcionesBase": 6,
   "tiempoMin": 95,
+  "imagenAlt": "Plato hondo de sudado con presas de pollo, papa y yuca en caldo espeso; al lado, arroz blanco.",
   "ingredientes": [
     { "ingrediente": "pollo-presas", "cantidad": 1200, "unidad": "g", "nota": "con hueso" },
     { "ingrediente": "papa-pastusa", "cantidad": 800, "unidad": "g", "nota": "pelada" },

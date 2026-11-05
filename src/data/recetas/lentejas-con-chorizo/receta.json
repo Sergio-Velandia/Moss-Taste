@@ -5,6 +5,7 @@
   "categoria": "platos-fuertes",
   "porcionesBase": 6,
   "tiempoMin": 60,
+  "imagenAlt": "Plato hondo de lentejas espesas con rodajas de chorizo, cubos de papa y zanahoria, y cilantro encima.",
   "ingredientes": [
     { "ingrediente": "lentejas", "cantidad": 500, "unidad": "g" },
     { "ingrediente": "chorizo", "cantidad": 4, "unidad": "unidad", "nota": "unos 300 g" },

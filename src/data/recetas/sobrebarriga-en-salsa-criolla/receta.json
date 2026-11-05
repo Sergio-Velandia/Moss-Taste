@@ -5,6 +5,7 @@
   "categoria": "platos-fuertes",
   "porcionesBase": 6,
   "tiempoMin": 200,
+  "imagenAlt": "Tajadas de sobrebarriga en fila sobre salsa de tomate y cebolla, con cilantro encima.",
   "ingredientes": [
     { "ingrediente": "sobrebarriga", "cantidad": 1500, "unidad": "g", "nota": "ya recortada" },
     { "ingrediente": "tomate", "cantidad": 5, "unidad": "unidad" },

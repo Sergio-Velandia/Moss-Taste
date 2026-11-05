@@ -46,8 +46,8 @@ describe('datos del recetario', () => {
   const tieneImagenes = (slug: string) =>
     imagenes.has(`/src/data/recetas/${slug}/imagen.webp`) && imagenes.has(`/src/data/recetas/${slug}/miniatura.webp`)
 
-  // Recetas publicadas mientras su imagen se genera. Lista corta y a propósito: todas las demás deben tenerla.
-  const IMAGEN_PENDIENTE = new Set(['lentejas-con-chorizo', 'sudado-de-pollo', 'sobrebarriga-en-salsa-criolla'])
+  // Recetas publicadas mientras su imagen se genera; hoy, ninguna. Lista a propósito: todas las demás deben tenerla.
+  const IMAGEN_PENDIENTE = new Set<string>([])
 
   it('una receta sale de la lista de pendientes cuando ya tiene su imagen', () => {
     expect([...IMAGEN_PENDIENTE].filter(tieneImagenes)).toEqual([])
