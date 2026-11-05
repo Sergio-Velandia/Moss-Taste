@@ -4,6 +4,14 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+### Añadido
+
+- Pantalla de entrada de 2,6 s: los granos se juntan en la berenjena y el nombre se condensa del vapor. Sale al llegar de afuera, se salta con un toque o una tecla, y no aparece al recargar, en el modo cocina ni con movimiento reducido. No guarda nada en el navegador.
+
+### Cambiado
+
+- Imagen para compartir y vista previa del repo nuevas, en la línea de Moss, Moss Nexus y el portafolio: fondo oscuro y una berenjena hecha de granos de la que sube vapor.
+
 ## [1.0.0] - 2026-11-04
 
 La primera versión estable. Se probó en un teléfono real, con el modo cocina incluido.
