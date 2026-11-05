@@ -81,7 +81,7 @@ describe('paginasEstaticas', () => {
     })
     expect(html).toContain('<meta property="og:image" content="https://sergio-velandia.dev/Moss-Taste/recetas/changua/og.jpg"')
     expect(html).toContain('<meta name="twitter:image" content="https://sergio-velandia.dev/Moss-Taste/recetas/changua/og.jpg"')
-    expect(html).toContain('<meta property="og:image:alt" content="Plato de changua."')
+    expect(html).toContain('<meta name="twitter:image:alt" content="Plato de changua."')
   })
 
   it('el sitemap incluye las recetas indexables y no el modo cocina', () => {

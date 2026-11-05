@@ -55,6 +55,7 @@ export function htmlDePagina(base: string, pagina: Pagina): string {
       [/(<meta property="og:image" content=")[^"]*/, `$1${escapar(imagen)}`],
       [/(<meta property="og:image:alt" content=")[^"]*/, `$1${escapar(alt)}`],
       [/(<meta name="twitter:image" content=")[^"]*/, `$1${escapar(imagen)}`],
+      [/(<meta name="twitter:image:alt" content=")[^"]*/, `$1${escapar(alt)}`],
     )
   }
 

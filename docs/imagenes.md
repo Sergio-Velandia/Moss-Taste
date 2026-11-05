@@ -1,6 +1,6 @@
 # Imágenes del sitio
 
-`public/og-imagen.png` (1200 × 630, para compartir), `public/apple-touch-icon.png` (180 × 180) y
+`public/og-imagen.png` (1200 × 630, para compartir, con una captura real del modo cocina), `docs/social-preview.png` (1280 × 640, para Settings → General → Social preview del repo), `public/apple-touch-icon.png` (180 × 180) y
 `public/icono-192.png` / `public/icono-512.png` (manifest, con zona segura para íconos adaptables)
 se generaron con Edge a partir de HTML, usando el favicon y las fuentes del repo.
 
