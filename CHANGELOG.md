@@ -4,6 +4,8 @@ Todos los cambios visibles de Moss Taste. Formato [Keep a Changelog](https://kee
 
 ## [Sin publicar]
 
+## [1.1.0] - 2026-11-04
+
 ### Añadido
 
 - Pantalla de entrada de 2,6 s: los granos se juntan en la berenjena y el nombre se condensa del vapor. Sale al llegar de afuera, se salta con un toque o una tecla, y no aparece al recargar, en el modo cocina ni con movimiento reducido. No guarda nada en el navegador.
@@ -290,7 +292,8 @@ Primera versión: estructura y diseño con datos de ejemplo.
 - Página 404, un `index.html` por cada ruta fija con su título y descripción, y sitemap.
 - Despliegue automático en GitHub Pages y actualizaciones de dependencias con Dependabot.
 
-[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.0.0...HEAD
+[Sin publicar]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.9.0...v1.0.0
 [0.9.0]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/Sergio-Velandia/Moss-Taste/compare/v0.8.1...v0.8.2

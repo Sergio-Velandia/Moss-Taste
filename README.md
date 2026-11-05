@@ -4,7 +4,7 @@ El recetario de la familia: las recetas de la casa, con las cantidades y el cost
 
 - **Sitio:** https://sergio-velandia.dev/Moss-Taste/
 - **Repositorio:** https://github.com/Sergio-Velandia/Moss-Taste
-- **Versión:** `1.0.0` ([qué cambió](CHANGELOG.md))
+- **Versión:** `1.1.0` ([qué cambió](CHANGELOG.md))
 
 ## Vista previa
 
@@ -66,6 +66,7 @@ Las ilustraciones de los platos son generadas con IA y se etiquetan así en el s
 | 8 · Platos fuertes | Lentejas, sudado y sobrebarriga, con sus ilustraciones y precios | `0.8.0` a `0.8.2` |
 | 9 · Modo cocina funcional | Temporizadores que suenan, varios a la vez, y pantalla que no se apaga | `0.9.0` |
 | R · Repaso y lanzamiento | Todo lo que dice el sitio sigue siendo cierto; imagen para compartir y README con capturas | `1.0.0` |
+| Pantalla de entrada | Animación de 2,6 s al llegar al sitio e imagen para compartir nueva | `1.1.0` |
 
 Lo que puede venir después está en [ROADMAP.md](ROADMAP.md).
 
