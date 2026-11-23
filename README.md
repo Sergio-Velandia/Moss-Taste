@@ -12,6 +12,11 @@ Moss Taste digitaliza esas recetas para que mis familiares que estudiaron gastro
 
 ## Vista previa
 
+
+https://github.com/user-attachments/assets/e2c586ed-326e-402f-887a-61ca74f5903e
+
+
+
 | Inicio | Una receta |
 |---|---|
 | ![Inicio de Moss Taste en tema oscuro: «El recetario de la familia», los botones Ver recetas y ¿Qué cocino hoy?, y tres recetas destacadas con su ilustración.](docs/capturas/inicio.png) | ![Ficha del ajiaco santafereño: selector de porciones, ingredientes con su cantidad y precio, lo que se deja listo antes de empezar y los pasos.](docs/capturas/receta.png) |
